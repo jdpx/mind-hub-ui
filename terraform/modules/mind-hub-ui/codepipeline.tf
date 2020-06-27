@@ -63,26 +63,26 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
       version   = "1"
     }
   }
-  # stage {
-  #   name = "Deploy"
+  stage {
+    name = "Deploy"
 
-  #   action {
-  #     category = "Deploy"
-  #     configuration = {
-  #       "BucketName" = var.mind_hub_ui_bucket_name
-  #       "Extract"    = "true"
-  #     }
-  #     input_artifacts = [
-  #       "BuildArtifact",
-  #     ]
-  #     name             = "Deploy"
-  #     output_artifacts = []
-  #     owner            = "AWS"
-  #     provider         = "S3"
-  #     run_order        = 1
-  #     version          = "1"
-  #   }
-  # }
+    action {
+      category = "Deploy"
+      configuration = {
+        "BucketName" = aws_s3_bucket.mind_hub_ui_bucket.bucket
+        "Extract"    = "true"
+      }
+      input_artifacts = [
+        "BuildArtifact",
+      ]
+      name             = "Deploy"
+      output_artifacts = []
+      owner            = "AWS"
+      provider         = "S3"
+      run_order        = 1
+      version          = "1"
+    }
+  }
 }
 
 provider "github" {

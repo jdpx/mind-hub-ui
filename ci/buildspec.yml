@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     NODE_ENV: "${env}"
+    CI: "true"
 
 phases:
   install:

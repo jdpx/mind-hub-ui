@@ -14,6 +14,14 @@ provider "aws" {
   profile                 = "mind-terraform"
 }
 
+
+provider "github" {
+  version = "2.4.0"
+  token        = var.github_token
+  individual = false
+  organization = "jdpx"
+}
+
 module "mind-hub-ui" {
   source = "../../../modules/mind-hub-ui"
 
