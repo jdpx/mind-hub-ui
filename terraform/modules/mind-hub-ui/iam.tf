@@ -222,8 +222,8 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "s3:*"
       ],
       "Resource": [
-        "arn:aws:s3:::codepipeline-us-east-1*",
-        "arn:aws:s3:::codepipeline-us-east-1*/*",
+        "arn:aws:s3:::codepipeline-eu-west-1*",
+        "arn:aws:s3:::codepipeline-eu-west-1*/*",
         "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}",
         "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}/*"
       ]
