@@ -36,11 +36,11 @@ resource "aws_codebuild_project" "mind_hub_ui_build" {
   }
 
   source {
-    type                = "CODEPIPELINE"
+    type      = "CODEPIPELINE"
     buildspec = "ci/buildspec.yml"
     # buildspec_file_path = var.buildspec_file_path
     git_clone_depth     = 0
     insecure_ssl        = false
-    report_build_status = false
+    report_build_status = true
   }
 }
