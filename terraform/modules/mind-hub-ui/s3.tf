@@ -1,4 +1,3 @@
-
 resource "aws_s3_bucket" "mind_hub_ui_bucket" {
   bucket = "mind-hub-ui-${var.env}"
   acl    = "public-read"
@@ -16,15 +15,9 @@ resource "aws_s3_bucket" "mind_hub_ui_bucket" {
         "Effect":"Allow",
           "Principal": "*",
       "Action":["s3:GetObject"],
-      "Resource":["arn:aws:s3:::mind-hub-ui-prod/*"]
+      "Resource":["arn:aws:s3:::mind-hub-ui-dev/*"]
     }
   ]
 }
 EOF
-}
-
-# Build S3 bucket for CodePipeline artifact storage
-resource "aws_s3_bucket" "mind_hub_ui_pipeline_artifact_bucket" {
-  bucket = "mind-hub-ui-artifacts"
-  acl    = "private"
 }

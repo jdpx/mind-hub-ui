@@ -13,10 +13,18 @@ provider "aws" {
   profile                 = "mind-terraform"
 }
 
-resource "aws_s3_bucket" "state_bucket" {
-  bucket = "mind-hub-ui-tf-state"
 
-  # Tells AWS to keep a version history of the state file
+resource "aws_s3_bucket" "management_state_bucket" {
+  bucket = "mind-hub-ui-management-tf-state"
+
+  versioning {
+    enabled = true
+  }
+}
+
+resource "aws_s3_bucket" "dev_state_bucket" {
+  bucket = "mind-hub-ui-dev-tf-state"
+
   versioning {
     enabled = true
   }

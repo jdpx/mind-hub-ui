@@ -1,5 +1,5 @@
 resource "aws_codebuild_project" "mind_hub_ui_build" {
-  name           = "mind-hub-ui-build"
+  name           = "mind-hub-ui-build-${var.env}"
   badge_enabled  = false
   build_timeout  = 60
   queued_timeout = 480
