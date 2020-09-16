@@ -48,7 +48,7 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
             },
           ]
         )
-        "ProjectName" = "mind-hub-ui-build"
+        "ProjectName" = "mind-hub-ui-build-management"
       }
       input_artifacts = [
         "SourceArtifact",
