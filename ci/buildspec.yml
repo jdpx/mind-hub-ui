@@ -9,16 +9,13 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-    commands:
-      - npm i
-      # - npm run lint
   pre_build:
     commands:
-      - npm i
-      - CI=true npm run test
+      - yarn install
+      - CI=true yarn test
   build:
     commands:
-      - npm run build
+      - yarn build
 
 artifacts:
   files:

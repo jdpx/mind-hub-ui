@@ -84,10 +84,3 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
     }
   }
 }
-
-provider "github" {
-  version = "2.4.0"
-  token        = "c9754d8ffe6d7ca5e8ba92a18391cfea9161729a"
-  individual = false
-  organization = "jdpx"
-}
