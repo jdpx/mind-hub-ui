@@ -185,7 +185,9 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
       "Action": [
         "dynamodb:GetItem",
         "dynamodb:PutItem",
-        "dynamodb:DeleteItem"
+        "dynamodb:DeleteItem",
+        "dynamodb:Describe*",
+        "dynamodb:List*"
       ],
       "Resource": "${data.aws_dynamodb_table.tf_lock_state.arn}"
     },
@@ -211,12 +213,25 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "iam:Get*",
         "iam:List*"
       ],
-      "Resource": "${aws_iam_role.mind_hub_ui_build_role.arn}"
+      "Resource": [
+        "${aws_iam_role.mind_hub_ui_build_role.arn}",
+        "${aws_iam_role.mind_hub_ui_pipeline_role.arn}"
+      ]
     },
     {
       "Action": [
         "codebuild:BatchGetBuilds",
+        "codebuild:BatchGetProjects",
         "codebuild:List*"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "codepipeline:GetPipeline",
+        "codepipeline:ListTagsForResource",
+        "codepipeline:List*"
       ],
       "Resource": "*",
       "Effect": "Allow"
