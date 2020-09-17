@@ -22,11 +22,19 @@ provider "github" {
   organization = "jdpx"
 }
 
-module "mind-hub-ui" {
+module "mind-hub-ui-pipeline" {
   source = "../../../modules/pipeline"
 
   env                 = "management"
   buildspec_file_path = "ci/buildspec.yml"
+  repository_owner    = "jdpx"
+  repository_name     = "mind-hub-ui"
+  github_token        = var.github_token
+}
+
+module "mind-hub-ui-prs" {
+  source = "../../../modules/prs"
+
   repository_owner    = "jdpx"
   repository_name     = "mind-hub-ui"
   github_token        = var.github_token
