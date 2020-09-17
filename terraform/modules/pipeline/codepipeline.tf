@@ -75,7 +75,7 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
       input_artifacts = [
         "BuildArtifact",
       ]
-      name             = "Deploy"
+      name             = "DeployDev"
       output_artifacts = []
       owner            = "AWS"
       provider         = "S3"

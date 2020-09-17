@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "mind_hub_ui_bucket" {
-  bucket = "mind-hub-ui-${var.env}"
+  bucket = "dev.mind.jonnypillar.co.uk"
   acl    = "public-read"
   website {
     index_document = "index.html"
@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "mind_hub_ui_bucket" {
         "Effect":"Allow",
           "Principal": "*",
       "Action":["s3:GetObject"],
-      "Resource":["arn:aws:s3:::mind-hub-ui-dev/*"]
+      "Resource":["arn:aws:s3:::dev.mind.jonnypillar.co.uk/*"]
     }
   ]
 }
