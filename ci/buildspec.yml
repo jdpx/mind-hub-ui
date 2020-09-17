@@ -26,7 +26,7 @@ phases:
       - yarn build
       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
       - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
-      - make validate-terraform APP_ENV=management TERRAFORM_ACTION=apply
+      - make validate-terraform APP_ENV=management TERRAFORM_ACTION=apply -auto-approve
 
 artifacts:
   files:
