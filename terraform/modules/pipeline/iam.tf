@@ -211,7 +211,8 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
       "Effect": "Allow",
       "Action": [
         "iam:Get*",
-        "iam:List*"
+        "iam:List*",
+        "iam:PassRole"
       ],
       "Resource": [
         "${aws_iam_role.mind_hub_ui_build_role.arn}",
