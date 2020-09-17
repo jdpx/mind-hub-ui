@@ -22,7 +22,6 @@ phases:
     commands:
       - CI=true yarn test
       - yarn build
-      - make validate-terraform APP_ENV=init TERRAFORM_ACTION=plan
       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
       - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
 
