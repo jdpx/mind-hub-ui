@@ -54,29 +54,8 @@ resource "aws_iam_role_policy" "mind_hub_ui_pipeline_policy" {
     },
     {
       "Action": [
-        "codedeploy:CreateDeployment",
-        "codedeploy:GetApplication",
-        "codedeploy:GetApplicationRevision",
-        "codedeploy:GetDeployment",
-        "codedeploy:GetDeploymentConfig",
-        "codedeploy:RegisterApplicationRevision"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "elasticbeanstalk:*",
-        "ec2:*",
-        "elasticloadbalancing:*",
-        "autoscaling:*",
         "cloudwatch:*",
-        "s3:*",
-        "sns:*",
-        "cloudformation:*",
-        "rds:*",
-        "sqs:*",
-        "ecs:*"
+        "s3:*"
       ],
       "Resource": "*",
       "Effect": "Allow"
@@ -91,64 +70,11 @@ resource "aws_iam_role_policy" "mind_hub_ui_pipeline_policy" {
     },
     {
       "Action": [
-        "opsworks:CreateDeployment",
-        "opsworks:DescribeApps",
-        "opsworks:DescribeCommands",
-        "opsworks:DescribeDeployments",
-        "opsworks:DescribeInstances",
-        "opsworks:DescribeStacks",
-        "opsworks:UpdateApp",
-        "opsworks:UpdateStack"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "cloudformation:CreateStack",
-        "cloudformation:DeleteStack",
-        "cloudformation:DescribeStacks",
-        "cloudformation:UpdateStack",
-        "cloudformation:CreateChangeSet",
-        "cloudformation:DeleteChangeSet",
-        "cloudformation:DescribeChangeSet",
-        "cloudformation:ExecuteChangeSet",
-        "cloudformation:SetStackPolicy",
-        "cloudformation:ValidateTemplate"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild"
       ],
       "Resource": "*",
       "Effect": "Allow"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "devicefarm:ListProjects",
-        "devicefarm:ListDevicePools",
-        "devicefarm:GetRun",
-        "devicefarm:GetUpload",
-        "devicefarm:CreateUpload",
-        "devicefarm:ScheduleRun"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "servicecatalog:ListProvisioningArtifacts",
-        "servicecatalog:CreateProvisioningArtifact",
-        "servicecatalog:DescribeProvisioningArtifact",
-        "servicecatalog:DeleteProvisioningArtifact",
-        "servicecatalog:UpdateProduct"
-      ],
-      "Resource": "*"
     },
     {
       "Effect": "Allow",
@@ -218,6 +144,26 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
     },
     {
       "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "acm:List*",
+        "acm:Describe*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "cloudfront:Get*",
+        "cloudfront:List*"
+      ]
+    },
+    {
+      "Effect": "Allow",
       "Action": [
         "s3:*"
       ],
@@ -229,8 +175,35 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "${data.aws_s3_bucket.dev_tf_state_bucket.arn}",
         "${data.aws_s3_bucket.dev_tf_state_bucket.arn}/*",
         "${data.aws_s3_bucket.management_tf_state_bucket.arn}",
-        "${data.aws_s3_bucket.management_tf_state_bucket.arn}/*"
+        "${data.aws_s3_bucket.management_tf_state_bucket.arn}/*",
+        "${data.aws_s3_bucket.mind_hub_ui_dev_bucket.arn}",
+        "${data.aws_s3_bucket.mind_hub_ui_dev_bucket.arn}/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "${data.aws_dynamodb_table.tf_lock_state.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Get*",
+        "kms:Decrypt",
+        "kms:DescribeKey"
+      ],
+      "Resource": "${data.aws_kms_key.by_alias.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:Get*"
+      ],
+      "Resource": "*"
     },
     {
       "Effect": "Allow",
@@ -239,6 +212,14 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "iam:List*"
       ],
       "Resource": "${aws_iam_role.mind_hub_ui_build_role.arn}"
+    },
+    {
+      "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:List*"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
     },
     {
       "Effect": "Allow",

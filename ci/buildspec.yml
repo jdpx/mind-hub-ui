@@ -4,6 +4,8 @@ env:
   variables:
     NODE_ENV: "${env}"
     CI: "true"
+  parameter-store:
+    TF_VAR_github_token: "codebuild-github-access-key"
 
 phases:
   install:
