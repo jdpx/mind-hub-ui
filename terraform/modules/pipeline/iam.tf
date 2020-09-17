@@ -231,7 +231,8 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
       "Action": [
         "codepipeline:GetPipeline",
         "codepipeline:ListTagsForResource",
-        "codepipeline:List*"
+        "codepipeline:List*",
+        "codepipeline:Update*"
       ],
       "Resource": "*",
       "Effect": "Allow"
