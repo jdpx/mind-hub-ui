@@ -214,10 +214,7 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "iam:List*",
         "iam:PassRole"
       ],
-      "Resource": [
-        "${aws_iam_role.mind_hub_ui_build_role.arn}",
-        "${aws_iam_role.mind_hub_ui_pipeline_role.arn}"
-      ]
+      "Resource": "*"
     },
     {
       "Action": [
