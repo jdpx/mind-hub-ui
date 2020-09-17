@@ -34,9 +34,9 @@ resource "aws_codebuild_project" "mind_hub_ui_pr_build" {
 
     buildspec = "ci/prs-buildspec.yml"
 
-    # auth = {
-    #   type     = "OAUTH"
-    #   resource = data.aws_secretsmanager_secret_version.github_access_token_secret_version.secret_string
-    # }
+    auth {
+      type     = "OAUTH"
+      resource = var.github_token
+    }
   }
 }
