@@ -5,5 +5,5 @@ resource "aws_s3_bucket" "mind_hub_ui_pipeline_artifact_bucket" {
 }
 
 data "aws_s3_bucket" "mind_hub_ui_dev_bucket" {
-  bucket = "dev.mind.jonnypillar.co.uk"
+  bucket = "dev.mind.jdpx.co.uk"
 }

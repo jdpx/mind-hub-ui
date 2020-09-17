@@ -1,12 +1,12 @@
 # This is a _data source_ which allows us to get the internal
 # ID (which AWS calls an "ARN") from AWS
-data "aws_acm_certificate" "dev_mind_jonnypillar_co_uk" {
+data "aws_acm_certificate" "dev_mind_jdpx_co_uk" {
   provider = aws.us_east
-  domain   = "dev.mind.jonnypillar.co.uk"
+  domain   = "dev.mind.jdpx.co.uk"
   statuses = ["ISSUED"]
 }
 
-resource "aws_cloudfront_distribution" "dev_mind_jonnypillar_co_uk-cf_distribution" {
+resource "aws_cloudfront_distribution" "dev_mind_jdpx_co_uk-cf_distribution" {
   # This says where CloudFront should get the data it's caching
   origin {
 
@@ -27,11 +27,11 @@ resource "aws_cloudfront_distribution" "dev_mind_jonnypillar_co_uk-cf_distributi
   }
 
   # tags {
-  #   site        = "dev.mind.jonnypillar.co.uk"
+  #   site        = "dev.mind.jdpx.co.uk"
   #   environment = "production"
   # }
 
-  aliases             = ["dev.mind.jonnypillar.co.uk", "www.dev.mind.jonnypillar.co.uk"]
+  aliases             = ["dev.mind.jdpx.co.uk", "www.dev.mind.jdpx.co.uk"]
   default_root_object = "index.html"
   enabled             = "true"
 
@@ -64,7 +64,7 @@ resource "aws_cloudfront_distribution" "dev_mind_jonnypillar_co_uk-cf_distributi
 #   # above
 #   logging_config {
 #     include_cookies = false
-#     bucket          = "${aws_s3_bucket.logs-dev_mind_jonnypillar_co_uk-s3.bucket_domain_name}"
+#     bucket          = "${aws_s3_bucket.logs-dev_mind_jdpx_co_uk-s3.bucket_domain_name}"
 
 #     # Inside the bucket, the CloudFront logs will be in the cf/ directory
 #     prefix          = "cf/"
@@ -80,7 +80,7 @@ resource "aws_cloudfront_distribution" "dev_mind_jonnypillar_co_uk-cf_distributi
   viewer_certificate {
     
     # The data source we set up above allows us to access the AWS internal ID (ARN) like so
-    acm_certificate_arn      = data.aws_acm_certificate.dev_mind_jonnypillar_co_uk.arn
+    acm_certificate_arn      = data.aws_acm_certificate.dev_mind_jdpx_co_uk.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
