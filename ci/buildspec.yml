@@ -13,6 +13,7 @@ phases:
       - "cd /usr/bin"
       - "curl -s -qL -o terraform.zip https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip"
       - "unzip -o terraform.zip"
+      - cd "$CODEBUILD_SRC_DIR"
 
   pre_build:
     commands:
