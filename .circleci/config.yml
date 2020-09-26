@@ -3,12 +3,20 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: 'circleci/node:latest'
+      - image: node:12
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies- # Fallback cache
       - run: yarn install
       - run: CI=true yarn test
       - run: yarn build
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 #   build_terraform:
 #     steps:
 #       - "cd /usr/bin"
@@ -17,3 +25,8 @@ jobs:
 #       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
 #       - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
 
+# workflows:
+#   version: 2
+#   jobs:
+#     - build
+#     # - build_terraform
