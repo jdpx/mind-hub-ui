@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: node:12
+      - image: 'circleci/node:latest'
     steps:
       - checkout
       - run: yarn install
@@ -17,8 +17,3 @@ jobs:
 #       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
 #       - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
 
-workflows:
-  version: 2
-  jobs:
-    - build
-    # - build_terraform
