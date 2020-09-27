@@ -11,22 +11,10 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies- # Fallback cache
       - run: yarn install
+      - run: yarn lint
       - run: CI=true yarn test
       - run: yarn build
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-#   build_terraform:
-#     steps:
-#       - "cd /usr/bin"
-#       - "curl -s -qL -o terraform.zip https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip"
-#       - "unzip -o terraform.zip"
-#       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
-#       - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
-
-# workflows:
-#   version: 2
-#   jobs:
-#     - build
-#     # - build_terraform
