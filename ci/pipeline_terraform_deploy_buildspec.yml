@@ -1,9 +1,6 @@
 version: 0.2
 
 env:
-  variables:
-    NODE_ENV: "${env}"
-    CI: "true"
   parameter-store:
     TF_VAR_github_token: "codebuild-github-access-key"
 
@@ -17,16 +14,7 @@ phases:
       - "unzip -o terraform.zip"
       - cd "$CODEBUILD_SRC_DIR"
 
-  pre_build:
-    commands:
-      - yarn install
   build:
     commands:
-      - CI=true yarn test
-      - yarn build
       - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
-      - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
-
-cache:
-  paths:
-    - 'node_modules/**/*'
+      - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=apply OPTS=-auto-approve

@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    CI: "true"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+
+  pre_build:
+    commands:
+      - yarn install
+  build:
+    commands:
+      - yarn test
+      - yarn build
+
+artifacts:
+  files:
+    - "**/*"
+  name: "mind_hub_ui_build_artifact"
+  base-directory: build
+
+cache:
+  paths:
+    - 'node_modules/**/*'
