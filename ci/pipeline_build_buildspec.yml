@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   variables:
-    NODE_ENV: "${env}"
     CI: "true"
   parameter-store:
     TF_VAR_github_token: "codebuild-github-access-key"
@@ -22,16 +21,15 @@ phases:
       - yarn install
   build:
     commands:
-      - CI=true yarn test
+      - yarn test
       - yarn build
-      - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
-      - make validate-terraform APP_ENV=management TERRAFORM_ACTION=plan
-      - make validate-terraform APP_ENV=management TERRAFORM_ACTION=apply OPTS=-auto-approve
+      # - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=plan
+      # - make validate-terraform APP_ENV=dev TERRAFORM_ACTION=apply OPTS=-auto-approve
 
 artifacts:
   files:
     - "**/*"
-  name: "web-dist-${env}"
+  name: "mind_hub_ui_build_artifact"
   base-directory: build
 
 cache:
