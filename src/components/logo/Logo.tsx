@@ -1,9 +1,7 @@
 import React from 'react'
 
-export default function Logo() {
-    return (
-        <img src={'../../assets/mind-logo.png'}>
+import logo from '../../assets/mind-logo.png'
 
-        </img>
-    )
+export default function Logo() {
+    return <img src={logo} alt="Mind In Salford Logo" />
 }
