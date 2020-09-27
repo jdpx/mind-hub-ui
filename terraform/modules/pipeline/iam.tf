@@ -1,4 +1,4 @@
-resource "aws_iam_role" "mind_hub_ui_pipeline_role" {
+  resource "aws_iam_role" "mind_hub_ui_pipeline_role" {
   name = "mind_hub_ui_pipeline_role"
 
   assume_role_policy = <<EOF
@@ -98,7 +98,27 @@ EOF
 
 # Create an IAM role for CodeBuild to assume
 resource "aws_iam_role" "mind_hub_ui_build_role" {
-  name = "mind-hub-ui-build"
+  name = "mind-hub-ui-build_role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codebuild.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+# Create an IAM role for CodeBuild to assume
+resource "aws_iam_role" "mind_hub_terraform_deploy_role" {
+  name = "mind_hub_terraform_deploy_role"
 
   assume_role_policy = <<EOF
 {
@@ -144,6 +164,63 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
     },
     {
       "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}",
+        "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Get*",
+        "kms:Decrypt",
+        "kms:DescribeKey"
+      ],
+      "Resource": "${data.aws_kms_key.by_alias.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": "${aws_iam_role.mind_hub_ui_build_role.arn}"
+    }
+  ]
+}
+POLICY
+}
+
+
+# Create an IAM role policy for CodeBuild to use implicitly
+resource "aws_iam_role_policy" "mind_hub_terraform_deploy_role_policy" {
+  name = "mind_hub_terraform_deploy_role_policy"
+  role = aws_iam_role.mind_hub_terraform_deploy_role.name
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+    },
+    {
+      "Effect": "Allow",
       "Resource": [
         "*"
       ],
@@ -168,14 +245,10 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
         "s3:*"
       ],
       "Resource": [
-        "arn:aws:s3:::codepipeline-eu-west-1*",
-        "arn:aws:s3:::codepipeline-eu-west-1*/*",
         "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}",
         "${aws_s3_bucket.mind_hub_ui_pipeline_artifact_bucket.arn}/*",
         "${data.aws_s3_bucket.dev_tf_state_bucket.arn}",
         "${data.aws_s3_bucket.dev_tf_state_bucket.arn}/*",
-        "${data.aws_s3_bucket.management_tf_state_bucket.arn}",
-        "${data.aws_s3_bucket.management_tf_state_bucket.arn}/*",
         "${data.aws_s3_bucket.mind_hub_ui_dev_bucket.arn}",
         "${data.aws_s3_bucket.mind_hub_ui_dev_bucket.arn}/*"
       ]
@@ -217,28 +290,9 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
       "Resource": "*"
     },
     {
-      "Action": [
-        "codebuild:BatchGetBuilds",
-        "codebuild:BatchGetProjects",
-        "codebuild:List*"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "codepipeline:GetPipeline",
-        "codepipeline:ListTagsForResource",
-        "codepipeline:List*",
-        "codepipeline:Update*"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
       "Effect": "Allow",
       "Action": "sts:AssumeRole",
-      "Resource": "${aws_iam_role.mind_hub_ui_build_role.arn}"
+      "Resource": "${aws_iam_role.mind_hub_terraform_deploy_role.arn}"
     }
   ]
 }

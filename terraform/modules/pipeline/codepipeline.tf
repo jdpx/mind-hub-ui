@@ -42,21 +42,48 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
         "EnvironmentVariables" = jsonencode(
           [
             {
-              name  = "environment"
+              name  = "env"
               type  = "PLAINTEXT"
               value = var.env
             },
           ]
         )
-        "ProjectName" = "mind-hub-ui-build-management"
+        "ProjectName" = "mind-hub-ui-build"
       }
       input_artifacts = [
         "SourceArtifact",
       ]
       name = "Build"
       output_artifacts = [
-        "BuildArtifact",
+        "BuiltUIArtifact",
       ]
+      owner     = "AWS"
+      provider  = "CodeBuild"
+      run_order = 1
+      version   = "1"
+    }
+  }
+    stage {
+    name = "DevTerraformDeploy"
+
+    action {
+      category = "Build"
+      configuration = {
+        "EnvironmentVariables" = jsonencode(
+          [
+            {
+              name  = "env"
+              type  = "PLAINTEXT"
+              value = "dev"
+            },
+          ]
+        )
+        "ProjectName" = "mind_hub_terraform_deploy"
+      }
+      input_artifacts = [
+        "SourceArtifact",
+      ]
+      name = "DevTerraformDeploy"
       owner     = "AWS"
       provider  = "CodeBuild"
       run_order = 1
@@ -73,7 +100,7 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
         "Extract"    = "true"
       }
       input_artifacts = [
-        "BuildArtifact",
+        "BuiltUIArtifact",
       ]
       name             = "DeployDev"
       output_artifacts = []
