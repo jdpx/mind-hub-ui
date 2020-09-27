@@ -1,13 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'bootstrap/dist/css/bootstrap.css'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+
 import './index.scss'
 import App from './App'
 import { store } from './app/store'
-import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
-import { BrowserRouter as Router } from 'react-router-dom'
-import Auth0ProviderWithHistory from './auth0/auth0-provider-with-history'
+import Auth0ProviderWithHistory from './features/authentication/AuthenticationProvider'
 
 ReactDOM.render(
     <React.StrictMode>
