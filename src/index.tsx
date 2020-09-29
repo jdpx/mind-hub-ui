@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.css'
+
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -10,6 +10,7 @@ import { store } from './app/store'
 import * as serviceWorker from './serviceWorker'
 
 import Auth0ProviderWithHistory from './features/authentication/AuthenticationProvider'
+import 'bootstrap/dist/css/bootstrap.css'
 
 ReactDOM.render(
     <React.StrictMode>
