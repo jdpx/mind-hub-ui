@@ -175,15 +175,6 @@ resource "aws_iam_role_policy" "mind_hub_ui_build_role_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "kms:Get*",
-        "kms:Decrypt",
-        "kms:DescribeKey"
-      ],
-      "Resource": "${data.aws_kms_key.by_alias.arn}"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
         "ssm:Get*"
       ],
       "Resource": "*"
@@ -263,15 +254,6 @@ resource "aws_iam_role_policy" "mind_hub_terraform_deploy_role_policy" {
         "dynamodb:List*"
       ],
       "Resource": "${data.aws_dynamodb_table.tf_lock_state.arn}"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "kms:Get*",
-        "kms:Decrypt",
-        "kms:DescribeKey"
-      ],
-      "Resource": "${data.aws_kms_key.by_alias.arn}"
     },
     {
       "Effect": "Allow",
