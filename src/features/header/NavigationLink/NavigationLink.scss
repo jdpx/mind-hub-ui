@@ -1,0 +1,11 @@
+@import "../../../styles/colours.scss";
+
+.nav-link {
+    color: $white;
+    margin: 8px;
+
+    &:hover {
+        color: $white;
+        text-decoration:underline !important;
+    }
+}
