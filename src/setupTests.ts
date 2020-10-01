@@ -10,11 +10,12 @@ import crypto from 'crypto'
 
 Object.defineProperty(global, 'crypto', {
     value: {
-        getRandomValues: (arr: any) => crypto.randomBytes(arr.length),
+        getRandomValues: (arr: Array) => crypto.randomBytes(arr.length),
     },
 })
 
 global.crypto.subtle = {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     digest: () => {},
 }
 
