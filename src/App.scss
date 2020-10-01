@@ -4,7 +4,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: $background-blue;
+  align-items: stretch;
 }
 
 .App-link {
