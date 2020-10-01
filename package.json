@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
     "lint-fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
@@ -58,6 +58,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.2",
     "jest": "^24.9.0",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jwt-decode": "^3.0.0-beta.2",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2"
