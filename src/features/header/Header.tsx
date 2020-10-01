@@ -6,6 +6,7 @@ import Logo from '../../components/logo/Logo'
 import NavigationLink from './NavigationLink/NavigationLink'
 
 import './Header.scss'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
@@ -23,16 +24,16 @@ export default function Header() {
     return (
         <div className="header">
             <nav className="navbar navbar-expand">
-                <Navbar.Brand href="/">
+                <Link to={{ pathname: '/' }} className="navbar-brand">
                     <Logo />
-                </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="justify-content-end w-100">
                         {isAuthenticated ? (
                             <>
-                                <NavigationLink text="Dashboard" />
-                                <NavigationLink text="Courses" />
+                                <NavigationLink text="Dashboard" to="/dashboard" />
+                                <NavigationLink text="Courses" to="/courses" />
                                 <NavigationLink
                                     text="Logout"
                                     onClick={onLogoutClick}
