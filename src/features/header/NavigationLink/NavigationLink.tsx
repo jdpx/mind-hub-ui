@@ -1,21 +1,22 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import './NavigationLink.scss'
 
 interface Props {
     text: string
-    href?: string
+    to?: string
     onClick?: () => void
     testID?: string
 }
 
-export default function NavigationLink({ text, href, onClick, testID }: Props) {
+export default function NavigationLink({ text, to, onClick, testID }: Props) {
     return (
         <Nav.Item>
-            <Nav.Link onClick={onClick} href={href} data-testid={testID}>
+            <Link onClick={onClick} to={{ pathname: to }} data-testid={testID} className="nav-link">
                 {text}
-            </Nav.Link>
+            </Link>
         </Nav.Item>
     )
 }

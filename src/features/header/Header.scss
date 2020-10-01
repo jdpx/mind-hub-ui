@@ -1,4 +1,7 @@
+@import ".../../styles/colours.scss";
+
 .header {
+  background-color: $background-blue;
   display: block;
   align-items: center;
   padding-top: 34px;

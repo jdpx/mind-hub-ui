@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { Auth0ContextInterface, useAuth0 } from '@auth0/auth0-react'
+import { BrowserRouter } from 'react-router-dom'
+
 import Header from './Header'
 import Mock from 'helpers/testing/mockType'
 
@@ -19,12 +21,20 @@ describe('Header', () => {
         })
 
         it('renders logged in header component', () => {
-            const { getByTestId } = render(<Header />)
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <Header />
+                </BrowserRouter>,
+            )
             expect(getByTestId('logout-link')).toBeInTheDocument()
         })
 
         it('clicking log outk, it should call logout', () => {
-            const { getByTestId } = render(<Header />)
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <Header />
+                </BrowserRouter>,
+            )
             fireEvent.click(getByTestId('logout-link'))
 
             expect(mockUseAuth.logout).toHaveBeenCalled()
@@ -42,13 +52,21 @@ describe('Header', () => {
         })
 
         it('renders logged out header component', () => {
-            const { getByTestId } = render(<Header />)
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <Header />
+                </BrowserRouter>,
+            )
 
             expect(getByTestId('login-link')).toBeInTheDocument()
         })
 
         it('clicking on log in, it should call loginWithRedirect', () => {
-            const { getByTestId } = render(<Header />)
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <Header />
+                </BrowserRouter>,
+            )
             fireEvent.click(getByTestId('login-link'))
 
             expect(mockUseAuth.loginWithRedirect).toHaveBeenCalled()
