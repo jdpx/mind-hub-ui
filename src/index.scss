@@ -1,25 +1,39 @@
 @import "./styles/colours.scss";
 
-html, body, #root {
+@font-face {
+  font-family: "FiraSans";
+  src: local("FiraSans"), url("./styles/fonts/KGSmallTownSouthernGirl.ttf") format("truetype");
+}
+
+html,
+body,
+#root {
   height: 100%;
   background-color: $background-white;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 #root {
-  display: flex
+  display: flex;
+}
+
+h1 {
+  font-family: FiraSans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 80px;
+  line-height: 95px;
+
+  color: $white;
 }

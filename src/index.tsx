@@ -10,7 +10,9 @@ import { store } from './app/store'
 import * as serviceWorker from './serviceWorker'
 
 import Auth0ProviderWithHistory from './features/authentication/AuthenticationProvider'
+
 import 'bootstrap/dist/css/bootstrap.css'
+import './styles/fonts/KGSmallTownSouthernGirl.ttf'
 
 ReactDOM.render(
     <React.StrictMode>

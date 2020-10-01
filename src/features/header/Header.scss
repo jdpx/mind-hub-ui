@@ -1,6 +1,7 @@
-@import ".../../styles/colours.scss";
+@import "../../styles/colours.scss";
 
 .header {
+  max-height: 154px;
   background-color: $background-blue;
   display: block;
   align-items: center;
