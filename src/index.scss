@@ -1,8 +1,18 @@
 @import "./styles/colours.scss";
 
 @font-face {
-  font-family: "FiraSans";
-  src: local("FiraSans"), url("./styles/fonts/KGSmallTownSouthernGirl.ttf") format("truetype");
+  font-family: "SmallTown";
+  src: local("SmallTown"), url("./styles/fonts/KGSmallTownSouthernGirl.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "StreetCornerBold";
+  src: local("StreetCornerBold"), url("./styles/fonts/street-corner/Street-Corner-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "StreetCorner";
+  src: local("StreetCorner"), url("./styles/fonts/street-corner/Street-Corner.ttf") format("truetype");
 }
 
 html,
@@ -14,26 +24,39 @@ body,
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: StreetCorner, "Helvetica Neue", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 #root {
   display: flex;
 }
 
-h1 {
-  font-family: FiraSans;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 80px;
-  line-height: 95px;
+h1, h2, h3, h4 {
+  margin-bottom: 30px;
+}
 
-  color: $white;
+h1 {
+  font-family: SmallTown;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 36px;
+
+  color: $black;
+}
+
+h2 {
+  font-family: StreetCornerBold;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 29px;
+}
+
+h3 {
+  font-family: StreetCornerBold;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 26px;
 }

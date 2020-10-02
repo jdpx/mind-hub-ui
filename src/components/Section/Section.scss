@@ -1,0 +1,23 @@
+@import "../../styles/colours.scss";
+
+.content-wrapper {
+    display: flex;
+    border: 5px solid $background-blue;
+    box-shadow: 3px 3px 4px rgba(36, 59, 113, 0.42);
+    border-radius: 20px;
+    padding: 15px;
+    margin: 15px;
+
+    &.sm {
+        width: 284px;
+    }
+    &.md {
+        width: 466px;
+    }
+    &.lg {
+        width: 1216px;
+    }
+    &.xl {
+        width: 100%;
+    }
+}

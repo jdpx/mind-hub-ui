@@ -5,4 +5,9 @@
     flex-direction: column;
     flex: 1;
     background-color: $background-blue;
+
+    h1 {
+        color: $white;
+        font-size: 80px;
+    }
 }

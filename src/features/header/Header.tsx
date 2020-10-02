@@ -37,14 +37,14 @@ export default function Header() {
                                 <NavigationLink
                                     text="Logout"
                                     onClick={onLogoutClick}
-                                    testID="logout-link"
+                                    testid="logout-link"
                                 />
                             </>
                         ) : (
                             <NavigationLink
                                 text="Login"
                                 onClick={onLoginClick}
-                                testID="login-link"
+                                testid="login-link"
                             />
                         )}
                     </Nav>

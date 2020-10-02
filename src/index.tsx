@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.css'
 
 import './index.scss'
 import App from './App'
@@ -11,7 +12,6 @@ import * as serviceWorker from './serviceWorker'
 
 import Auth0ProviderWithHistory from './features/authentication/AuthenticationProvider'
 
-import 'bootstrap/dist/css/bootstrap.css'
 import './styles/fonts/KGSmallTownSouthernGirl.ttf'
 
 ReactDOM.render(
