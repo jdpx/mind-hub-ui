@@ -8,3 +8,7 @@ validate-terraform:
 	terraform init && \
 	terraform validate && \
 	terraform $(TERRAFORM_ACTION) $(OPTS)
+
+.PHONY: generate-scss-type-files
+generate-scss-type-files:
+	yarn tsm src

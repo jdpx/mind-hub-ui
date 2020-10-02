@@ -13,11 +13,11 @@ function App() {
     const { isLoading } = useAuth0()
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <div data-testid="mind-hub-loading">Loading</div>
     }
 
     return (
-        <div className="mind-hub">
+        <div className="mind-hub" data-testid="mind-hub">
             <Header />
             <Switch>
                 <Route path="/" exact component={Homepage} />

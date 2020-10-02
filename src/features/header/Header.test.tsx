@@ -29,7 +29,7 @@ describe('Header', () => {
             expect(getByTestId('logout-link')).toBeInTheDocument()
         })
 
-        it('clicking log outk, it should call logout', () => {
+        it('clicking log out, it should call logout', () => {
             const { getByTestId } = render(
                 <BrowserRouter>
                     <Header />

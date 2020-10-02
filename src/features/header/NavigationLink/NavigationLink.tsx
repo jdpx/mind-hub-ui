@@ -1,6 +1,6 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import './NavigationLink.scss'
 
@@ -8,15 +8,21 @@ interface Props {
     text: string
     to?: string
     onClick?: () => void
-    testID?: string
+    testid?: string
 }
 
-export default function NavigationLink({ text, to, onClick, testID }: Props) {
+export default function NavigationLink({ text, to, onClick, testid }: Props) {
     return (
         <Nav.Item>
-            <Link onClick={onClick} to={{ pathname: to }} data-testid={testID} className="nav-link">
+            <NavLink
+                onClick={onClick}
+                to={{ pathname: to }}
+                data-testid={testid}
+                activeClassName="active"
+                className="nav-link"
+            >
                 {text}
-            </Link>
+            </NavLink>
         </Nav.Item>
     )
 }

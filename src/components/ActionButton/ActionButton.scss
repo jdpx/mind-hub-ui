@@ -1,0 +1,25 @@
+@import "../../styles/colours.scss";
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.btn {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+    text-transform: capitalize;
+    padding: 10px 40px;
+
+    &.primary {
+        background-color: $orange;
+        border-radius: 20px;
+    }
+    &.secondary {
+        color: $white;
+        background-color: $light-grey;
+        border-radius: 20px;
+    }
+}
