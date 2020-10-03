@@ -10,7 +10,8 @@ import App from './App'
 import { store } from './app/store'
 import * as serviceWorker from './serviceWorker'
 
-import Auth0ProviderWithHistory from './features/authentication/AuthenticationProvider'
+import Auth0ProviderWithHistory from './providers/AuthenticationProvider'
+import AuthorizedApolloProvider from './providers/AuthorizedApolloProvider'
 
 import './styles/fonts/KGSmallTownSouthernGirl.ttf'
 
@@ -18,9 +19,11 @@ ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Auth0ProviderWithHistory>
-                <Provider store={store}>
-                    <App />
-                </Provider>
+                <AuthorizedApolloProvider>
+                    <Provider store={store}>
+                        <App />
+                    </Provider>
+                </AuthorizedApolloProvider>
             </Auth0ProviderWithHistory>
         </Router>
     </React.StrictMode>,

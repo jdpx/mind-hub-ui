@@ -1,7 +1,8 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { Auth0ContextInterface, useAuth0 } from '@auth0/auth0-react'
 import faker from 'faker'
+import { MockedProvider } from '@apollo/client/testing'
 
 import Mock from '../../helpers/testing/mockType'
 import DashboardPage from './DashboardPage'
@@ -24,8 +25,12 @@ describe('DashboardPage', () => {
     })
 
     it('should display the users name in the title', () => {
-        render(<DashboardPage />)
+        const { getByTestId } = render(
+            <MockedProvider addTypename={false}>
+                <DashboardPage />
+            </MockedProvider>,
+        )
 
-        expect(screen.queryByText(`Welcome ${usersName}`)).toBeInTheDocument()
+        expect(getByTestId('dashboard-header')).toHaveTextContent(`Welcome ${usersName}`)
     })
 })
