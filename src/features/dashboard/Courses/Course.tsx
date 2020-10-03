@@ -2,27 +2,30 @@ import React from 'react'
 import ActionButton from 'components/ActionButton/ActionButton'
 import Section from '../../../components/Section/Section'
 import { ProgressBar } from 'react-bootstrap'
-import { Secondary } from '../../../constants/buttons'
+import { Course as CourseType } from '../../../types/course'
 
 interface Props {
+    course: CourseType
     started?: boolean
 }
 
-export default function Course({ started }: Props) {
+export default function Course({ course, started }: Props) {
+    const { id, title } = course
+
     return (
-        <Section>
+        <Section testid={id}>
             <div className="course">
-                <h3>Resilience</h3>
+                <h3>{title}</h3>
                 <div className="course-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra, augue vitae
                     tortor etiam cursus fames risus ut.
                 </div>
                 {started && (
-                    <div className="course-progress">
+                    <div className="course-progress" data-testid={`${id}-progressbar`}>
                         <ProgressBar now={60} />
                     </div>
                 )}
-                <ActionButton type={Secondary} text={started ? 'Continue' : 'Start'} />
+                <ActionButton text={started ? 'Continue' : 'Start'} />
             </div>
         </Section>
     )
