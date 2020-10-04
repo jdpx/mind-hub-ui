@@ -11,6 +11,7 @@ describe('Course', () => {
         render(<Course course={course} />)
 
         expect(screen.queryByText(course.title)).toBeInTheDocument()
+        expect(screen.queryByText('Start')).toBeInTheDocument()
     })
 
     describe('given the started prop is set', () => {
@@ -18,6 +19,7 @@ describe('Course', () => {
             const { getByTestId } = render(<Course started course={course} />)
 
             expect(getByTestId('1-progressbar')).toBeInTheDocument()
+            expect(screen.queryByText('Continue')).toBeInTheDocument()
         })
     })
 })
