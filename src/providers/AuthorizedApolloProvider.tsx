@@ -30,7 +30,7 @@ const AuthorizedApolloProvider = ({ children }: Props) => {
     // })
 
     const client = new ApolloClient({
-        uri: 'http://localhost:8080/query',
+        uri: 'https://api.dev.mind.jdpx.co.uk/v1/query',
         // uri: 'https://local.mind.jdpx.co.uk:4000/graphql',
         cache: new InMemoryCache(),
         connectToDevTools: true,
