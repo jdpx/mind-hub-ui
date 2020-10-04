@@ -80,15 +80,6 @@ resource "aws_iam_role_policy" "mind_hub_ui_pr_build_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "kms:Get*",
-        "kms:Decrypt",
-        "kms:DescribeKey"
-      ],
-      "Resource": "${data.aws_kms_key.by_alias.arn}"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
         "ssm:Get*"
       ],
       "Resource": "*"
