@@ -1,4 +1,4 @@
-  resource "aws_iam_role" "mind_hub_ui_pipeline_role" {
+resource "aws_iam_role" "mind_hub_ui_pipeline_role" {
   name = "mind_hub_ui_pipeline_role"
 
   assume_role_policy = <<EOF
@@ -279,4 +279,72 @@ resource "aws_iam_role_policy" "mind_hub_terraform_deploy_role_policy" {
   ]
 }
 POLICY
+}
+
+resource "aws_iam_role" "mind_hub_cloudfront_invalidation_role" {
+  name = "mind_hub_cloudfront_invalidation_role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codebuild.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "mind_hub_cloudfront_invalidation_policy" {
+  name = "mind_hub_cloudfront_invalidation_policy"
+  role = aws_iam_role.mind_hub_cloudfront_invalidation_role.id
+
+  policy = <<EOF
+{
+  "Statement": [
+    {
+      "Action": [
+        "cloudwatch:*",
+        "s3:Get*",
+        "s3:List*"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "cloudfront:Get*",
+        "cloudfront:List*",
+        "cloudfront:CreateInvalidation"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": "${aws_iam_role.mind_hub_cloudfront_invalidation_role.arn}"
+    }
+  ],
+  "Version": "2012-10-17"
+}
+EOF
 }
