@@ -48,7 +48,7 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
             },
           ]
         )
-        "ProjectName" = "mind-hub-ui-build"
+        "ProjectName" = aws_codebuild_project.mind_hub_ui_build.name
       }
       input_artifacts = [
         "SourceArtifact",
@@ -63,7 +63,7 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
       version   = "1"
     }
   }
-    stage {
+  stage {
     name = "DevTerraformDeploy"
 
     action {
@@ -78,12 +78,12 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
             },
           ]
         )
-        "ProjectName" = "mind_hub_terraform_deploy"
+        "ProjectName" = aws_codebuild_project.mind_hub_terraform_deploy.name
       }
       input_artifacts = [
         "SourceArtifact",
       ]
-      name = "DevTerraformDeploy"
+      name      = "DevTerraformDeploy"
       owner     = "AWS"
       provider  = "CodeBuild"
       run_order = 1
@@ -108,6 +108,21 @@ resource "aws_codepipeline" "mind_hub_ui_pipeline" {
       provider         = "S3"
       run_order        = 1
       version          = "1"
+    }
+
+    action {
+      category = "Build"
+      configuration = {
+        "ProjectName" = aws_codebuild_project.mind_hub_cloudfront_invalidation.name
+      }
+      input_artifacts = [
+        "SourceArtifact",
+      ]
+      name      = "InvalidateCloudfront"
+      owner     = "AWS"
+      provider  = "CodeBuild"
+      run_order = 2
+      version   = "1"
     }
   }
 }
