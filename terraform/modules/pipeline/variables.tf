@@ -4,11 +4,6 @@ variable "env" {
   description = "Environment"
 }
 
-variable "buildspec_file_path" {
-  type        = string
-  description = "Path to buildspec YML file"
-}
-
 variable "repository_branch" {
   type        = string
   description = "Name of repository branch"

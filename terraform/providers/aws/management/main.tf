@@ -26,7 +26,6 @@ module "mind-hub-ui-pipeline" {
   source = "../../../modules/pipeline"
 
   env                 = "management"
-  buildspec_file_path = "ci/buildspec.yml"
   repository_owner    = "jdpx"
   repository_name     = "mind-hub-ui"
   github_token        = var.github_token

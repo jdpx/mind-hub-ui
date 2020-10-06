@@ -120,19 +120,3 @@ resource "aws_iam_role_policy" "mind_hub_ui_pr_build_policy" {
 }
 POLICY
 }
-
-# data "aws_iam_policy_document" "mind_hub_ui_pr_build_iam_role_policy" {
-#   statement {
-#     actions = [
-#       "logs:CreateLogGroup",
-#       "logs:CreateLogStream",
-#       "logs:PutLogEvents",
-#     ]
-
-#     effect = "Allow"
-
-#     resources = [
-#       "*",
-#     ]
-#   }
-# }
