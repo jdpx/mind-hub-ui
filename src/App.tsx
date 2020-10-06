@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import DashboardPage from './features/dashboard/DashboardPage'
 import Header from './features/header/Header'
 import Homepage from './features/home/Homepage'
+import CoursePage from './features/course/CoursePage'
 
 import './App.scss'
 
@@ -22,6 +23,7 @@ function App() {
             <Switch>
                 <Route path="/" exact component={Homepage} />
                 <PrivateRoute path="/dashboard" exact component={DashboardPage} />
+                <PrivateRoute path="/course/:id" exact component={CoursePage} />
             </Switch>
         </div>
     )

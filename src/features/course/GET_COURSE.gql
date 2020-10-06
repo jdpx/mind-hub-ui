@@ -1,0 +1,5 @@
+query Course($id: ID) {
+    course(where: { id: $id }) {
+        title
+    }
+}
