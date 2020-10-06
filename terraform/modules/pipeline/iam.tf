@@ -43,17 +43,6 @@ resource "aws_iam_role_policy" "mind_hub_ui_pipeline_policy" {
     },
     {
       "Action": [
-        "codecommit:CancelUploadArchive",
-        "codecommit:GetBranch",
-        "codecommit:GetCommit",
-        "codecommit:GetUploadArchiveStatus",
-        "codecommit:UploadArchive"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
         "cloudwatch:*",
         "s3:*"
       ],
@@ -75,20 +64,6 @@ resource "aws_iam_role_policy" "mind_hub_ui_pipeline_policy" {
       ],
       "Resource": "*",
       "Effect": "Allow"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "cloudformation:ValidateTemplate"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ecr:DescribeImages"
-      ],
-      "Resource": "*"
     }
   ],
   "Version": "2012-10-17"
