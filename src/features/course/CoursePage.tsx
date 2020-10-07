@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { loader } from 'graphql.macro'
 import Page from '../../components/Page/Page'
 import { Course } from '../../types/course'
+import CourseInformation from './CourseInformation'
 
 const COURSES_QUERY = loader('./GET_COURSE.gql')
 
@@ -27,8 +28,7 @@ export default function CoursePage() {
     return (
         <div className="course-page" data-testid="course-page">
             <Page>
-                <h1 data-testid="dashboard-header">Welcome {id}</h1>
-                {loading ? <div>Loading</div> : data && <div>{data.course.title}</div>}
+                {loading ? <div>Loading</div> : data && <CourseInformation course={data.course} />}
             </Page>
         </div>
     )

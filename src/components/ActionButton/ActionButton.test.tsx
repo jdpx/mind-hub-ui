@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import ActionButton from './ActionButton'
-import { Secondary } from '../../constants/buttons'
+import { Center, Left, Right, Secondary } from '../../constants/buttons'
 
 describe('ActionButton', () => {
     it('renders the button text', () => {
@@ -14,6 +14,30 @@ describe('ActionButton', () => {
         const { getByTestId } = render(<ActionButton text={'foo'} testid="action-button" />)
 
         expect(getByTestId('action-button-btn')).toHaveClass('btn primary')
+    })
+
+    it('renders a button to the left', () => {
+        const { getByTestId } = render(
+            <ActionButton text={'foo'} position={Left} testid="action-button" />,
+        )
+
+        expect(getByTestId('action-button')).toHaveClass('btn-wrapper left')
+    })
+
+    it('renders a button to the center', () => {
+        const { getByTestId } = render(
+            <ActionButton text={'foo'} position={Center} testid="action-button" />,
+        )
+
+        expect(getByTestId('action-button')).toHaveClass('btn-wrapper center')
+    })
+
+    it('renders a button to the right', () => {
+        const { getByTestId } = render(
+            <ActionButton text={'foo'} position={Right} testid="action-button" />,
+        )
+
+        expect(getByTestId('action-button')).toHaveClass('btn-wrapper right')
     })
 
     it('renders a secondary button', () => {

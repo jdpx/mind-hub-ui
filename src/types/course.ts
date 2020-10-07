@@ -9,6 +9,7 @@ export interface Course {
 export interface Session {
     id: string
     title: string
+    description: string
 
     course?: Course
 }

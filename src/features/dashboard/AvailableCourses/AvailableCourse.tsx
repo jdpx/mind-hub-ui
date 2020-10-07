@@ -1,20 +1,22 @@
 import React from 'react'
 import ActionButton from 'components/ActionButton/ActionButton'
-import Section from '../../../components/Section/Section'
-import { ProgressBar } from 'react-bootstrap'
-import { Course as CourseType } from '../../../types/course'
 import { Link } from 'react-router-dom'
+import { ProgressBar } from 'react-bootstrap'
+
+import Section from '../../../components/Section/Section'
+import { Course as CourseType } from '../../../types/course'
+import { Small } from '../../../constants/sizes'
 
 interface Props {
     course: CourseType
     started?: boolean
 }
 
-export default function Course({ course, started }: Props) {
+export default function AvailableCourse({ course, started }: Props) {
     const { id, title, description } = course
 
     return (
-        <Section testid={id}>
+        <Section size={Small} testid={id}>
             <Link to={{ pathname: `/course/${id}` }} className="course">
                 <h3>{title}</h3>
                 <div className="course-description">{description}</div>
