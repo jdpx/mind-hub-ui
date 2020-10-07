@@ -1,0 +1,12 @@
+query Course($id: ID) {
+    course(where: { id: $id }) {
+        id
+        title
+        description
+
+        sessions {
+            id
+            title
+        }
+    }
+}

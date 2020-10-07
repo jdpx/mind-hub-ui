@@ -1,9 +1,13 @@
 @import "../../../styles/colours.scss";
 
-.courses {
+.available-courses {
     .course-list {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .content-wrapper {
+        padding: 0
     }
 
     .course {
@@ -11,6 +15,8 @@
         flex: 1;
         flex-direction: column;
         text-align: center;
+        padding: 15px;
+        color: $black;
 
         .course-description {
             flex: 1;

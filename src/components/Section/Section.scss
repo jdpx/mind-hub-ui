@@ -5,8 +5,8 @@
     border: 5px solid $background-blue;
     box-shadow: 3px 3px 4px rgba(36, 59, 113, 0.42);
     border-radius: 20px;
-    padding: 15px;
     margin: 15px;
+    flex-direction: row;
 
     &.sm {
         width: 284px;
@@ -20,4 +20,20 @@
     &.xl {
         width: 100%;
     }
+
+    &.disabled {
+        color: $disabled-text-grey;
+        border-color: $disabled-border-grey;
+        box-shadow: 3px 3px 10px #e3d7e7;
+    }
+
+    &.withTitle {
+        flex-direction: column;
+    }
+}
+
+.section-title {
+    margin-left: 10px;
+    margin-bottom: 0px;
+    padding: 15px;
 }

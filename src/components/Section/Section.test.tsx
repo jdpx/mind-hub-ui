@@ -1,13 +1,17 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import faker from 'faker'
+
 import Section from './Section'
-import { ExtraLarge, Large, Medium } from '../../constants/sizes'
+import { ExtraLarge, Large, Medium, Small } from '../../constants/sizes'
 
 describe('Section', () => {
-    it('renders a section with a default size of sm', () => {
-        const { getByTestId } = render(<Section testid="section">Test</Section>)
+    it('renders a section with with no size class', () => {
+        const content = faker.lorem.words(2)
+        const { getByTestId } = render(<Section testid="section">{content}</Section>)
 
-        expect(getByTestId('section')).toHaveClass('content-wrapper sm')
+        expect(getByTestId('section')).toHaveClass('content-wrapper')
+        expect(screen.queryByText(content)).toBeInTheDocument()
     })
 
     it('renders a section with a custom class', () => {
@@ -17,7 +21,44 @@ describe('Section', () => {
             </Section>,
         )
 
-        expect(getByTestId('section')).toHaveClass('content-wrapper sm foo')
+        expect(getByTestId('section')).toHaveClass('content-wrapper foo')
+    })
+
+    describe('given it is disabled', () => {
+        it('renders a disabled section', () => {
+            const { getByTestId } = render(
+                <Section disabled testid="section">
+                    Test
+                </Section>,
+            )
+
+            expect(getByTestId('section')).toHaveClass('content-wrapper disabled')
+        })
+    })
+
+    describe('given it has a title', () => {
+        it('renders a section with a title', () => {
+            const title = faker.lorem.words(2)
+            render(
+                <Section title={title} testid="section">
+                    Test
+                </Section>,
+            )
+
+            expect(screen.queryByText(title)).toBeInTheDocument()
+        })
+    })
+
+    describe('given sm size', () => {
+        it('renders a md size section', () => {
+            const { getByTestId } = render(
+                <Section size={Small} testid="section">
+                    Test
+                </Section>,
+            )
+
+            expect(getByTestId('section')).toHaveClass('content-wrapper sm')
+        })
     })
 
     describe('given md size', () => {
