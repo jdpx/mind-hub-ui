@@ -2,6 +2,7 @@
 
 .content-wrapper {
     display: flex;
+    flex: 1;
     border: 5px solid $background-blue;
     box-shadow: 3px 3px 4px rgba(36, 59, 113, 0.42);
     border-radius: 20px;
@@ -9,13 +10,13 @@
     flex-direction: row;
 
     &.sm {
-        width: 284px;
+        max-width: 284px;
     }
     &.md {
-        width: 466px;
+        max-width: 466px;
     }
     &.lg {
-        width: 1216px;
+        max-width: 1216px;
     }
     &.xl {
         width: 100%;

@@ -1,0 +1,20 @@
+.session {
+    .session-navigation {
+        display: flex;
+        flex-direction: row;
+        margin-top: 25px;
+        margin-bottom: 90px;
+        padding-right: 25px;
+        padding-left: 25px;
+
+        .session-navigation-item {
+            flex: 1;
+        }
+    }
+
+    .session-navigation-progress {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

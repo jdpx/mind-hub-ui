@@ -14,6 +14,11 @@ class Course {
         this.sessions = []
     }
 
+    WithTitle(title: string) {
+        this.title = title
+        return this
+    }
+
     WithSession(session: Session) {
         this.sessions.push(session)
 

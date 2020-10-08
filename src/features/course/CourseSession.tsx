@@ -21,7 +21,7 @@ export default function CourseSession({ courseID, session, alternate, testid }: 
 
     return (
         <Link
-            to={{ pathname: `course/${courseID}/session/${id}` }}
+            to={{ pathname: `/course/${courseID}/session/${id}` }}
             className={sessionClass}
             data-testid={testid}
         >

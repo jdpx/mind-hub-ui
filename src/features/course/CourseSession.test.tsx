@@ -19,7 +19,7 @@ describe('Course Session', () => {
 
         expect(getByTestId('test')).toHaveAttribute(
             'href',
-            `course/${courseID}/session/${session.id}`,
+            `/course/${courseID}/session/${session.id}`,
         )
         expect(screen.queryByText(session.title)).toBeInTheDocument()
     })

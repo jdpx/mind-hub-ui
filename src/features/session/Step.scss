@@ -1,0 +1,13 @@
+.step {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: stretch;
+    justify-items: stretch;
+    align-items: stretch;
+
+    .course-notes {
+        width: 420px;
+        padding: 0 27px 27px;
+    }
+}
