@@ -9,6 +9,7 @@ import Homepage from './features/home/Homepage'
 import CoursePage from './features/course/CoursePage'
 
 import './App.scss'
+import SessionPage from './features/session/SessionPage'
 
 function App() {
     const { isLoading } = useAuth0()
@@ -24,6 +25,14 @@ function App() {
                 <Route path="/" exact component={Homepage} />
                 <PrivateRoute path="/dashboard" exact component={DashboardPage} />
                 <PrivateRoute path="/course/:id" exact component={CoursePage} />
+                <PrivateRoute
+                    // path="/course/:courseId/session/:id/(step)?/:stepId?"
+                    path={[
+                        '/course/:courseId/session/:id',
+                        '/course/:courseId/session/:id/step/:stepId?',
+                    ]}
+                    component={SessionPage}
+                />
             </Switch>
         </div>
     )

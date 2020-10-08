@@ -11,6 +11,7 @@ interface Props {
     position?: Positions
     type?: ButtonTypes
     disabled?: boolean
+    onClick?: () => void
     testid?: string
 }
 
@@ -19,6 +20,7 @@ export default function ActionButton({
     position = Center,
     type = Primary,
     disabled,
+    onClick,
     testid,
 }: Props) {
     const buttonClass = classNames('btn', type, {
@@ -29,7 +31,12 @@ export default function ActionButton({
 
     return (
         <div className={wrapperClass} data-testid={testid}>
-            <button className={buttonClass} disabled={disabled} data-testid={`${testid}-btn`}>
+            <button
+                className={buttonClass}
+                onClick={onClick}
+                disabled={disabled}
+                data-testid={`${testid}-btn`}
+            >
                 {text}
             </button>
         </div>

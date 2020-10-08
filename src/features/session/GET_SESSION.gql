@@ -1,0 +1,22 @@
+query Session($id: ID) {
+    session(where: { id: $id }) {
+        id
+        title
+        description
+
+        steps {
+            id
+            title
+            description
+            type
+            videoUrl
+            audioUrl
+            question
+        }
+
+        course {
+            id
+            title
+        }
+    }
+}

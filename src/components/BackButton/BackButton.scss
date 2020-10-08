@@ -1,0 +1,23 @@
+@import "../../styles/colours.scss";
+
+.back-button {
+    display: flex;
+
+    margin-bottom: 40px;
+
+    a {
+        min-height: 41px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        box-shadow: 0px 4px 4px rgba(36, 59, 113, 0.5);
+        border-radius: 20px;
+        background-color: $white;
+        color: $black;
+
+        img {
+            margin-right: 10px;
+        }
+    }
+}

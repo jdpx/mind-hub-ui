@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import ActionButton from './ActionButton'
-import { Center, Left, Right, Secondary } from '../../constants/buttons'
+import { Center, Left, Primary, Right, Secondary } from '../../constants/buttons'
 
 describe('ActionButton', () => {
     it('renders the button text', () => {
@@ -55,5 +55,29 @@ describe('ActionButton', () => {
 
         expect(getByTestId('action-button-btn')).toHaveClass('btn primary disabled')
         expect(getByTestId('action-button-btn')).toHaveAttribute('disabled')
+    })
+
+    describe('when the button is clicked', () => {
+        it('calls the onClick prop', () => {
+            const onClick = jest.fn()
+            const { getByTestId } = render(
+                <ActionButton onClick={onClick} text={'foo'} testid="action-button" />,
+            )
+
+            fireEvent.click(getByTestId('action-button-btn'))
+
+            expect(onClick).toHaveBeenCalled()
+        })
+
+        it('does not call onClick when disabled', () => {
+            const onClick = jest.fn()
+            const { getByTestId } = render(
+                <ActionButton onClick={onClick} text={'foo'} disabled testid="action-button" />,
+            )
+
+            fireEvent.click(getByTestId('action-button-btn'))
+
+            expect(onClick).not.toHaveBeenCalled()
+        })
     })
 })

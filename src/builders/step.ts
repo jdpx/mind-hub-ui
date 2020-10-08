@@ -1,17 +1,21 @@
 import faker from 'faker'
-import { Course, Session as SesssionType, Step } from 'types/course'
+import { Course, Step as StepType } from 'types/course'
+import { Question } from '../constants/steps'
+import { StepTypes } from '../types/step'
 
-class Session {
+class Step {
     id: string
     title: string
     description: string
     course?: Course
     steps: Step[]
+    type: StepTypes
 
     constructor() {
         this.id = '2'
         this.title = faker.lorem.words(2)
         this.description = faker.lorem.sentences(2)
+        this.type = Question
         this.steps = []
     }
 
@@ -21,33 +25,25 @@ class Session {
         return this
     }
 
-    WithCourse = (course: Course) => {
-        this.course = course
+    WithType(type: StepTypes) {
+        this.type = type
 
         return this
     }
 
-    WithStep = (step: Step) => {
-        this.steps.push(step)
-
+    WithTitle(title: string) {
+        this.title = title
         return this
     }
 
-    WithSteps = (steps: Step[]) => {
-        this.steps = [...this.steps, ...steps]
-
-        return this
-    }
-
-    Build = (): SesssionType => ({
+    Build = (): StepType => ({
         id: this.id,
         title: this.title,
         description: this.description,
-        course: this.course,
-        steps: this.steps,
+        type: this.type,
     })
 }
 
-export function SessionBuilder() {
-    return new Session()
+export function StepBuilder() {
+    return new Step()
 }

@@ -1,0 +1,23 @@
+@import "../../../styles/colours.scss";
+
+.question-step {
+    display: flex;
+    padding: 27px;
+    flex-direction: column;
+    flex: 1;
+    
+    .question-step-answers {
+        display:flex;
+        flex-direction: row;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    .question-step-explaination {
+        flex: 1;
+        min-height: 190px;
+        padding: 28px;
+        background-color: $background-grey;
+        border-radius: 20px;
+    }
+}
