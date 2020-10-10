@@ -12,8 +12,11 @@ import * as serviceWorker from './serviceWorker'
 
 import Auth0ProviderWithHistory from './providers/AuthenticationProvider'
 import AuthorizedApolloProvider from './providers/AuthorizedApolloProvider'
+import * as Sentry from './helpers/sentry'
 
 import './styles/fonts/KGSmallTownSouthernGirl.ttf'
+
+Sentry.init()
 
 ReactDOM.render(
     <React.StrictMode>
