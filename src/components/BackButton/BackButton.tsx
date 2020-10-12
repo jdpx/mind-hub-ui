@@ -10,7 +10,7 @@ interface Props {
     testid?: string
 }
 
-export default function BackButton({ text, to, testid }: Props) {
+export default function BackButton({ text, to, testid = 'back-button' }: Props) {
     return (
         <div className="back-button">
             <Link to={{ pathname: to }} data-testid={testid}>
