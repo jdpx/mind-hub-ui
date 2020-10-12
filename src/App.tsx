@@ -10,12 +10,13 @@ import CoursePage from './features/course/CoursePage'
 
 import './App.scss'
 import SessionPage from './features/session/SessionPage'
+import Loading from './components/Loading/Loading'
 
 function App() {
     const { isLoading } = useAuth0()
 
     if (isLoading) {
-        return <div data-testid="mind-hub-loading">Loading</div>
+        return <Loading />
     }
 
     return (

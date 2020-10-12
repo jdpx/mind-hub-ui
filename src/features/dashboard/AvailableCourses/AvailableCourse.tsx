@@ -17,7 +17,11 @@ export default function AvailableCourse({ course, started }: Props) {
 
     return (
         <Section size={Small} testid={id}>
-            <Link to={{ pathname: `/course/${id}` }} className="course">
+            <Link
+                to={{ pathname: `/course/${id}` }}
+                className="course"
+                data-testid={`available-courses-${id}`}
+            >
                 <h3>{title}</h3>
                 <div className="course-description">{description}</div>
                 {started && (

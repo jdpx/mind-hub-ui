@@ -11,7 +11,7 @@ type Props = RouteProps & {
 const PrivateRoute = ({ component, ...args }: Props) => (
     <Route
         component={withAuthenticationRequired(component, {
-            onRedirecting: () => <Loading />,
+            onRedirecting: () => <Loading testid="loading" />,
         })}
         {...args}
     />

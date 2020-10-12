@@ -28,3 +28,4 @@ yarn-error.log*
 .env
 
 cypress.env.json
+cypress/videos/*

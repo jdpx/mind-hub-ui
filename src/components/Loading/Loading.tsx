@@ -1,6 +1,10 @@
 import React from 'react'
 
-export default function Loading() {
-    return <div data-testid="loading">Loading</div>
+interface Props {
+    testid?: string
+}
+
+export default function Loading({ testid = 'loading' }: Props) {
+    return <div data-testid={testid}>Loading</div>
 }
 Loading.displayName = 'Loading'

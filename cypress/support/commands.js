@@ -26,6 +26,8 @@ import jwt_decode from 'jwt-decode'
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+import 'cypress-wait-until'
+
 Cypress.Commands.add('login', () => {
     Cypress.log({
         name: 'loginViaAuth0',
@@ -65,5 +67,6 @@ Cypress.Commands.add('login', () => {
         }
         window.localStorage.setItem(key, JSON.stringify(auth0Cache))
         window.localStorage.setItem('__cypress', JSON.stringify(auth0Cache))
+        cy.visit('/')
     })
 })

@@ -1,3 +1,6 @@
 {
-    "baseUrl": "http://localhost:3000/"
+    "chromeWebSecurity": false,
+    "experimentalFetchPolyfill": true,
+    "experimentalNetworkStubbing": true,
+    "baseUrl": "https://local.mind.jdpx.co.uk:3000/"
 }
