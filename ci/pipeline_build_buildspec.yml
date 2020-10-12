@@ -5,6 +5,7 @@ env:
     HTTPS: "true"
     CI: "true"
     HOST: "dev.mind.jdpx.co.uk"
+    REACT_APP_BUILD_NUMBER: $CODEBUILD_BUILD_NUMBER
   parameter-store:
     REACT_APP_AUTH0_DOMAIN: "codebuild-auth-domain"
     REACT_APP_AUTH0_CLIENT_ID: "codebuild-auth0-client-id"
