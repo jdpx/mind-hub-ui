@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function CourseInformation({ course }: Props) {
-    const { id, title, description, sessions } = course
+    const { id, title, description, sessions = [] } = course
 
     return (
         <div className="container" data-testid="course-information">
