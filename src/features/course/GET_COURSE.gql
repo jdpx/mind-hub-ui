@@ -1,4 +1,4 @@
-query Course($id: ID) {
+query Course($id: ID!) {
     course(where: { id: $id }) {
         id
         title
