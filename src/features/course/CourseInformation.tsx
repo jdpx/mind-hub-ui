@@ -1,18 +1,33 @@
 import React from 'react'
+import { loader } from 'graphql.macro'
+import { Link } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+
 import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
 import CourseSession from './CourseSession'
 
-import './Course.scss'
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
+import NoAvailableSessions from './NoSessions'
+import Notes from '../../components/Notes/Notes'
+
+import './Course.scss'
+
+const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
 
 interface Props {
     course: Course
 }
 
 export default function CourseInformation({ course }: Props) {
-    const { id, title, description, sessions = [] } = course
+    const { id, title, description, sessions = [], note } = course
+
+    const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+
+    const handleNoteSave = (value: string) => {
+        updateCourseNote({ variables: { courseID: course.id, value: value } })
+    }
 
     return (
         <div className="container" data-testid="course-information">
@@ -21,10 +36,10 @@ export default function CourseInformation({ course }: Props) {
                 <div className="course-description">{description}</div>
                 <div className="row">
                     <div className="col">
-                        {sessions && (
-                            <Section>
-                                <div className="course-sessions">
-                                    {sessions.map((session, index) => (
+                        <Section>
+                            <div className="course-sessions">
+                                {sessions && sessions.length > 0 ? (
+                                    sessions.map((session, index) => (
                                         <CourseSession
                                             key={session.id}
                                             courseID={id}
@@ -32,10 +47,12 @@ export default function CourseInformation({ course }: Props) {
                                             alternate={index % 2 !== 0}
                                             testid={`course-${id}-session-${session.id}`}
                                         />
-                                    ))}
-                                </div>
-                            </Section>
-                        )}
+                                    ))
+                                ) : (
+                                    <NoAvailableSessions />
+                                )}
+                            </div>
+                        </Section>
                         <div className="row">
                             <div className="col">
                                 <Section disabled>
@@ -50,21 +67,21 @@ export default function CourseInformation({ course }: Props) {
                         </div>
                     </div>
                     <div className="col">
-                        <Section title="Notes">
-                            <div className="course-notes">
-                                Culpa eu deserunt deserunt labore duis laboris tempor elit pariatur
-                                aliqua enim amet officia. Ex irure ut pariatur duis ut. Culpa elit
-                                ullamco anim aute eu eiusmod consectetur adipisicing laboris eiusmod
-                                commodo non nostrud. Incididunt ullamco mollit officia culpa
-                                pariatur mollit aliquip. Non laborum veniam id enim minim minim et
-                                incididunt amet. Esse elit ipsum reprehenderit magna sint irure
-                                incididunt ut. Occaecat ut proident id quis quis do cillum voluptate
-                                exercitation incididunt mollit et reprehenderit.
+                        <Notes
+                            note={note}
+                            handleSave={handleNoteSave}
+                            testid={`course-${id}-notes`}
+                        />
+                        {sessions.length > 0 && (
+                            <div className="course-start-button">
+                                <Link
+                                    to={`/course/${id}/session/${sessions[0].id}`}
+                                    data-testid="start-button"
+                                >
+                                    <ActionButton text="Start" position={Right} />
+                                </Link>
                             </div>
-                        </Section>
-                        <div className="course-start-button">
-                            <ActionButton text="Start" position={Right} />
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

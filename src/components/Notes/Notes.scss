@@ -1,0 +1,23 @@
+@import "../../styles/colours.scss";
+
+.notes {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0 27px 27px;
+
+    textarea {
+        flex: 1;
+        font-size: 15px;
+        line-height: 17px;
+        border: 0;
+        min-height: 180px;
+        padding: 12px;
+
+        background-color: $background-grey;
+        border-radius: 5px;
+
+        overflow: auto;
+    }
+}
