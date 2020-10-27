@@ -4,6 +4,11 @@ query Course($id: ID!) {
         title
         description
 
+        note {
+            id
+            value
+        }
+
         sessions {
             id
             title

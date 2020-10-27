@@ -5,6 +5,7 @@ export interface Course {
     title: string
     description: string
 
+    note?: Note
     sessions?: Session[]
 }
 
@@ -27,4 +28,9 @@ export interface Step {
     question?: string
 
     session?: Session
+}
+
+export interface Note {
+    id: string
+    value: string
 }

@@ -7,6 +7,7 @@ import { BrowserRouter, useParams } from 'react-router-dom'
 import Mock from '../../helpers/testing/mockType'
 import CoursePage from './CoursePage'
 import { CourseBuilder } from '../../builders/course'
+import { MockedProvider } from '@apollo/client/testing'
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -14,8 +15,12 @@ jest.mock('react-router-dom', () => ({
 }))
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>
 
-jest.mock('@apollo/client')
 const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>
+
+jest.mock('@apollo/client', () => ({
+    ...jest.requireActual('@apollo/client'),
+    useQuery: jest.fn(),
+}))
 
 describe('Course Page', () => {
     const courseID = faker.lorem.slug()
@@ -40,7 +45,9 @@ describe('Course Page', () => {
         it('renders to the loading component', () => {
             const { getByTestId } = render(
                 <BrowserRouter>
-                    <CoursePage />
+                    <MockedProvider>
+                        <CoursePage />
+                    </MockedProvider>
                 </BrowserRouter>,
             )
 
@@ -65,7 +72,9 @@ describe('Course Page', () => {
         it('renders to the Course Information component', () => {
             const { getByTestId } = render(
                 <BrowserRouter>
-                    <CoursePage />
+                    <MockedProvider>
+                        <CoursePage />
+                    </MockedProvider>
                 </BrowserRouter>,
             )
 

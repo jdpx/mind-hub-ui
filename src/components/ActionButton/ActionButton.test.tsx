@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import ActionButton from './ActionButton'
-import { Center, Left, Primary, Right, Secondary } from '../../constants/buttons'
+import { Center, Left, Right, Secondary } from '../../constants/buttons'
 
 describe('ActionButton', () => {
     it('renders the button text', () => {
