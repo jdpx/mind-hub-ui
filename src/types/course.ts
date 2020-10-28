@@ -5,7 +5,10 @@ export interface Course {
     title: string
     description: string
 
+    sessionCount?: number
+
     note?: Note
+    progress?: Progress
     sessions?: Session[]
 }
 
@@ -32,5 +35,12 @@ export interface Step {
 
 export interface Note {
     id: string
+    courseID?: string
+    userID?: string
     value: string
+}
+
+export interface Progress {
+    started?: boolean
+    sessionsCompleted?: number
 }
