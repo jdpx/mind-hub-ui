@@ -1,19 +1,19 @@
 import React from 'react'
 import ActionButton from 'components/ActionButton/ActionButton'
 import { Link } from 'react-router-dom'
-import { ProgressBar } from 'react-bootstrap'
 
 import Section from '../../../components/Section/Section'
 import { Course as CourseType } from '../../../types/course'
 import { Small } from '../../../constants/sizes'
+import CourseProgress from './CourseProgress'
 
 interface Props {
     course: CourseType
-    started?: boolean
 }
 
-export default function AvailableCourse({ course, started }: Props) {
-    const { id, title, description } = course
+export default function AvailableCourse({ course }: Props) {
+    const { id, title, description, sessionCount, progress = {} } = course
+    const { started, sessionsCompleted } = progress
 
     return (
         <Section size={Small} testid={id}>
@@ -22,7 +22,7 @@ export default function AvailableCourse({ course, started }: Props) {
                 <div className="course-description">{description}</div>
                 {started && (
                     <div className="course-progress" data-testid={`${id}-progressbar`}>
-                        <ProgressBar now={60} />
+                        <CourseProgress totalCount={sessionCount} completed={sessionsCompleted} />
                     </div>
                 )}
                 <ActionButton text={started ? 'Continue' : 'Start'} />

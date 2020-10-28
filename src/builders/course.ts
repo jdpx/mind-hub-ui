@@ -1,17 +1,20 @@
 import faker from 'faker'
-import { Course as CourseType, Session } from 'types/course'
+import { Course as CourseType, Progress, Session } from 'types/course'
 
 class Course {
     id: string
     title: string
     description: string
     sessions: Session[]
+    progress?: Progress
+    sessionCount?: number
 
     constructor() {
         this.id = '1'
         this.title = faker.lorem.words(2)
         this.description = faker.lorem.sentences(2)
         this.sessions = []
+        this.sessionCount = faker.random.number(10)
     }
 
     WithTitle(title: string) {
@@ -25,11 +28,18 @@ class Course {
         return this
     }
 
+    WithProgress(progress: Progress) {
+        this.progress = progress
+
+        return this
+    }
+
     Build = (): CourseType => ({
         id: this.id,
         title: this.title,
         description: this.description,
         sessions: this.sessions,
+        progress: this.progress,
     })
 }
 

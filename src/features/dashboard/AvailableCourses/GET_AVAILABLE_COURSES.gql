@@ -3,5 +3,11 @@
     id
     title
     description
+    sessionCount
+
+    progress {
+      started
+      sessionsCompleted
+    }
   }
 }
