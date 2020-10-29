@@ -1,0 +1,9 @@
+mutation courseStarted($courseID: ID!) {
+  courseStarted(input:{courseID:$courseID}) {
+      id
+
+      progress {
+        started
+      }
+  }
+}

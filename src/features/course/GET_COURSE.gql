@@ -13,5 +13,9 @@ query Course($id: ID!) {
             id
             title
         }
+
+        progress {
+            started
+        }
     }
 }

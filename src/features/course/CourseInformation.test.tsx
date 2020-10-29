@@ -1,31 +1,47 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MutationResult, MutationTuple, useMutation } from '@apollo/client'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useHistory } from 'react-router-dom'
+import { History } from 'history'
 import faker from 'faker'
 
 import { CourseBuilder } from '../../builders/course'
 import CourseInformation from './CourseInformation'
 import { SessionBuilder } from '../../builders/session'
+import { ProgressBuilder } from '../../builders/progress'
+import Mock from '../../helpers/testing/mockType'
 
 jest.mock('@apollo/client')
 const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useHistory: jest.fn(),
+}))
+const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
 describe('Course Information', () => {
     const session = SessionBuilder().Build()
     const sessionTwo = SessionBuilder().ID('111').Build()
     const course = CourseBuilder().WithSession(session).WithSession(sessionTwo).Build()
 
-    const mockMutation = jest.fn()
+    const mockNoteUpdateMutation = jest.fn()
+    const mockCourseStartedeMutation = jest.fn()
 
-    const mutationRepsons: MutationTuple<unknown, unknown> = [
-        mockMutation,
+    const mockNoteUpdateMutationResponse: MutationTuple<unknown, unknown> = [
+        mockNoteUpdateMutation,
+        {} as MutationResult<unknown>,
+    ]
+    const mockCourseStartedeMutationResponse: MutationTuple<unknown, unknown> = [
+        mockCourseStartedeMutation,
         {} as MutationResult<unknown>,
     ]
 
     beforeEach(() => {
-        mockMutation.mockReset()
-        mockUseMutation.mockReturnValue(mutationRepsons)
+        mockNoteUpdateMutation.mockReset()
+        mockCourseStartedeMutation.mockReset()
+        mockUseMutation.mockReturnValueOnce(mockNoteUpdateMutationResponse)
+        mockUseMutation.mockReturnValueOnce(mockCourseStartedeMutationResponse)
     })
 
     it('should render title', () => {
@@ -60,25 +76,13 @@ describe('Course Information', () => {
                 </BrowserRouter>,
             )
 
-            expect(getByTestId(`course-${course.id}-session-${session.id}`)).toBeTruthy()
-        })
+            const items = getByTestId('course-sessions').getElementsByTagName('a')
 
-        it('should render a link to the first session page if there are sessions', () => {
-            const { getByTestId } = render(
-                <BrowserRouter>
-                    <CourseInformation course={course} />,
-                </BrowserRouter>,
-            )
-
-            expect(getByTestId('start-button')).toHaveAttribute(
-                'href',
-                `/course/${course.id}/session/${session.id}`,
-            )
-            expect(screen.queryByText(session.title)).toBeInTheDocument()
+            expect(items.length).toEqual(2)
         })
     })
 
-    describe('if there are no sessions for the course', () => {
+    describe('given there are no sessions', () => {
         const course = CourseBuilder().Build()
 
         it('should show the No Available Sessions section', () => {
@@ -102,6 +106,89 @@ describe('Course Information', () => {
         })
     })
 
+    describe('given the course has been started', () => {
+        const session = SessionBuilder().Build()
+        const progress = ProgressBuilder().Build()
+        const course = CourseBuilder().WithSession(session).WithProgress(progress).Build()
+
+        const mockHistory = {
+            push: jest.fn(),
+        }
+
+        beforeEach(() => {
+            mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
+        })
+
+        it('should render the start button with text being Continue', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <CourseInformation course={course} />,
+                </BrowserRouter>,
+            )
+
+            const btn = getByTestId('start-button')
+            expect(btn).toHaveTextContent('Continue')
+        })
+
+        it('on clicking the Continue button, the page should redirect', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <CourseInformation course={course} />,
+                </BrowserRouter>,
+            )
+
+            const input = getByTestId('start-button-btn')
+            fireEvent.click(input)
+
+            expect(mockHistory.push).toHaveBeenCalledWith(
+                `/course/${course.id}/session/${session.id}`,
+            )
+        })
+    })
+
+    describe('given the course has not been started', () => {
+        const session = SessionBuilder().Build()
+        const progress = ProgressBuilder().HasStarted(false).Build()
+        const course = CourseBuilder().WithSession(session).WithProgress(progress).Build()
+
+        const mockHistory = {
+            push: jest.fn(),
+        }
+
+        beforeEach(() => {
+            mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
+        })
+
+        it('should render the start button with text being Continue', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <CourseInformation course={course} />,
+                </BrowserRouter>,
+            )
+
+            const btn = getByTestId('start-button')
+            expect(btn).toHaveTextContent('Start')
+        })
+
+        it('on clicking the Continue button, the page should redirect', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <CourseInformation course={course} />,
+                </BrowserRouter>,
+            )
+
+            const input = getByTestId('start-button-btn')
+            fireEvent.click(input)
+
+            expect(mockHistory.push).toHaveBeenCalledWith(
+                `/course/${course.id}/session/${session.id}`,
+            )
+            expect(mockCourseStartedeMutation).toHaveBeenCalledWith({
+                variables: { courseID: course.id },
+            })
+        })
+    })
+
     describe('given the user edits the note for a course', () => {
         it('it makes the note mutation', () => {
             const { getByTestId } = render(
@@ -116,7 +203,7 @@ describe('Course Information', () => {
             fireEvent.change(input, { target: { value: noteValue } })
             fireEvent.blur(input)
 
-            expect(mockMutation).toHaveBeenCalledWith({
+            expect(mockNoteUpdateMutation).toHaveBeenCalledWith({
                 variables: { courseID: course.id, value: noteValue },
             })
         })
