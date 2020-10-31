@@ -7,16 +7,17 @@ import './Session.scss'
 import './Step.scss'
 import { Left, Right } from '../../constants/buttons'
 import CurrentStep from './Step'
+import Title from './Title'
 
 interface Props {
     session: SessionType
 }
 
 export default function Session({ session }: Props) {
-    const { title, course, steps = [] } = session
+    const { course, steps = [] } = session
 
     const [index, setIndex] = useState(0)
-    const step = steps[index]
+    const step = steps.length > 0 ? steps[index] : undefined
 
     const onNextClick = () => {
         setIndex(index + 1)
@@ -29,9 +30,7 @@ export default function Session({ session }: Props) {
     return (
         <div className="container" data-test-id="session-information">
             <div className="session">
-                <h1 data-testid="session-header">
-                    {course?.title} - {title} - {step.title}
-                </h1>
+                <Title course={course} session={session} step={step} />
                 <CurrentStep step={step} />
                 <div className="session-navigation">
                     <div className="session-navigation-item">
