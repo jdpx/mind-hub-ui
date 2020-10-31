@@ -7,9 +7,11 @@ import DashboardPage from './features/dashboard/DashboardPage'
 import Header from './features/header/Header'
 import Homepage from './features/home/Homepage'
 import CoursePage from './features/course/CoursePage'
+import SessionPage from './features/session/SessionPage'
+import { ErrorBoundary } from '@sentry/react'
+import ErrorPage from './features/errors/ErrorPage'
 
 import './App.scss'
-import SessionPage from './features/session/SessionPage'
 
 function App() {
     const { isLoading } = useAuth0()
@@ -21,19 +23,21 @@ function App() {
     return (
         <div className="mind-hub" data-testid="mind-hub">
             <Header />
-            <Switch>
-                <Route path="/" exact component={Homepage} />
-                <PrivateRoute path="/dashboard" exact component={DashboardPage} />
-                <PrivateRoute path="/course/:id" exact component={CoursePage} />
-                <PrivateRoute
-                    // path="/course/:courseId/session/:id/(step)?/:stepId?"
-                    path={[
-                        '/course/:courseId/session/:id',
-                        '/course/:courseId/session/:id/step/:stepId?',
-                    ]}
-                    component={SessionPage}
-                />
-            </Switch>
+            <ErrorBoundary fallback={<ErrorPage />}>
+                <Switch>
+                    <Route path="/" exact component={Homepage} />
+                    <PrivateRoute path="/dashboard" exact component={DashboardPage} />
+                    <PrivateRoute path="/course/:id" exact component={CoursePage} />
+                    <PrivateRoute
+                        // path="/course/:courseId/session/:id/(step)?/:stepId?"
+                        path={[
+                            '/course/:courseId/session/:id',
+                            '/course/:courseId/session/:id/step/:stepId?',
+                        ]}
+                        component={SessionPage}
+                    />
+                </Switch>
+            </ErrorBoundary>
         </div>
     )
 }
