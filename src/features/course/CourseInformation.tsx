@@ -1,6 +1,6 @@
 import React from 'react'
 import { loader } from 'graphql.macro'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 
 import Section from '../../components/Section/Section'
@@ -15,18 +15,29 @@ import Notes from '../../components/Notes/Notes'
 import './Course.scss'
 
 const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
+const COURSE_START_MUTATION = loader('./COURSE_START_MUTATION.gql')
 
 interface Props {
     course: Course
 }
 
 export default function CourseInformation({ course }: Props) {
-    const { id, title, description, sessions = [], note } = course
+    const { id, title, description, sessions = [], note, progress = {} } = course
+    const { started } = progress
 
     const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+    const [courseStartEvent] = useMutation(COURSE_START_MUTATION)
+    const history = useHistory()
 
     const handleNoteSave = (value: string) => {
         updateCourseNote({ variables: { courseID: course.id, value: value } })
+    }
+
+    const handleCourseAction = () => {
+        if (!started) {
+            courseStartEvent({ variables: { courseID: course.id } })
+        }
+        history.push(`/course/${id}/session/${sessions[0].id}`)
     }
 
     return (
@@ -37,7 +48,7 @@ export default function CourseInformation({ course }: Props) {
                 <div className="row">
                     <div className="col">
                         <Section>
-                            <div className="course-sessions">
+                            <div className="course-sessions" data-testid="course-sessions">
                                 {sessions && sessions.length > 0 ? (
                                     sessions.map((session, index) => (
                                         <CourseSession
@@ -74,12 +85,12 @@ export default function CourseInformation({ course }: Props) {
                         />
                         {sessions.length > 0 && (
                             <div className="course-start-button">
-                                <Link
-                                    to={`/course/${id}/session/${sessions[0].id}`}
-                                    data-testid="start-button"
-                                >
-                                    <ActionButton text="Start" position={Right} />
-                                </Link>
+                                <ActionButton
+                                    text={started ? 'Continue' : 'Start'}
+                                    onClick={handleCourseAction}
+                                    position={Right}
+                                    testid="start-button"
+                                />
                             </div>
                         )}
                     </div>
