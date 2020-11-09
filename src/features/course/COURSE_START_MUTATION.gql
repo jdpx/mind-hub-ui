@@ -3,6 +3,7 @@ mutation courseStarted($courseID: ID!) {
       id
 
       progress {
+        id
         started
       }
   }

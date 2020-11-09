@@ -6,6 +6,7 @@
     sessionCount
 
     progress {
+      id
       started
       sessionsCompleted
     }
