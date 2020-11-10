@@ -30,11 +30,13 @@ export default function CourseInformation({ course }: Props) {
     const history = useHistory()
 
     const handleNoteSave = (value: string) => {
+        console.log('updateCourseNote called')
         updateCourseNote({ variables: { courseID: course.id, value: value } })
     }
 
     const handleCourseStart = () => {
         if (!progress || !progress.started) {
+            console.log('startCourse called')
             startCourse(course.id)
         }
         history.push(`/course/${id}/session/${sessions[0].id}`)
