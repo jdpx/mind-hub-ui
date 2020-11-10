@@ -11,6 +11,11 @@ import SessionPage from './features/session/SessionPage'
 import { ErrorBoundary } from '@sentry/react'
 import ErrorPage from './features/errors/ErrorPage'
 import ProgressContextProvider from './context/progressContext'
+import Footer from './features/footer/Footer'
+
+import PrivacyPolicyPage from './features/legal/PrivacyPolicyPage'
+import TermsAndConditionsPage from './features/legal/TermsAndConditionsPage'
+import AccessibilityPage from './features/legal/Accessibility'
 
 import './App.scss'
 
@@ -27,6 +32,9 @@ function App() {
             <ErrorBoundary fallback={<ErrorPage />}>
                 <Switch>
                     <Route path="/" exact component={Homepage} />
+                    <Route path="/privacy-policy" exact component={PrivacyPolicyPage} />
+                    <Route path="/terms-and-conditions" exact component={TermsAndConditionsPage} />
+                    <Route path="/accessibility" exact component={AccessibilityPage} />
                     <ProgressContextProvider>
                         <PrivateRoute path="/dashboard" exact component={DashboardPage} />
                         <PrivateRoute path="/course/:id" exact component={CoursePage} />
@@ -41,6 +49,7 @@ function App() {
                     </ProgressContextProvider>
                 </Switch>
             </ErrorBoundary>
+            <Footer />
         </div>
     )
 }
