@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 
 const sentryDSN = process.env.REACT_APP_SENTRY_DSN || ''
-const releaseNumber = process.env.provREACT_APP_BUILD_NUMBER || ''
+const releaseNumber = process.env.REACT_APP_BUILD_NUMBER || ''
 
 export function init() {
     if (process.env.NODE_ENV === 'development') {

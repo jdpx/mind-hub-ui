@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Nav, Navbar } from 'react-bootstrap'
 
-import Logo from '../../components/logo/Logo'
+import MindInSalfordLogo from '../../components/logo/MindInSalfordLogo'
 import NavigationLink from './NavigationLink/NavigationLink'
 
 import './Header.scss'
@@ -25,7 +25,7 @@ export default function Header() {
         <div className="header">
             <nav className="navbar navbar-expand">
                 <Link to={{ pathname: '/' }} className="navbar-brand">
-                    <Logo />
+                    <MindInSalfordLogo />
                 </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
