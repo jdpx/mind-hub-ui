@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import faker from 'faker'
-import { QueryResult, useQuery } from '@apollo/client'
+import { QueryTuple, useLazyQuery } from '@apollo/client'
 import { BrowserRouter, useParams } from 'react-router-dom'
 
 import Mock from '../../helpers/testing/mockType'
@@ -15,11 +15,11 @@ jest.mock('react-router-dom', () => ({
 }))
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>
 
-const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>
+const mockUseQuery = useLazyQuery as jest.MockedFunction<typeof useLazyQuery>
 
 jest.mock('@apollo/client', () => ({
     ...jest.requireActual('@apollo/client'),
-    useQuery: jest.fn(),
+    useLazyQuery: jest.fn(),
 }))
 
 describe('Course Page', () => {
@@ -34,12 +34,15 @@ describe('Course Page', () => {
     })
 
     describe('when the query is loading', () => {
+        const mockGetCourse = jest.fn()
         const queryRepsonse = {
             loading: true,
         }
 
         beforeEach(() => {
-            mockUseQuery.mockReturnValue(Mock<QueryResult<unknown, unknown>>(queryRepsonse))
+            mockUseQuery.mockReturnValue(
+                Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
+            )
         })
 
         it('renders to the loading component', () => {
@@ -51,12 +54,14 @@ describe('Course Page', () => {
                 </BrowserRouter>,
             )
 
+            expect(mockGetCourse).toHaveBeenCalled()
             expect(getByTestId('course-page')).toBeInTheDocument()
             expect(screen.queryByText('Loading')).toBeInTheDocument()
         })
     })
 
     describe('when the query has finished loading loading', () => {
+        const mockGetCourse = jest.fn()
         const course = CourseBuilder().Build()
         const queryRepsonse = {
             loading: false,
@@ -66,7 +71,9 @@ describe('Course Page', () => {
         }
 
         beforeEach(() => {
-            mockUseQuery.mockReturnValue(Mock<QueryResult<unknown, unknown>>(queryRepsonse))
+            mockUseQuery.mockReturnValue(
+                Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
+            )
         })
 
         it('renders to the Course Information component', () => {
@@ -78,6 +85,7 @@ describe('Course Page', () => {
                 </BrowserRouter>,
             )
 
+            expect(mockGetCourse).toHaveBeenCalled()
             expect(getByTestId('course-information')).toBeInTheDocument()
             expect(screen.queryByText('Loading')).not.toBeInTheDocument()
         })

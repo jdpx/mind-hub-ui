@@ -10,6 +10,7 @@ import CoursePage from './features/course/CoursePage'
 import SessionPage from './features/session/SessionPage'
 import { ErrorBoundary } from '@sentry/react'
 import ErrorPage from './features/errors/ErrorPage'
+import ProgressContextProvider from './context/progressContext'
 
 import './App.scss'
 
@@ -26,16 +27,18 @@ function App() {
             <ErrorBoundary fallback={<ErrorPage />}>
                 <Switch>
                     <Route path="/" exact component={Homepage} />
-                    <PrivateRoute path="/dashboard" exact component={DashboardPage} />
-                    <PrivateRoute path="/course/:id" exact component={CoursePage} />
-                    <PrivateRoute
-                        // path="/course/:courseId/session/:id/(step)?/:stepId?"
-                        path={[
-                            '/course/:courseId/session/:id',
-                            '/course/:courseId/session/:id/step/:stepId?',
-                        ]}
-                        component={SessionPage}
-                    />
+                    <ProgressContextProvider>
+                        <PrivateRoute path="/dashboard" exact component={DashboardPage} />
+                        <PrivateRoute path="/course/:id" exact component={CoursePage} />
+                        <PrivateRoute
+                            // path="/course/:courseId/session/:id/(step)?/:stepId?"
+                            path={[
+                                '/course/:courseId/session/:id',
+                                '/course/:courseId/session/:id/step/:stepId?',
+                            ]}
+                            component={SessionPage}
+                        />
+                    </ProgressContextProvider>
                 </Switch>
             </ErrorBoundary>
         </div>

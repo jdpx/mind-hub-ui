@@ -13,9 +13,9 @@ import NoAvailableSessions from './NoSessions'
 import Notes from '../../components/Notes/Notes'
 
 import './Course.scss'
+import useProgress from '../../hooks/useProgress'
 
 const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
-const COURSE_START_MUTATION = loader('./COURSE_START_MUTATION.gql')
 
 interface Props {
     course: Course
@@ -23,19 +23,21 @@ interface Props {
 
 export default function CourseInformation({ course }: Props) {
     const { id, title, description, sessions = [], note, progress = {} } = course
-    const { started } = progress
 
     const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
-    const [courseStartEvent] = useMutation(COURSE_START_MUTATION)
+    const { startCourse } = useProgress()
+
     const history = useHistory()
 
     const handleNoteSave = (value: string) => {
+        console.log('updateCourseNote called')
         updateCourseNote({ variables: { courseID: course.id, value: value } })
     }
 
-    const handleCourseAction = () => {
-        if (!started) {
-            courseStartEvent({ variables: { courseID: course.id } })
+    const handleCourseStart = () => {
+        if (!progress || !progress.started) {
+            console.log('startCourse called')
+            startCourse(course.id)
         }
         history.push(`/course/${id}/session/${sessions[0].id}`)
     }
@@ -86,8 +88,8 @@ export default function CourseInformation({ course }: Props) {
                         {sessions.length > 0 && (
                             <div className="course-start-button">
                                 <ActionButton
-                                    text={started ? 'Continue' : 'Start'}
-                                    onClick={handleCourseAction}
+                                    text={progress && progress.started ? 'Continue' : 'Start'}
+                                    onClick={handleCourseStart}
                                     position={Right}
                                     testid="start-button"
                                 />

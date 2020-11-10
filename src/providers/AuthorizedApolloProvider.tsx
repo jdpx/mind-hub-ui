@@ -14,7 +14,6 @@ interface Props {
 const apiUrl = process.env.REACT_APP_API_URL || ''
 
 const httpLink = new HttpLink({ uri: apiUrl })
-// const httpLink = new HttpLink({ uri: 'https://api.dev.mind.jdpx.co.uk/v1/query' })
 
 const correlationIDLink = setContext(async (arg, { headers }) => {
     return {
