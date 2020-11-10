@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import faker from 'faker'
-import { QueryResult, QueryTuple, useLazyQuery } from '@apollo/client'
+import { QueryTuple, useLazyQuery } from '@apollo/client'
 import { BrowserRouter, useParams } from 'react-router-dom'
 
 import Mock from '../../helpers/testing/mockType'
