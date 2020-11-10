@@ -8,7 +8,7 @@ export interface Course {
     sessionCount?: number
 
     note?: Note
-    progress?: Progress
+    progress?: Progress | null
     sessions?: Session[]
 }
 

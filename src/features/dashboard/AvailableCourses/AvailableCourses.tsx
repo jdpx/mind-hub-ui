@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { loader } from 'graphql.macro'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 
 import { Course as CourseType } from '../../../types/course'
 import './AvailableCourses.scss'
@@ -13,7 +13,11 @@ type CoursesData = {
 }
 
 export function AvailableCourses() {
-    const { loading, data } = useQuery<CoursesData>(COURSES_QUERY)
+    const [getAvailableCourses, { loading, data }] = useLazyQuery<CoursesData>(COURSES_QUERY)
+
+    useEffect(() => {
+        getAvailableCourses()
+    }, [getAvailableCourses])
 
     return (
         <div className="available-courses" data-testid="available-courses">

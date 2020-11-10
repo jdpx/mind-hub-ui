@@ -1,5 +1,5 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useEffect } from 'react'
+import { useLazyQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { loader } from 'graphql.macro'
 
@@ -22,11 +22,15 @@ interface SessionData {
 export default function SessionPage() {
     const { id, courseId } = useParams<Params>()
 
-    const { loading, data } = useQuery<SessionData>(SESSION_QUERY, {
+    const [getSession, { loading, data }] = useLazyQuery<SessionData>(SESSION_QUERY, {
         variables: {
             id,
         },
     })
+
+    useEffect(() => {
+        getSession()
+    }, [getSession])
 
     return (
         <div className="session-page" data-testid="session-page">
