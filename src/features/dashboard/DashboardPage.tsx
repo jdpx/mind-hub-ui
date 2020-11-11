@@ -12,11 +12,9 @@ export default function DashboardPage() {
     })
 
     return (
-        <div className="dashboard-page" data-testid="dashboard-page">
-            <Page>
-                <h1 data-testid="dashboard-header">Welcome {name}</h1>
-                <AvailableCourses />
-            </Page>
-        </div>
+        <Page name="dashboard">
+            <h1 data-testid="dashboard-header">Welcome {name}</h1>
+            <AvailableCourses />
+        </Page>
     )
 }
