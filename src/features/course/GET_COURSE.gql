@@ -12,11 +12,20 @@ query Course($id: ID!) {
         sessions {
             id
             title
+
+            steps {
+                id
+                title
+
+                progress {
+                    id
+                }
+            }
         }
 
         progress {
             id
-            started
+            dateStarted
         }
     }
 }

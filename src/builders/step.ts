@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { Course, Step as StepType } from 'types/course'
+import { Course, Step as StepType, StepProgress } from 'types/course'
 import { Question } from '../constants/steps'
 import { StepTypes } from '../types/step'
 
@@ -10,9 +10,10 @@ class Step {
     course?: Course
     steps: Step[]
     type: StepTypes
+    progress?: StepProgress
 
     constructor() {
-        this.id = '2'
+        this.id = faker.lorem.slug()
         this.title = faker.lorem.words(2)
         this.description = faker.lorem.sentences(2)
         this.type = Question
@@ -36,11 +37,18 @@ class Step {
         return this
     }
 
+    WithProgress(progress: StepProgress) {
+        this.progress = progress
+
+        return this
+    }
+
     Build = (): StepType => ({
         id: this.id,
         title: this.title,
         description: this.description,
         type: this.type,
+        progress: this.progress,
     })
 }
 

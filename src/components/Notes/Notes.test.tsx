@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import Notes from './Notes'
-import { NoteBuilder } from '../../builders/note'
+import { CourseNoteBuilder } from '../../builders/courseNotes'
 import faker from 'faker'
 
 describe('Notes', () => {
@@ -42,7 +42,7 @@ describe('Notes', () => {
 
     describe('given a note is passed in with a value', () => {
         it('should have the value of the note', () => {
-            const note = NoteBuilder().Build()
+            const note = CourseNoteBuilder().Build()
 
             const { getByTestId } = render(<Notes note={note} testid="note-text-defaultvalue" />)
 
@@ -51,7 +51,7 @@ describe('Notes', () => {
 
         describe('given the user edits the value of the textarea but it matches note value', () => {
             it('does not call the handleSave prop', () => {
-                const note = NoteBuilder().Build()
+                const note = CourseNoteBuilder().Build()
                 const onBlur = jest.fn()
 
                 const { getByTestId } = render(

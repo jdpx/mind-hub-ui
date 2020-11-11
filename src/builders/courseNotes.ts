@@ -1,7 +1,7 @@
 import faker from 'faker'
-import { Note as NoteType } from 'types/course'
+import { CourseNote as NoteType } from 'types/course'
 
-class Note {
+class CourseNote {
     id: string
     value: string
 
@@ -16,6 +16,6 @@ class Note {
     })
 }
 
-export function NoteBuilder() {
-    return new Note()
+export function CourseNoteBuilder() {
+    return new CourseNote()
 }

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import faker from 'faker'
 
 import { SessionBuilder } from '../../builders/session'
-import CourseSession from './CourseSession'
+import SessionInformation from './SessionInformation/SessionInformation'
 import { BrowserRouter } from 'react-router-dom'
 
 describe('Course Session', () => {
@@ -13,7 +13,7 @@ describe('Course Session', () => {
     it('should render a link to the course session page', () => {
         const { getByTestId } = render(
             <BrowserRouter>
-                <CourseSession courseID={courseID} session={session} testid="test" />,
+                <SessionInformation courseID={courseID} session={session} testid="test" />,
             </BrowserRouter>,
         )
 
@@ -27,7 +27,8 @@ describe('Course Session', () => {
     it('should render an alternate class', () => {
         const { getByTestId } = render(
             <BrowserRouter>
-                <CourseSession courseID={courseID} session={session} alternate testid="test" />,
+                <SessionInformation courseID={courseID} session={session} alternate testid="test" />
+                ,
             </BrowserRouter>,
         )
 

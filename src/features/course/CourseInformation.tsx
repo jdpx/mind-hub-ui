@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client'
 
 import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
-import CourseSession from './CourseSession'
+import SessionInformation from './SessionInformation/SessionInformation'
 
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export default function CourseInformation({ course }: Props) {
-    const { id, title, description, sessions = [], note, progress = {} } = course
+    const { id, title, description, sessions = [], note, progress } = course
 
     const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
     const { startCourse } = useProgress()
@@ -30,13 +30,11 @@ export default function CourseInformation({ course }: Props) {
     const history = useHistory()
 
     const handleNoteSave = (value: string) => {
-        console.log('updateCourseNote called')
         updateCourseNote({ variables: { courseID: course.id, value: value } })
     }
 
     const handleCourseStart = () => {
-        if (!progress || !progress.started) {
-            console.log('startCourse called')
+        if (!progress) {
             startCourse(course.id)
         }
         history.push(`/course/${id}/session/${sessions[0].id}`)
@@ -53,7 +51,7 @@ export default function CourseInformation({ course }: Props) {
                             <div className="course-sessions" data-testid="course-sessions">
                                 {sessions && sessions.length > 0 ? (
                                     sessions.map((session, index) => (
-                                        <CourseSession
+                                        <SessionInformation
                                             key={session.id}
                                             courseID={id}
                                             session={session}
@@ -88,7 +86,7 @@ export default function CourseInformation({ course }: Props) {
                         {sessions.length > 0 && (
                             <div className="course-start-button">
                                 <ActionButton
-                                    text={progress && progress.started ? 'Continue' : 'Start'}
+                                    text={!!progress ? 'Continue' : 'Start'}
                                     onClick={handleCourseStart}
                                     position={Right}
                                     testid="start-button"

@@ -8,7 +8,7 @@ import faker from 'faker'
 import { CourseBuilder } from '../../builders/course'
 import CourseInformation from './CourseInformation'
 import { SessionBuilder } from '../../builders/session'
-import { ProgressBuilder } from '../../builders/progress'
+import { CourseProgressBuilder } from '../../builders/courseProgress'
 import Mock from '../../helpers/testing/mockType'
 import ProgressContextProvider from '../../context/progressContext'
 
@@ -104,7 +104,7 @@ describe('Course Information', () => {
 
     describe('given the course has been started', () => {
         const session = SessionBuilder().Build()
-        const progress = ProgressBuilder().Build()
+        const progress = CourseProgressBuilder().Build()
         const course = CourseBuilder().WithSession(session).WithProgress(progress).Build()
 
         const mockHistory = {
@@ -144,8 +144,7 @@ describe('Course Information', () => {
 
     describe('given the course has not been started', () => {
         const session = SessionBuilder().Build()
-        const progress = ProgressBuilder().HasStarted(false).Build()
-        const course = CourseBuilder().WithSession(session).WithProgress(progress).Build()
+        const course = CourseBuilder().WithSession(session).Build()
 
         const mockHistory = {
             push: jest.fn(),

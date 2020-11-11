@@ -12,22 +12,19 @@ interface Props {
 }
 
 export default function AvailableCourse({ course }: Props) {
-    const { id, title, description, sessionCount, progress = {} } = course
+    const { id, title, description, sessionCount, progress } = course
 
     return (
         <Section size={Small} testid={id}>
             <Link to={{ pathname: `/course/${id}` }} className="course">
                 <h3>{title}</h3>
                 <div className="course-description">{description}</div>
-                {progress && progress.started && (
+                {progress && (
                     <div className="course-progress" data-testid={`${id}-progressbar`}>
-                        <CourseProgress
-                            totalCount={sessionCount}
-                            completed={progress.sessionsCompleted}
-                        />
+                        <CourseProgress totalCount={sessionCount} completed={0} />
                     </div>
                 )}
-                <ActionButton text={progress && progress.started ? 'Continue' : 'Start'} />
+                <ActionButton text={progress ? 'Continue' : 'Start'} />
             </Link>
         </Section>
     )
