@@ -17,6 +17,11 @@ class Course {
         this.sessionCount = faker.random.number(10)
     }
 
+    WithID(id: string) {
+        this.id = id
+        return this
+    }
+
     WithTitle(title: string) {
         this.title = title
         return this

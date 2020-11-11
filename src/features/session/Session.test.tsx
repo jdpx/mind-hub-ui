@@ -1,6 +1,8 @@
 import React, { Dispatch, useState } from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import faker from 'faker'
+import { useHistory } from 'react-router-dom'
+import { History } from 'history'
 
 import { SessionBuilder } from '../../builders/session'
 import Session from './Session'
@@ -15,6 +17,13 @@ jest.mock('react', () => ({
 }))
 
 const mockUseState = useState as jest.MockedFunction<typeof useState>
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useHistory: jest.fn(),
+}))
+
+const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
 describe('Session', () => {
     const courseTitle = faker.lorem.sentence()
@@ -104,10 +113,17 @@ describe('Session', () => {
     })
 
     describe('given neither the beginning or end steps are selected', () => {
+        const mockHistory = {
+            push: jest.fn(),
+        }
+
+        const mockSetIndex = jest.fn()
+
         beforeEach(() => {
             mockUseState.mockReturnValue(
-                Mock<[unknown, Dispatch<unknown>]>([1]),
+                Mock<[unknown, Dispatch<unknown>]>([1, mockSetIndex]),
             )
+            mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
         })
 
         it('should not render disabled on previous button', () => {
@@ -119,23 +135,38 @@ describe('Session', () => {
             const { getByTestId } = render(<Session session={session} />)
             expect(getByTestId('session-next-btn')).not.toBeDisabled()
         })
+
+        it('should not redirect the user to the completed page', () => {
+            const { getByTestId } = render(<Session session={session} />)
+
+            const input = getByTestId('session-next-btn')
+            fireEvent.click(input)
+
+            expect(mockHistory.push).not.toHaveBeenCalled()
+        })
     })
 
     describe('given the last step is selected', () => {
+        const mockHistory = {
+            push: jest.fn(),
+        }
+
         beforeEach(() => {
             mockUseState.mockReturnValue(
                 Mock<[unknown, Dispatch<unknown>]>([2]),
             )
+            mockUseHistory.mockReturnValueOnce(Mock<History<unknown>>(mockHistory))
         })
 
-        it('should not render disabled on previous button', () => {
+        it('should redirect the user to the completed page', () => {
             const { getByTestId } = render(<Session session={session} />)
-            expect(getByTestId('session-previous-btn')).not.toBeDisabled()
-        })
 
-        it('should render disabled on next button', () => {
-            const { getByTestId } = render(<Session session={session} />)
-            expect(getByTestId('session-next-btn')).toBeDisabled()
+            const input = getByTestId('session-next-btn')
+            fireEvent.click(input)
+
+            expect(mockHistory.push).toHaveBeenCalledWith(
+                `/course/${course?.id}/session/${session.id}/completed`,
+            )
         })
     })
 })

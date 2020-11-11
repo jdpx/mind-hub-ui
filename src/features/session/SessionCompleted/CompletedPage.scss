@@ -1,0 +1,18 @@
+.session-completed-page {
+    .content {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        justify-content: stretch;
+    }
+
+    .completed-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .btn {
+        margin-top: 30px;
+    }
+}
