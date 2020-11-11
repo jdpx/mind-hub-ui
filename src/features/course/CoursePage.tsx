@@ -31,11 +31,9 @@ export default function CoursePage() {
     }, [getCourse])
 
     return (
-        <div className="course-page" data-testid="course-page">
-            <Page>
-                <BackButton to="/dashboard" text="Home" />
-                {loading ? <div>Loading</div> : data && <CourseInformation course={data.course} />}
-            </Page>
-        </div>
+        <Page name="course">
+            <BackButton to="/dashboard" text="Home" />
+            {loading ? <div>Loading</div> : data && <CourseInformation course={data.course} />}
+        </Page>
     )
 }

@@ -43,38 +43,36 @@ export default function CompletedPage() {
     }
 
     return (
-        <div className="session-completed-page" data-testid="session-completed-page">
-            <Page>
-                {loading ? (
-                    <Loading />
-                ) : (
-                    data && (
-                        <>
-                            <div className="content">
-                                <div className="completed-text">
-                                    <h1 data-testid="session-completed-header">All Done!</h1>
-                                    Thats it for {data.session.title}
-                                    <br />
-                                    Use this time now to reflect on what you’ve learnt and in 2 days
-                                    time, we will continue the course.
-                                    <ActionButton
-                                        text="Done"
-                                        onClick={handleDoneClick}
-                                        position={Left}
-                                        testid="done-button"
-                                    />
-                                </div>
-                                <div>
-                                    <img
-                                        src={congratulationsImage}
-                                        alt="Congratulations on completing the course"
-                                    />
-                                </div>
+        <Page name="session-completed">
+            {loading ? (
+                <Loading />
+            ) : (
+                data && (
+                    <>
+                        <div className="content">
+                            <div className="completed-text">
+                                <h1 data-testid="session-completed-header">All Done!</h1>
+                                Thats it for {data.session.title}
+                                <br />
+                                Use this time now to reflect on what you’ve learnt and in 2 days
+                                time, we will continue the course.
+                                <ActionButton
+                                    text="Done"
+                                    onClick={handleDoneClick}
+                                    position={Left}
+                                    testid="done-button"
+                                />
                             </div>
-                        </>
-                    )
-                )}
-            </Page>
-        </div>
+                            <div>
+                                <img
+                                    src={congratulationsImage}
+                                    alt="Congratulations on completing the course"
+                                />
+                            </div>
+                        </div>
+                    </>
+                )
+            )}
+        </Page>
     )
 }

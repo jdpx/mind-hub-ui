@@ -7,12 +7,10 @@ import './ErrorPage.scss'
 
 export default function ErrorPage() {
     return (
-        <div className="error-page" data-testid="error-page">
-            <Page>
-                <div className="panel">
-                    <ErrorPanel height={300} />
-                </div>
-            </Page>
-        </div>
+        <Page name="error">
+            <div className="panel">
+                <ErrorPanel height={300} />
+            </div>
+        </Page>
     )
 }

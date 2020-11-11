@@ -33,22 +33,20 @@ export default function SessionPage() {
     }, [getSession])
 
     return (
-        <div className="session-page" data-testid="session-page">
-            <Page>
-                {loading ? (
-                    <div>Loading</div>
-                ) : (
-                    data && (
-                        <>
-                            <BackButton
-                                to={`/course/${courseId}`}
-                                text={`Back To ${data.session.course?.title}`}
-                            />
-                            <Session session={data.session} />
-                        </>
-                    )
-                )}
-            </Page>
-        </div>
+        <Page name="session">
+            {loading ? (
+                <div>Loading</div>
+            ) : (
+                data && (
+                    <>
+                        <BackButton
+                            to={`/course/${courseId}`}
+                            text={`Back To ${data.session.course?.title}`}
+                        />
+                        <Session session={data.session} />
+                    </>
+                )
+            )}
+        </Page>
     )
 }
