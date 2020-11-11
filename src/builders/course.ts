@@ -1,12 +1,12 @@
 import faker from 'faker'
-import { Course as CourseType, Progress, Session } from 'types/course'
+import { Course as CourseType, CourseProgress, Session } from 'types/course'
 
 class Course {
     id: string
     title: string
     description: string
     sessions: Session[]
-    progress?: Progress
+    progress?: CourseProgress
     sessionCount?: number
 
     constructor() {
@@ -33,7 +33,7 @@ class Course {
         return this
     }
 
-    WithProgress(progress: Progress) {
+    WithProgress(progress: CourseProgress) {
         this.progress = progress
 
         return this

@@ -7,8 +7,8 @@ export interface Course {
 
     sessionCount?: number
 
-    note?: Note
-    progress?: Progress | null
+    note?: CourseNote
+    progress?: CourseProgress | null
     sessions?: Session[]
 }
 
@@ -31,16 +31,30 @@ export interface Step {
     question?: string
 
     session?: Session
+    note?: StepNote
+    progress?: StepProgress | null
 }
 
-export interface Note {
+export interface CourseNote {
     id: string
     courseID?: string
     userID?: string
     value: string
 }
 
-export interface Progress {
-    started?: boolean
-    sessionsCompleted?: number
+export interface CourseProgress {
+    id: string
+    dateStarted?: number
+}
+
+export interface StepNote {
+    id: string
+    stepID?: string
+    userID?: string
+    value: string
+}
+
+export interface StepProgress {
+    id: string
+    dateStarted?: number
 }

@@ -77,7 +77,7 @@ describe('Session', () => {
         it('renders the question step panel', () => {
             const { getByTestId } = render(<Session session={session} />)
 
-            expect(getByTestId(`video-step-${step.id}`)).toBeInTheDocument()
+            expect(getByTestId(`video-step-${stepTwo.id}`)).toBeInTheDocument()
         })
     })
 
@@ -90,7 +90,7 @@ describe('Session', () => {
         it('renders the question step panel', () => {
             const { getByTestId } = render(<Session session={session} />)
 
-            expect(getByTestId(`audio-step-${step.id}`)).toBeInTheDocument()
+            expect(getByTestId(`audio-step-${stepThree.id}`)).toBeInTheDocument()
         })
     })
 

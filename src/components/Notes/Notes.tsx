@@ -1,5 +1,5 @@
 import React from 'react'
-import { Note } from '../../types/course'
+import { CourseNote } from '../../types/course'
 import Section from '../Section/Section'
 
 import './Notes.scss'
@@ -7,7 +7,7 @@ import './Notes.scss'
 interface Props {
     title?: string
     placeholder?: string
-    note?: Note
+    note?: CourseNote
     testid?: string
     handleSave?: (val: string) => void
 }

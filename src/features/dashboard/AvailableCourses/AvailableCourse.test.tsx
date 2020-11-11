@@ -4,7 +4,7 @@ import { CourseBuilder } from '../../../builders/course'
 
 import AvailableCourse from './AvailableCourse'
 import { BrowserRouter } from 'react-router-dom'
-import { ProgressBuilder } from '../../../builders/progress'
+import { CourseProgressBuilder } from '../../../builders/courseProgress'
 
 describe('Available Course', () => {
     const course = CourseBuilder().Build()
@@ -23,7 +23,7 @@ describe('Available Course', () => {
     })
 
     describe('given a course that has been started', () => {
-        const progress = ProgressBuilder().Build()
+        const progress = CourseProgressBuilder().Build()
         const course = CourseBuilder().WithProgress(progress).Build()
 
         it('should render the continue button', () => {
