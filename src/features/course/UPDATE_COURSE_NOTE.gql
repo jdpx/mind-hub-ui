@@ -1,6 +1,11 @@
 mutation updateCourseNote($courseID: ID!, $value: String!) {
   updateCourseNote(input:{courseID:$courseID, value:$value}) {
       id
-      value
+      
+      note {
+        id
+        courseID
+        value
+      }
   }
 }

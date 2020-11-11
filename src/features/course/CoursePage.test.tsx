@@ -11,6 +11,7 @@ import { MockedProvider } from '@apollo/client/testing'
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
+    useHistory: jest.fn(),
     useParams: jest.fn(),
 }))
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>
@@ -25,12 +26,12 @@ jest.mock('@apollo/client', () => ({
 describe('Course Page', () => {
     const courseID = faker.lorem.slug()
 
-    const params = {
+    const urlParams = {
         id: courseID,
     }
 
     beforeEach(() => {
-        mockUseParams.mockReturnValue(Mock<Record<string, string>>(params))
+        mockUseParams.mockReturnValue(Mock<Record<string, string>>(urlParams))
     })
 
     describe('when the query is loading', () => {

@@ -15,9 +15,10 @@ import Footer from './features/footer/Footer'
 
 import PrivacyPolicyPage from './features/legal/PrivacyPolicyPage'
 import TermsAndConditionsPage from './features/legal/TermsAndConditionsPage'
-import AccessibilityPage from './features/legal/Accessibility'
+import AccessibilityPage from './features/legal/AccessibilityPage'
 
 import './App.scss'
+import CompletedPage from './features/session/SessionCompleted/CompletedPage'
 
 function App() {
     const { isLoading } = useAuth0()
@@ -39,13 +40,23 @@ function App() {
                         <PrivateRoute path="/dashboard" exact component={DashboardPage} />
                         <PrivateRoute path="/course/:id" exact component={CoursePage} />
                         <PrivateRoute
+                            exact
+                            path="/course/:courseId/session/:id"
+                            component={SessionPage}
+                        />
+                        <PrivateRoute
+                            path="/course/:courseId/session/:id/completed"
+                            exact
+                            component={CompletedPage}
+                        />
+                        {/* <PrivateRoute
                             // path="/course/:courseId/session/:id/(step)?/:stepId?"
                             path={[
                                 '/course/:courseId/session/:id',
-                                '/course/:courseId/session/:id/step/:stepId?',
+                                // '/course/:courseId/session/:id/step/:stepId?',
                             ]}
                             component={SessionPage}
-                        />
+                        /> */}
                     </ProgressContextProvider>
                 </Switch>
             </ErrorBoundary>
