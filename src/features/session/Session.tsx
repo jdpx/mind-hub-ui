@@ -8,6 +8,7 @@ import './Step.scss'
 import { Left, Right } from '../../constants/buttons'
 import CurrentStep from './Step'
 import Title from './Title'
+import { useHistory } from 'react-router-dom'
 
 interface Props {
     session: SessionType
@@ -15,12 +16,19 @@ interface Props {
 
 export default function Session({ session }: Props) {
     const { course, steps = [] } = session
+    const history = useHistory()
 
     const [index, setIndex] = useState(0)
     const step = steps.length > 0 ? steps[index] : undefined
 
+    const isLastStep = index === steps.length - 1
+
     const onNextClick = () => {
-        setIndex(index + 1)
+        if (isLastStep) {
+            history.push(`/course/${course?.id}/session/${session.id}/completed`)
+        } else {
+            setIndex(index + 1)
+        }
     }
 
     const onPreviousClick = () => {
@@ -44,10 +52,9 @@ export default function Session({ session }: Props) {
                     </div>
                     <div className="session-navigation-item">
                         <ActionButton
-                            text="Next"
+                            text={isLastStep ? 'Finish' : 'Next'}
                             position={Right}
                             onClick={onNextClick}
-                            disabled={index === steps.length - 1}
                             testid="session-next"
                         />
                     </div>
