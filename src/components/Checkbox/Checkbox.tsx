@@ -6,6 +6,6 @@ interface Props {
     checked?: boolean
 }
 
-export default function Checkbox({}: Props) {
-    return <img src={emptyCheckbox} alt="Empty checkbox" />
+export default function Checkbox({ checked }: Props) {
+    return <img src={emptyCheckbox} alt={`Empty checkbox ${checked}`} />
 }
