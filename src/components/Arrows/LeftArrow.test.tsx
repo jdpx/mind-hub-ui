@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import LeftArrow from './LeftArrow'
 
-describe('Left Arrays', () => {
+describe('Left Arrow', () => {
     it('renders the left arrow', () => {
         const { getByTestId } = render(<LeftArrow testid="arrow" />)
 

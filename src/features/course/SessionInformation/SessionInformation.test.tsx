@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import faker from 'faker'
 
@@ -13,7 +13,7 @@ describe('Session Information', () => {
     const stepTwo = StepBuilder().Build()
     const session = SessionBuilder().WithSteps([step, stepTwo]).Build()
 
-    it('should render a link to the session', () => {
+    it('should render the session title', () => {
         const testid = faker.lorem.slug()
         const { getByTestId } = render(
             <BrowserRouter>
@@ -21,25 +21,122 @@ describe('Session Information', () => {
             </BrowserRouter>,
         )
 
-        expect(getByTestId(testid)).toHaveAttribute(
-            'href',
-            `/course/${courseID}/session/${session.id}`,
-        )
+        const titleElements = getByTestId(testid).getElementsByClassName('course-session-title')
+
+        expect(titleElements[0].innerHTML).toEqual(session.title)
     })
 
-    it('it renders a list of steps', () => {
-        const testid = faker.lorem.slug()
-        const { getByTestId } = render(
-            <BrowserRouter>
-                <SessionInformation courseID={courseID} session={session} testid={testid} />,
-            </BrowserRouter>,
-        )
+    describe('when the session steps list is collapsed', () => {
+        it('should not have expanded attribute', () => {
+            const testid = faker.lorem.slug()
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
 
-        const items = getByTestId('course-session-steps').getElementsByClassName(
-            'course-session-step',
-        )
+            const sessionSection = getByTestId(testid)
 
-        expect(items.length).toEqual(2)
+            expect(sessionSection).toHaveAttribute('aria-expanded', 'false')
+        })
+
+        it('should render the down arrow', () => {
+            const testid = faker.lorem.slug()
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
+
+            const downArrow = getByTestId('down-arrow')
+
+            expect(downArrow).toBeInTheDocument()
+        })
+
+        it('should not render steps', () => {
+            const testid = faker.lorem.slug()
+            const { queryByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
+
+            const items = queryByTestId('course-session-steps')
+
+            expect(items).not.toBeInTheDocument()
+        })
+    })
+
+    describe('when the session steps list is expanded', () => {
+        it('should have expanded attribute', () => {
+            const testid = faker.lorem.slug()
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
+
+            const sessionSection = getByTestId(testid)
+
+            fireEvent.click(sessionSection)
+
+            expect(sessionSection).toHaveAttribute('aria-expanded', 'true')
+        })
+
+        it('should render the up arrow', () => {
+            const testid = faker.lorem.slug()
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
+
+            const sessionSection = getByTestId(testid)
+
+            fireEvent.click(sessionSection)
+
+            const upArrow = getByTestId('up-arrow')
+
+            expect(upArrow).toBeInTheDocument()
+        })
+
+        it('should render steps', () => {
+            const testid = faker.lorem.slug()
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <SessionInformation courseID={courseID} session={session} testid={testid} />,
+                </BrowserRouter>,
+            )
+
+            const sessionSection = getByTestId(testid)
+
+            fireEvent.click(sessionSection)
+
+            const items = getByTestId('course-session-steps').getElementsByClassName(
+                'course-session-step',
+            )
+
+            expect(items.length).toEqual(2)
+        })
+
+        describe('given there are no steps for the session', () => {
+            it('should render the No Sessions component', () => {
+                const testid = faker.lorem.slug()
+                const session = SessionBuilder().Build()
+
+                const { getByTestId } = render(
+                    <BrowserRouter>
+                        <SessionInformation courseID={courseID} session={session} testid={testid} />
+                    </BrowserRouter>,
+                )
+
+                const sessionSection = getByTestId(testid)
+
+                fireEvent.click(sessionSection)
+
+                expect(getByTestId('no-steps')).toBeInTheDocument()
+            })
+        })
     })
 
     describe('given the alternate prop is passed in', () => {

@@ -31,16 +31,28 @@
                 background-color: $background-grey;
             }
 
+            &:last-child {
+                border-bottom-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom: 0;
+            }
+
             &:first-of-type {
                 border-top-right-radius: 20px;
                 border-top-left-radius: 20px;
             }
 
-            &:last-of-type {
-                border-bottom-right-radius: 15px;
-                border-bottom-left-radius: 15px;
-                border-bottom: 0;
+            &.expanded {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                border-bottom: 1px solid $background-grey;
             }
+        }
+
+        [class~="course-session"] {
+            border-bottom-right-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-bottom: 0;
         }
 
         .course-session-steps {
@@ -48,10 +60,10 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-            
+
                 padding-left: 70px;
-                padding-top: 20px;
-                padding-bottom: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
 
                 .course-session-step-title {
                     flex: 1;
@@ -62,7 +74,7 @@
                 }
 
                 &.completed {
-                    color: $dark-grey
+                    color: $dark-grey;
                 }
             }
         }
