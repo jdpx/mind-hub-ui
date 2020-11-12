@@ -7,6 +7,6 @@ interface Props {
     testid?: string
 }
 
-export default function LeftArrow({ height = 30, testid }: Props) {
+export default function LeftArrow({ height = 30, testid = 'left-arrow' }: Props) {
     return <img src={leftArrow} alt="Left Arrow" height={height} data-testid={testid} />
 }

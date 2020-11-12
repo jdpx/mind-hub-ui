@@ -33,6 +33,12 @@ class Course {
         return this
     }
 
+    WithSessions(sessions: Session[]) {
+        this.sessions.push(...sessions)
+
+        return this
+    }
+
     WithProgress(progress: CourseProgress) {
         this.progress = progress
 

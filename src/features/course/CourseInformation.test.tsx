@@ -63,7 +63,7 @@ describe('Course Information', () => {
     describe('given there are sessions', () => {
         const session = SessionBuilder().Build()
         const sessionTwo = SessionBuilder().ID('111').Build()
-        const course = CourseBuilder().WithSession(session).WithSession(sessionTwo).Build()
+        const course = CourseBuilder().WithSessions([session, sessionTwo]).Build()
 
         it('should render sessions', () => {
             const { getByTestId } = render(
@@ -72,9 +72,9 @@ describe('Course Information', () => {
                 </BrowserRouter>,
             )
 
-            const items = getByTestId('course-sessions').getElementsByTagName('a')
+            const sessions = getByTestId('course-sessions').getElementsByClassName('course-session')
 
-            expect(items.length).toEqual(2)
+            expect(sessions.length).toEqual(2)
         })
     })
 

@@ -1,10 +1,12 @@
 import React from 'react'
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
+import useCollapse from 'react-collapsed'
 
 import { Session } from '../../../types/course'
-import LeftArrow from '../../../components/generic/LeftArrow'
 import SessionStep from './SessionStep'
+import UpArrow from '../../../components/Arrows/UpArrow'
+import DownArrow from '../../../components/Arrows/DownArrow'
+import NoSessionSteps from './NoSessionSteps'
 
 interface Props {
     courseID: string
@@ -13,30 +15,36 @@ interface Props {
     testid?: string
 }
 
-export default function SessionInformation({ courseID, session, alternate, testid }: Props) {
-    const { id, title, steps } = session
+export default function SessionInformation({ session, alternate, testid }: Props) {
+    const { title, steps } = session
+
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
 
     const sessionClass = classNames('course-session', {
         alternate: alternate,
+        expanded: isExpanded,
     })
 
     return (
         <>
-            <Link
-                to={{ pathname: `/course/${courseID}/session/${id}` }}
-                className={sessionClass}
-                data-testid={testid}
-            >
+            <div {...getToggleProps()} className={sessionClass} data-testid={testid}>
                 <div className="course-session-title">{title}</div>
-                <LeftArrow height={18} />
-            </Link>
-            {steps && (
-                <div className="course-session-steps" data-testid="course-session-steps">
-                    {steps.map((step) => (
-                        <SessionStep key={step.id} step={step} />
+                {isExpanded ? <UpArrow height={14} /> : <DownArrow height={14} />}
+            </div>
+            <div {...getCollapseProps()}>
+                {isExpanded &&
+                    (steps && steps.length > 0 ? (
+                        <div className="course-session-steps" data-testid="course-session-steps">
+                            {steps.map((step) => (
+                                <SessionStep key={step.id} step={step} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="course-session-steps" data-testid="course-session-steps">
+                            <NoSessionSteps />
+                        </div>
                     ))}
-                </div>
-            )}
+            </div>
         </>
     )
 }

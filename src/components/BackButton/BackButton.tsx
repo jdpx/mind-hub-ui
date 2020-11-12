@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import LeftArrow from '../generic/LeftArrow'
+import LeftArrow from '../Arrows/LeftArrow'
 
 import './BackButton.scss'
 
