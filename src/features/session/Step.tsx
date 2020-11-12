@@ -7,22 +7,23 @@ import VideoStep from './types/VideoStep'
 
 interface Props {
     step?: StepType
+    handleNoteSave: (value: string) => void
 }
 
-export default function CurrentStep({ step }: Props) {
-    if (!step) {
+export default function CurrentStep(props: Props) {
+    if (!props.step) {
         return <></>
     }
 
-    const { type } = step
+    const { type } = props.step
 
     switch (type) {
         case QuestionType:
-            return <QuestionStep step={step} />
+            return <QuestionStep {...props} />
         case Video:
-            return <VideoStep step={step} />
+            return <VideoStep {...props} />
         case Audio:
-            return <AudioStep step={step} />
+            return <AudioStep {...props} />
 
         default:
             return <></>

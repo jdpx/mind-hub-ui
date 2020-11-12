@@ -12,6 +12,11 @@ query Session($id: ID!) {
             videoUrl
             audioUrl
             question
+
+            note {
+                id
+                value
+            }
         }
 
         course {

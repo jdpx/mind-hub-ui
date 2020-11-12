@@ -1,0 +1,11 @@
+mutation updateStepNote($stepID: ID!, $value: String!) {
+  updateStepNote(input:{stepID:$stepID, value:$value}) {
+      id
+      
+      note {
+        id
+        stepID
+        value
+      }
+  }
+}

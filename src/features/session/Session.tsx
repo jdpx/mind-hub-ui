@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { loader } from 'graphql.macro'
+
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Session as SessionType } from '../../types/course'
 import StepsProgress from './StepsProgress'
-
-import './Session.scss'
-import './Step.scss'
 import { Left, Right } from '../../constants/buttons'
 import CurrentStep from './Step'
 import Title from './Title'
-import { useHistory } from 'react-router-dom'
+
+import './Session.scss'
+import './Step.scss'
+
+const UPDATE_COURSE_MUTATION = loader('./UPDATE_STEP_NOTE.gql')
 
 interface Props {
     session: SessionType
@@ -18,10 +23,20 @@ export default function Session({ session }: Props) {
     const { course, steps = [] } = session
     const history = useHistory()
 
-    const [index, setIndex] = useState(0)
+    const [index, setIndex] = useState(2)
     const step = steps.length > 0 ? steps[index] : undefined
 
     const isLastStep = index === steps.length - 1
+
+    const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+
+    const handleStepNoteSave = (value: string) => {
+        if (!step) {
+            return
+        }
+
+        updateCourseNote({ variables: { stepID: step.id, value: value } })
+    }
 
     const onNextClick = () => {
         if (isLastStep) {
@@ -39,7 +54,7 @@ export default function Session({ session }: Props) {
         <div className="container" data-test-id="session-information">
             <div className="session">
                 <Title course={course} session={session} step={step} />
-                <CurrentStep step={step} />
+                <CurrentStep step={step} handleNoteSave={handleStepNoteSave} />
                 <div className="session-navigation">
                     <div className="session-navigation-item">
                         <ActionButton

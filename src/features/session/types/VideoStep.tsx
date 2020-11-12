@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
+
+import Notes from '../../../components/Notes/Notes'
 import Section from '../../../components/Section/Section'
 import { Step } from '../../../types/course'
 
@@ -7,14 +9,15 @@ import './VideoStep.scss'
 
 interface Props {
     step?: Step
+    handleNoteSave: (value: string) => void
 }
 
-export default function VideoStep({ step }: Props) {
+export default function VideoStep({ step, handleNoteSave }: Props) {
     if (!step) {
         return <></>
     }
 
-    const { id, videoUrl, description } = step
+    const { id, videoUrl, description, note } = step
 
     return (
         <div className="step">
@@ -28,17 +31,12 @@ export default function VideoStep({ step }: Props) {
                     </div>
                 </Section>
             </div>
-            <Section title="Notes">
-                <div className="course-notes">
-                    Culpa eu deserunt deserunt labore duis laboris tempor elit pariatur aliqua enim
-                    amet officia. Ex irure ut pariatur duis ut. Culpa elit ullamco anim aute eu
-                    eiusmod consectetur adipisicing laboris eiusmod commodo non nostrud. Incididunt
-                    ullamco mollit officia culpa pariatur mollit aliquip. Non laborum veniam id enim
-                    minim minim et incididunt amet. Esse elit ipsum reprehenderit magna sint irure
-                    incididunt ut. Occaecat ut proident id quis quis do cillum voluptate
-                    exercitation incididunt mollit et reprehenderit.
-                </div>
-            </Section>
+            <Notes
+                note={note}
+                handleSave={handleNoteSave}
+                className="course-notes"
+                testid={`step-${id}-notes`}
+            />
         </div>
     )
 }
