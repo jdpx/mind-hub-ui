@@ -7,6 +7,7 @@ import './QuestionStep.scss'
 
 interface Props {
     step?: Step
+    handleNoteSave: (value: string) => void
 }
 
 export default function QuestionStep({ step }: Props) {

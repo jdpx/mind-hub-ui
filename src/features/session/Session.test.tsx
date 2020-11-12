@@ -1,5 +1,6 @@
 import React, { Dispatch, useState } from 'react'
 import { fireEvent, render } from '@testing-library/react'
+import { MutationResult, MutationTuple, useMutation } from '@apollo/client'
 import faker from 'faker'
 import { useHistory } from 'react-router-dom'
 import { History } from 'history'
@@ -25,6 +26,9 @@ jest.mock('react-router-dom', () => ({
 
 const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
+jest.mock('@apollo/client')
+const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>
+
 describe('Session', () => {
     const courseTitle = faker.lorem.sentence()
     const course = CourseBuilder().WithTitle(courseTitle).Build()
@@ -39,10 +43,16 @@ describe('Session', () => {
         .WithSteps([step, stepTwo, stepThree])
         .Build()
 
+    const mockUpdateStepNote: MutationTuple<unknown, unknown> = [
+        jest.fn(),
+        {} as MutationResult<unknown>,
+    ]
+
     beforeEach(() => {
         mockUseState.mockReturnValue(
             Mock<[unknown, Dispatch<unknown>]>([0]),
         )
+        mockUseMutation.mockReturnValue(mockUpdateStepNote)
     })
 
     describe('given there are steps', () => {
