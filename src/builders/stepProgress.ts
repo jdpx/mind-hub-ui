@@ -3,11 +3,13 @@ import { StepProgress as ProgressType } from 'types/course'
 
 class StepProgress {
     id: string
-    dateStarted: number
+    dateStarted: string
+    dateCompleted: string
 
     constructor() {
         this.id = faker.lorem.slug()
-        this.dateStarted = faker.random.number(2)
+        this.dateStarted = faker.date.recent().toDateString()
+        this.dateCompleted = ''
     }
 
     WithID(id: string) {
@@ -16,7 +18,7 @@ class StepProgress {
         return this
     }
 
-    SessionsCompleted(count: number) {
+    SessionsCompleted(count: string) {
         this.dateStarted = count
 
         return this
@@ -25,6 +27,7 @@ class StepProgress {
     Build = (): ProgressType => ({
         id: this.id,
         dateStarted: this.dateStarted,
+        dateCompleted: this.dateCompleted,
     })
 }
 

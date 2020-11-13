@@ -1,0 +1,11 @@
+mutation stepStarted($stepID: ID!) {
+  stepStarted(input:{id:$stepID}) {
+      id
+
+      progress {
+        id
+        dateStarted
+        dateCompleted
+      }
+  }
+}

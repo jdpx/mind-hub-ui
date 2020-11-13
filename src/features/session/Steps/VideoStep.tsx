@@ -8,19 +8,15 @@ import { Step } from '../../../types/course'
 import './VideoStep.scss'
 
 interface Props {
-    step?: Step
+    step: Step
     handleNoteSave: (value: string) => void
 }
 
 export default function VideoStep({ step, handleNoteSave }: Props) {
-    if (!step) {
-        return <></>
-    }
-
     const { id, videoUrl, description, note } = step
 
     return (
-        <div className="step">
+        <>
             <div>
                 <div className="video-step" data-testid={`video-step-description-${id}`}>
                     {description}
@@ -37,6 +33,6 @@ export default function VideoStep({ step, handleNoteSave }: Props) {
                 className="course-notes"
                 testid={`step-${id}-notes`}
             />
-        </div>
+        </>
     )
 }

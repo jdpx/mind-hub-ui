@@ -1,11 +1,16 @@
 import React from 'react'
 
 import emptyCheckbox from '../../assets/checkbox-empty.svg'
+import tickedCheckbox from '../../assets/checkbox-ticked.svg'
 
 interface Props {
-    checked?: boolean
+    checked: boolean
 }
 
 export default function Checkbox({ checked }: Props) {
-    return <img src={emptyCheckbox} alt={`Empty checkbox ${checked}`} />
+    return !checked ? (
+        <img src={emptyCheckbox} alt={`Empty checkbox`} />
+    ) : (
+        <img src={tickedCheckbox} alt={`Ticked checkbox`} />
+    )
 }

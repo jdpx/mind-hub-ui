@@ -13,6 +13,11 @@ query Session($id: ID!) {
             audioUrl
             question
 
+            progress {
+                id
+                dateCompleted
+            }
+
             note {
                 id
                 value
