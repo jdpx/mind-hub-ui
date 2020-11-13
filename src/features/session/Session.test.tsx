@@ -11,6 +11,7 @@ import { CourseBuilder } from '../../builders/course'
 import { StepBuilder } from '../../builders/step'
 import Mock from '../../helpers/testing/mockType'
 import { Audio, Video } from '../../constants/steps'
+import useProgress from '../../hooks/useProgress'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -28,6 +29,9 @@ const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
 jest.mock('@apollo/client')
 const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>
+
+jest.mock('../../hooks/useProgress')
+const mockUseProgressHook = useProgress as jest.MockedFunction<typeof useProgress>
 
 describe('Session', () => {
     const courseTitle = faker.lorem.sentence()
@@ -48,11 +52,18 @@ describe('Session', () => {
         {} as MutationResult<unknown>,
     ]
 
+    const mockUseProgress = {
+        startCourse: jest.fn(),
+        startStep: jest.fn(),
+        completeStep: jest.fn(),
+    }
+
     beforeEach(() => {
         mockUseState.mockReturnValue(
             Mock<[unknown, Dispatch<unknown>]>([0]),
         )
         mockUseMutation.mockReturnValue(mockUpdateStepNote)
+        mockUseProgressHook.mockReturnValue(mockUseProgress)
     })
 
     describe('given there are steps', () => {

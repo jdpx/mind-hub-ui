@@ -8,19 +8,15 @@ import { Step } from '../../../types/course'
 import './AudioStep.scss'
 
 interface Props {
-    step?: Step
+    step: Step
     handleNoteSave: (value: string) => void
 }
 
 export default function AudioStep({ step, handleNoteSave }: Props) {
-    if (!step) {
-        return <></>
-    }
-
     const { id, audioUrl, description, note } = step
 
     return (
-        <div className="step">
+        <>
             <div>
                 <div className="audio-step" data-testid={`audio-step-description-${id}`}>
                     {description}
@@ -37,6 +33,6 @@ export default function AudioStep({ step, handleNoteSave }: Props) {
                 className="course-notes"
                 testid={`step-${id}-notes`}
             />
-        </div>
+        </>
     )
 }

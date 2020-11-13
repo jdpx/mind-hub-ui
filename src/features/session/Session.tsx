@@ -7,11 +7,11 @@ import ActionButton from '../../components/ActionButton/ActionButton'
 import { Session as SessionType } from '../../types/course'
 import StepsProgress from './StepsProgress'
 import { Left, Right } from '../../constants/buttons'
-import CurrentStep from './Step'
+import CurrentStep from './Steps/StepPanel'
 import Title from './Title'
 
 import './Session.scss'
-import './Step.scss'
+import useProgress from '../../hooks/useProgress'
 
 const UPDATE_COURSE_MUTATION = loader('./UPDATE_STEP_NOTE.gql')
 
@@ -22,8 +22,8 @@ interface Props {
 export default function Session({ session }: Props) {
     const { course, steps = [] } = session
     const history = useHistory()
-
-    const [index, setIndex] = useState(2)
+    const { completeStep } = useProgress()
+    const [index, setIndex] = useState(0)
     const step = steps.length > 0 ? steps[index] : undefined
 
     const isLastStep = index === steps.length - 1
@@ -39,6 +39,10 @@ export default function Session({ session }: Props) {
     }
 
     const onNextClick = () => {
+        if (!!step) {
+            completeStep(step.id)
+        }
+
         if (isLastStep) {
             history.push(`/course/${course?.id}/session/${session.id}/completed`)
         } else {

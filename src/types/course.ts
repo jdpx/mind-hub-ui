@@ -56,5 +56,6 @@ export interface StepNote {
 
 export interface StepProgress {
     id: string
-    dateStarted?: number
+    dateStarted?: string
+    dateCompleted?: string
 }
