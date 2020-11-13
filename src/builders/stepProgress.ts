@@ -18,8 +18,19 @@ class StepProgress {
         return this
     }
 
-    SessionsCompleted(count: string) {
-        this.dateStarted = count
+    Completed = () => {
+        this.dateCompleted = faker.date.recent().toDateString()
+        return this
+    }
+
+    SessionsStarted(date: string) {
+        this.dateStarted = date
+
+        return this
+    }
+
+    SessionsCompleted(date: string) {
+        this.dateCompleted = date
 
         return this
     }

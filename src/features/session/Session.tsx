@@ -23,7 +23,6 @@ export default function Session({ session }: Props) {
     const { course, steps = [] } = session
     const history = useHistory()
     const { completeStep } = useProgress()
-
     const [index, setIndex] = useState(0)
     const step = steps.length > 0 ? steps[index] : undefined
 

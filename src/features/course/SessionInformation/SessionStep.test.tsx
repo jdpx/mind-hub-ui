@@ -6,8 +6,7 @@ import SessionStep from './SessionStep'
 import { StepProgressBuilder } from '../../../builders/stepProgress'
 
 describe('Session Step', () => {
-    const progress = StepProgressBuilder().Build()
-    const step = StepBuilder().WithProgress(progress).Build()
+    const step = StepBuilder().Build()
 
     it('should display the step title', () => {
         const { getByTestId } = render(<SessionStep step={step} />)
@@ -18,11 +17,22 @@ describe('Session Step', () => {
         expect(titleDiv[0].innerHTML).toEqual(step.title)
     })
 
-    describe('given the step has progress', () => {
-        it('should render with the completed class', () => {
-            const { getByTestId } = render(<SessionStep step={step} />)
+    it('should not be rendered with the compelted class', () => {
+        const { getByTestId } = render(<SessionStep step={step} />)
 
-            expect(getByTestId(`session-step-${step.id}`)).toHaveClass('completed')
+        expect(getByTestId(`session-step-${step.id}`)).not.toHaveClass('completed')
+    })
+
+    describe('given the step has progress', () => {
+        const progress = StepProgressBuilder().Completed().Build()
+        const step = StepBuilder().WithProgress(progress).Build()
+
+        describe('given the step has been completed', () => {
+            it('should render with the completed class', () => {
+                const { getByTestId } = render(<SessionStep step={step} />)
+
+                expect(getByTestId(`session-step-${step.id}`)).toHaveClass('completed')
+            })
         })
     })
 })
