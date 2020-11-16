@@ -6,6 +6,7 @@ export interface Course {
     description: string
 
     sessionCount?: number
+    stepCount?: number
 
     note?: CourseNote
     progress?: CourseProgress | null
@@ -44,6 +45,7 @@ export interface CourseNote {
 
 export interface CourseProgress {
     id: string
+    completedSteps?: number
     dateStarted?: number
 }
 

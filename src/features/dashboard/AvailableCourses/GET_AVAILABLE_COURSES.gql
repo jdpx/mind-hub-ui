@@ -4,9 +4,11 @@
     title
     description
     sessionCount
+    stepCount
 
     progress {
       id
+      completedSteps
       dateStarted
     }
   }

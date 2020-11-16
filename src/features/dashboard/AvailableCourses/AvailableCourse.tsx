@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function AvailableCourse({ course }: Props) {
-    const { id, title, description, sessionCount, progress } = course
+    const { id, title, description, stepCount, progress } = course
 
     return (
         <Section size={Small} testid={id}>
@@ -21,7 +21,10 @@ export default function AvailableCourse({ course }: Props) {
                 <div className="course-description">{description}</div>
                 {progress && (
                     <div className="course-progress" data-testid={`${id}-progressbar`}>
-                        <CourseProgress totalCount={sessionCount} completed={0} />
+                        <CourseProgress
+                            totalCount={stepCount}
+                            completed={progress.completedSteps}
+                        />
                     </div>
                 )}
                 <ActionButton text={progress ? 'Continue' : 'Start'} />
