@@ -9,8 +9,8 @@ interface Props {
 
 export default function Checkbox({ checked }: Props) {
     return !checked ? (
-        <img src={emptyCheckbox} alt={`Empty checkbox`} />
+        <img src={emptyCheckbox} alt={`Empty checkbox`} height={50} />
     ) : (
-        <img src={tickedCheckbox} alt={`Ticked checkbox`} />
+        <img src={tickedCheckbox} alt={`Ticked checkbox`} height={29} />
     )
 }
