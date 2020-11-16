@@ -6,6 +6,7 @@ import Page from '../../components/Page/Page'
 import { Course } from '../../types/course'
 import CourseInformation from './CourseInformation'
 import BackButton from '../../components/BackButton/BackButton'
+import ErrorPanel from '../../components/ErrorPanel/ErrorPanel'
 
 const COURSE_QUERY = loader('./GET_COURSE.gql')
 
@@ -20,7 +21,7 @@ interface CourseData {
 export default function CoursePage() {
     const { id } = useParams<Params>()
 
-    const [getCourse, { loading, data }] = useLazyQuery<CourseData>(COURSE_QUERY, {
+    const [getCourse, { loading, data, error }] = useLazyQuery<CourseData>(COURSE_QUERY, {
         variables: {
             id,
         },
@@ -32,8 +33,18 @@ export default function CoursePage() {
 
     return (
         <Page name="course">
-            <BackButton to="/dashboard" text="Home" />
-            {loading ? <div>Loading</div> : data && <CourseInformation course={data.course} />}
+            {loading ? (
+                <div>Loading</div>
+            ) : error ? (
+                <ErrorPanel />
+            ) : (
+                data && (
+                    <>
+                        <BackButton to="/dashboard" text="Home" />
+                        <CourseInformation course={data.course} />
+                    </>
+                )
+            )}
         </Page>
     )
 }

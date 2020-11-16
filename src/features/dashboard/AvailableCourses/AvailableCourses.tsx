@@ -5,6 +5,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Course as CourseType } from '../../../types/course'
 import './AvailableCourses.scss'
 import Course from './AvailableCourse'
+import ErrorPanel from '../../../components/ErrorPanel/ErrorPanel'
 
 const COURSES_QUERY = loader('./GET_AVAILABLE_COURSES.gql')
 
@@ -13,7 +14,7 @@ type CoursesData = {
 }
 
 export function AvailableCourses() {
-    const [getAvailableCourses, { loading, data }] = useLazyQuery<CoursesData>(COURSES_QUERY)
+    const [getAvailableCourses, { loading, data, error }] = useLazyQuery<CoursesData>(COURSES_QUERY)
 
     useEffect(() => {
         getAvailableCourses()
@@ -25,6 +26,8 @@ export function AvailableCourses() {
             <div className="course-list">
                 {loading ? (
                     <div>Loading</div>
+                ) : error ? (
+                    <ErrorPanel />
                 ) : (
                     data &&
                     data.courses.map((course: CourseType) => (
