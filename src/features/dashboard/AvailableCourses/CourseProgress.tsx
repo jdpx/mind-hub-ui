@@ -8,5 +8,5 @@ interface Props {
 
 export default function CourseProgress({ totalCount = 1, completed = 0 }: Props) {
     const percentage = (completed / totalCount) * 100
-    return <ProgressBar now={percentage} label={`${percentage}%`} />
+    return <ProgressBar now={percentage} label={`${Math.round(percentage)}%`} />
 }
