@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import { loader } from 'graphql.macro'
 import Page from '../../components/Page/Page'
 import { Course } from '../../types/course'
@@ -15,7 +15,7 @@ interface Params {
 }
 
 interface CourseData {
-    course: Course
+    course?: Course
 }
 
 export default function CoursePage() {
@@ -38,12 +38,15 @@ export default function CoursePage() {
             ) : error ? (
                 <ErrorPanel />
             ) : (
-                data && (
+                data &&
+                (data.course ? (
                     <>
                         <BackButton to="/dashboard" text="Home" />
                         <CourseInformation course={data.course} />
                     </>
-                )
+                ) : (
+                    <Redirect to="/not-found" />
+                ))
             )}
         </Page>
     )

@@ -62,6 +62,7 @@ function App() {
                             ]}
                             component={SessionPage}
                         /> */}
+                        <Route path="not-found" component={NotFoundPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </ProgressContextProvider>

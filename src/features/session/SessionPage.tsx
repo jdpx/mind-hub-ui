@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { useParams } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import { loader } from 'graphql.macro'
 
 import { Session as SessionType } from '../../types/course'
@@ -17,7 +17,7 @@ interface Params {
 }
 
 interface SessionData {
-    session: SessionType
+    session?: SessionType
 }
 
 export default function SessionPage() {
@@ -40,7 +40,8 @@ export default function SessionPage() {
             ) : error ? (
                 <ErrorPanel />
             ) : (
-                data && (
+                data &&
+                (data.session ? (
                     <>
                         <BackButton
                             to={`/course/${courseId}`}
@@ -48,7 +49,9 @@ export default function SessionPage() {
                         />
                         <Session session={data.session} />
                     </>
-                )
+                ) : (
+                    <Redirect to="/not-found" />
+                ))
             )}
         </Page>
     )
