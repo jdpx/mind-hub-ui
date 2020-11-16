@@ -16,9 +16,10 @@ import Footer from './features/footer/Footer'
 import PrivacyPolicyPage from './features/legal/PrivacyPolicyPage'
 import TermsAndConditionsPage from './features/legal/TermsAndConditionsPage'
 import AccessibilityPage from './features/legal/AccessibilityPage'
+import CompletedPage from './features/session/SessionCompleted/CompletedPage'
+import NotFoundPage from './features/notFound/NotFoundPage'
 
 import './App.scss'
-import CompletedPage from './features/session/SessionCompleted/CompletedPage'
 
 function App() {
     const { isLoading } = useAuth0()
@@ -31,12 +32,16 @@ function App() {
         <div className="mind-hub" data-testid="mind-hub">
             <Header />
             <ErrorBoundary fallback={<ErrorPage />}>
-                <Switch>
-                    <Route path="/" exact component={Homepage} />
-                    <Route path="/privacy-policy" exact component={PrivacyPolicyPage} />
-                    <Route path="/terms-and-conditions" exact component={TermsAndConditionsPage} />
-                    <Route path="/accessibility" exact component={AccessibilityPage} />
-                    <ProgressContextProvider>
+                <ProgressContextProvider>
+                    <Switch>
+                        <Route path="/" exact component={Homepage} />
+                        <Route path="/privacy-policy" exact component={PrivacyPolicyPage} />
+                        <Route
+                            path="/terms-and-conditions"
+                            exact
+                            component={TermsAndConditionsPage}
+                        />
+                        <Route path="/accessibility" exact component={AccessibilityPage} />
                         <PrivateRoute path="/dashboard" exact component={DashboardPage} />
                         <PrivateRoute path="/course/:id" exact component={CoursePage} />
                         <PrivateRoute
@@ -57,8 +62,9 @@ function App() {
                             ]}
                             component={SessionPage}
                         /> */}
-                    </ProgressContextProvider>
-                </Switch>
+                        <Route component={NotFoundPage} />
+                    </Switch>
+                </ProgressContextProvider>
             </ErrorBoundary>
             <Footer />
         </div>

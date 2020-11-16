@@ -7,6 +7,7 @@ import { Session as SessionType } from '../../types/course'
 import Page from '../../components/Page/Page'
 import BackButton from '../../components/BackButton/BackButton'
 import Session from './Session'
+import ErrorPanel from '../../components/ErrorPanel/ErrorPanel'
 
 const SESSION_QUERY = loader('./GET_SESSION.gql')
 
@@ -22,7 +23,7 @@ interface SessionData {
 export default function SessionPage() {
     const { id, courseId } = useParams<Params>()
 
-    const [getSession, { loading, data }] = useLazyQuery<SessionData>(SESSION_QUERY, {
+    const [getSession, { loading, data, error }] = useLazyQuery<SessionData>(SESSION_QUERY, {
         variables: {
             id,
         },
@@ -36,6 +37,8 @@ export default function SessionPage() {
         <Page name="session">
             {loading ? (
                 <div>Loading</div>
+            ) : error ? (
+                <ErrorPanel />
             ) : (
                 data && (
                     <>
