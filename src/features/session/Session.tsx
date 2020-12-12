@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useMutation } from '@apollo/client'
-import { loader } from 'graphql.macro'
 
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Session as SessionType } from '../../types/course'
@@ -12,8 +10,7 @@ import Title from './Title'
 
 import './Session.scss'
 import useProgress from '../../hooks/useProgress'
-
-const UPDATE_COURSE_MUTATION = loader('./UPDATE_STEP_NOTE.gql')
+import useNotes from '../../hooks/useNotes'
 
 interface Props {
     session: SessionType
@@ -28,14 +25,14 @@ export default function Session({ session }: Props) {
 
     const isLastStep = index === steps.length - 1
 
-    const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+    const { updateStepNote } = useNotes()
 
     const handleStepNoteSave = (value: string) => {
         if (!step) {
             return
         }
 
-        updateCourseNote({ variables: { stepID: step.id, value: value } })
+        updateStepNote({ variables: { stepID: step.id, value: value } })
     }
 
     const onNextClick = () => {

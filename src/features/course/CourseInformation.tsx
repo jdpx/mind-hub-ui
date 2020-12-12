@@ -1,20 +1,16 @@
 import React from 'react'
-import { loader } from 'graphql.macro'
 import { useHistory } from 'react-router-dom'
-import { useMutation } from '@apollo/client'
 
 import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
-
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
 import Notes from '../../components/Notes/Notes'
-
-import './Course.scss'
 import useProgress from '../../hooks/useProgress'
 import SessionList from './SessionInformation/SessionList'
+import useNotes from '../../hooks/useNotes'
 
-const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
+import './Course.scss'
 
 interface Props {
     course: Course
@@ -23,7 +19,7 @@ interface Props {
 export default function CourseInformation({ course }: Props) {
     const { id, title, description, sessions = [], note, progress } = course
 
-    const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+    const { updateCourseNote } = useNotes()
     const { startCourse } = useProgress()
 
     const history = useHistory()

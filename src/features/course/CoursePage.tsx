@@ -1,35 +1,25 @@
-import { useLazyQuery } from '@apollo/client'
 import React, { useEffect } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
-import { loader } from 'graphql.macro'
+
 import Page from '../../components/Page/Page'
-import { Course } from '../../types/course'
 import CourseInformation from './CourseInformation'
 import BackButton from '../../components/BackButton/BackButton'
 import ErrorPanel from '../../components/ErrorPanel/ErrorPanel'
-
-const COURSE_QUERY = loader('./GET_COURSE.gql')
+import useCourse from '../../hooks/useCourse'
 
 interface Params {
     id: string
 }
 
-interface CourseData {
-    course?: Course
-}
-
 export default function CoursePage() {
     const { id } = useParams<Params>()
 
-    const [getCourse, { loading, data, error }] = useLazyQuery<CourseData>(COURSE_QUERY, {
-        variables: {
-            id,
-        },
-    })
+    const { useGetByID } = useCourse()
+    const { get, loading, course, error } = useGetByID(id)
 
     useEffect(() => {
-        getCourse()
-    }, [getCourse])
+        get()
+    }, [get])
 
     return (
         <Page name="course">
@@ -37,16 +27,13 @@ export default function CoursePage() {
                 <div>Loading</div>
             ) : error ? (
                 <ErrorPanel />
+            ) : course ? (
+                <>
+                    <BackButton to="/dashboard" text="Home" />
+                    <CourseInformation course={course} />
+                </>
             ) : (
-                data &&
-                (data.course ? (
-                    <>
-                        <BackButton to="/dashboard" text="Home" />
-                        <CourseInformation course={data.course} />
-                    </>
-                ) : (
-                    <Redirect to="/not-found" />
-                ))
+                <Redirect to="/not-found" />
             )}
         </Page>
     )

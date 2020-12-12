@@ -1,24 +1,19 @@
 import React, { useEffect } from 'react'
-import { loader } from 'graphql.macro'
-import { useLazyQuery } from '@apollo/client'
 
 import { Course as CourseType } from '../../../types/course'
-import './AvailableCourses.scss'
 import Course from './AvailableCourse'
 import ErrorPanel from '../../../components/ErrorPanel/ErrorPanel'
+import useCourse from '../../../hooks/useCourse'
 
-const COURSES_QUERY = loader('./GET_AVAILABLE_COURSES.gql')
-
-type CoursesData = {
-    courses: CourseType[]
-}
+import './AvailableCourses.scss'
 
 export function AvailableCourses() {
-    const [getAvailableCourses, { loading, data, error }] = useLazyQuery<CoursesData>(COURSES_QUERY)
+    const { useGetAll } = useCourse()
+    const { get, loading, courses, error } = useGetAll()
 
     useEffect(() => {
-        getAvailableCourses()
-    }, [getAvailableCourses])
+        get()
+    }, [get])
 
     return (
         <div className="available-courses" data-testid="available-courses">
@@ -29,10 +24,7 @@ export function AvailableCourses() {
                 ) : error ? (
                     <ErrorPanel />
                 ) : (
-                    data &&
-                    data.courses.map((course: CourseType) => (
-                        <Course key={course.id} course={course} />
-                    ))
+                    courses.map((course: CourseType) => <Course key={course.id} course={course} />)
                 )}
             </div>
         </div>

@@ -25,7 +25,7 @@ jest.mock('@apollo/client', () => ({
     useLazyQuery: jest.fn(),
 }))
 
-describe('Session Completed Page', () => {
+xdescribe('Session Completed Page', () => {
     const courseID = faker.lorem.slug()
     const sessionID = faker.lorem.slug()
 

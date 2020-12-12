@@ -10,12 +10,12 @@ interface Props {
 }
 
 export default function SessionList({ courseID }: Props) {
-    const { useSessionsByCourseID } = useSessions()
-    const { getSessionsByCourseID, loading, sessions, error } = useSessionsByCourseID(courseID)
+    const { useGetByCourseID } = useSessions()
+    const { get, loading, sessions, error } = useGetByCourseID(courseID)
 
     useEffect(() => {
-        getSessionsByCourseID()
-    }, [getSessionsByCourseID])
+        get()
+    }, [get])
 
     if (loading) {
         return <></>

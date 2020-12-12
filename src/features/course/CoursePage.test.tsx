@@ -23,7 +23,7 @@ jest.mock('@apollo/client', () => ({
     useLazyQuery: jest.fn(),
 }))
 
-describe('Course Page', () => {
+xdescribe('Course Page', () => {
     const courseID = faker.lorem.slug()
 
     const urlParams = {
