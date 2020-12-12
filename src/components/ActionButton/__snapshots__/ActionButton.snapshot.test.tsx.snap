@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionButton Snapshots renders a disabled button 1`] = `
+<DocumentFragment>
+  <div
+    class="btn-wrapper center"
+  >
+    <button
+      class="btn primary disabled"
+      data-testid="undefined-btn"
+      disabled=""
+    >
+      foo
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActionButton Snapshots renders action button 1`] = `
+<DocumentFragment>
+  <div
+    class="btn-wrapper center"
+  >
+    <button
+      class="btn primary"
+      data-testid="undefined-btn"
+    >
+      foo
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActionButton Snapshots renders button with testid 1`] = `
+<DocumentFragment>
+  <div
+    class="btn-wrapper center"
+    data-testid="action-button"
+  >
+    <button
+      class="btn primary"
+      data-testid="action-button-btn"
+    >
+      foo
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActionButton Snapshots renders secondary type button 1`] = `
+<DocumentFragment>
+  <div
+    class="btn-wrapper center"
+  >
+    <button
+      class="btn secondary"
+      data-testid="undefined-btn"
+    >
+      foo
+    </button>
+  </div>
+</DocumentFragment>
+`;

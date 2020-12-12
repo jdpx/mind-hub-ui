@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton Snapshots renders back button 1`] = `
+<DocumentFragment>
+  <div
+    class="back-button"
+  >
+    <a
+      href="/testing"
+    >
+      <img
+        alt="Left Arrow"
+        data-testid="left-arrow"
+        height="18"
+        src="left-arrow.svg"
+      />
+      foo
+    </a>
+  </div>
+</DocumentFragment>
+`;

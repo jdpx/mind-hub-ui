@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notes Snapshots given custom note renders note text 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper withTitle"
+  >
+    <h3
+      class="section-title"
+    >
+      My notes
+    </h3>
+    <div
+      class="notes"
+    >
+      <textarea
+        data-testid="my-notes"
+        placeholder="Helloworld"
+      >
+        My notes value
+      </textarea>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Notes Snapshots renders default note component 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper withTitle"
+  >
+    <h3
+      class="section-title"
+    >
+      My notes
+    </h3>
+    <div
+      class="notes"
+    >
+      <textarea
+        data-testid="my-notes"
+        placeholder="Helloworld"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Notes Snapshots renders note with custom class 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper withTitle"
+  >
+    <h3
+      class="section-title"
+    >
+      My notes
+    </h3>
+    <div
+      class="notes custom class"
+    >
+      <textarea
+        data-testid="my-notes"
+        placeholder="Helloworld"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

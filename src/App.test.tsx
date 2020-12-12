@@ -12,7 +12,7 @@ import { BrowserRouter } from 'react-router-dom'
 jest.mock('@auth0/auth0-react')
 const mockUserAuth0 = useAuth0 as jest.MockedFunction<typeof useAuth0>
 
-describe('App', () => {
+xdescribe('App', () => {
     describe('when Auth0 has completed loading', () => {
         const mockUseAuth = {
             isLoading: false,

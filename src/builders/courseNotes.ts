@@ -10,6 +10,11 @@ class CourseNote {
         this.value = faker.lorem.words(2)
     }
 
+    Value = (value: string) => {
+        this.value = value
+        return this
+    }
+
     Build = (): NoteType => ({
         id: this.id,
         value: this.value,

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logos Snapshots renders Mind In Salford logo 1`] = `
+<DocumentFragment>
+  <img
+    alt="Mind In Salford Logo"
+    height="60"
+    src="mind-in-salford-logo.png"
+  />
+</DocumentFragment>
+`;
+
+exports[`logos Snapshots renders Mind logo 1`] = `
+<DocumentFragment>
+  <img
+    alt="Mind Logo"
+    height="60"
+    src="mind-logo.svg"
+  />
+</DocumentFragment>
+`;
