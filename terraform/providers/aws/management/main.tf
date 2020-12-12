@@ -1,14 +1,20 @@
 terraform {
+  required_version = ">= 0.14.2"
+  
   backend "s3" {
     bucket         = "mind-hub-ui-management-tf-state"
     key            = "terraform.tfstate"
     region         = "eu-west-1"
     dynamodb_table = "mind-hub-ui-state-lock"
   }
+
+  required_providers {
+    aws =  "~> 3.21"
+    github =  "~> 4.1.0"
+  }
 }
 
 provider "aws" {
-  version                 = "~> 3.0"
   region                  = "eu-west-1"
   shared_credentials_file = "~/.aws/credentials"
   profile                 = "mind-terraform"
@@ -16,9 +22,7 @@ provider "aws" {
 
 
 provider "github" {
-  version = "2.4.0"
   token        = var.github_token
-  individual = false
   organization = "jdpx"
 }
 
