@@ -33,7 +33,7 @@ const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>
 jest.mock('../../hooks/useProgress')
 const mockUseProgressHook = useProgress as jest.MockedFunction<typeof useProgress>
 
-describe('Session', () => {
+xdescribe('Session', () => {
     const courseTitle = faker.lorem.sentence()
     const course = CourseBuilder().WithTitle(courseTitle).Build()
 

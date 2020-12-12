@@ -1,21 +1,16 @@
 import React from 'react'
-import { loader } from 'graphql.macro'
 import { useHistory } from 'react-router-dom'
-import { useMutation } from '@apollo/client'
 
 import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
-import SessionInformation from './SessionInformation/SessionInformation'
-
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
-import NoAvailableSessions from './NoSessions'
 import Notes from '../../components/Notes/Notes'
+import useProgress from '../../hooks/useProgress'
+import SessionList from './SessionInformation/SessionList'
+import useNotes from '../../hooks/useNotes'
 
 import './Course.scss'
-import useProgress from '../../hooks/useProgress'
-
-const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
 
 interface Props {
     course: Course
@@ -24,7 +19,7 @@ interface Props {
 export default function CourseInformation({ course }: Props) {
     const { id, title, description, sessions = [], note, progress } = course
 
-    const [updateCourseNote] = useMutation(UPDATE_COURSE_MUTATION)
+    const { updateCourseNote } = useNotes()
     const { startCourse } = useProgress()
 
     const history = useHistory()
@@ -47,23 +42,7 @@ export default function CourseInformation({ course }: Props) {
                 <div className="course-description">{description}</div>
                 <div className="row">
                     <div className="col">
-                        <Section>
-                            <div className="course-sessions" data-testid="course-sessions">
-                                {sessions && sessions.length > 0 ? (
-                                    sessions.map((session, index) => (
-                                        <SessionInformation
-                                            key={session.id}
-                                            courseID={id}
-                                            session={session}
-                                            alternate={index % 2 !== 0}
-                                            testid={`course-${id}-session-${session.id}`}
-                                        />
-                                    ))
-                                ) : (
-                                    <NoAvailableSessions />
-                                )}
-                            </div>
-                        </Section>
+                        <SessionList courseID={id} />
                         <div className="row">
                             <div className="col">
                                 <Section disabled>

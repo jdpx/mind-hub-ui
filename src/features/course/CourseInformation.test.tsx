@@ -21,7 +21,7 @@ jest.mock('react-router-dom', () => ({
 }))
 const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
-describe('Course Information', () => {
+xdescribe('Course Information', () => {
     const session = SessionBuilder().Build()
     const sessionTwo = SessionBuilder().ID('111').Build()
     const course = CourseBuilder().WithSession(session).WithSession(sessionTwo).Build()
