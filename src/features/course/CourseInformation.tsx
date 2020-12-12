@@ -5,15 +5,14 @@ import { useMutation } from '@apollo/client'
 
 import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
-import SessionInformation from './SessionInformation/SessionInformation'
 
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
-import NoAvailableSessions from './NoSessions'
 import Notes from '../../components/Notes/Notes'
 
 import './Course.scss'
 import useProgress from '../../hooks/useProgress'
+import SessionList from './SessionInformation/SessionList'
 
 const UPDATE_COURSE_MUTATION = loader('./UPDATE_COURSE_NOTE.gql')
 
@@ -47,23 +46,7 @@ export default function CourseInformation({ course }: Props) {
                 <div className="course-description">{description}</div>
                 <div className="row">
                     <div className="col">
-                        <Section>
-                            <div className="course-sessions" data-testid="course-sessions">
-                                {sessions && sessions.length > 0 ? (
-                                    sessions.map((session, index) => (
-                                        <SessionInformation
-                                            key={session.id}
-                                            courseID={id}
-                                            session={session}
-                                            alternate={index % 2 !== 0}
-                                            testid={`course-${id}-session-${session.id}`}
-                                        />
-                                    ))
-                                ) : (
-                                    <NoAvailableSessions />
-                                )}
-                            </div>
-                        </Section>
+                        <SessionList courseID={id} />
                         <div className="row">
                             <div className="col">
                                 <Section disabled>

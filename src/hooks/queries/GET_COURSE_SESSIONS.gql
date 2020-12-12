@@ -1,0 +1,16 @@
+query SessionsByCourseID($id: ID!) {
+    sessionsByCourseID(where: { id: $id }) {
+        id
+        title
+
+        steps {
+            id
+            title
+
+            progress {
+                id
+                dateCompleted
+            }
+        }
+    }
+}   
