@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arrows Snapshots DownArrow renders down arrow 1`] = `
+<DocumentFragment>
+  <img
+    alt="Down Arrow"
+    data-testid="down-arrow"
+    height="30"
+    src="down-arrow.svg"
+  />
+</DocumentFragment>
+`;
+
+exports[`Arrows Snapshots LeftArrow renders left arrow 1`] = `
+<DocumentFragment>
+  <img
+    alt="Left Arrow"
+    data-testid="left-arrow"
+    height="30"
+    src="left-arrow.svg"
+  />
+</DocumentFragment>
+`;
+
+exports[`Arrows Snapshots UpArrow renders up arrow 1`] = `
+<DocumentFragment>
+  <img
+    alt="Up Arrow"
+    data-testid="up-arrow"
+    height="30"
+    src="up-arrow.svg"
+  />
+</DocumentFragment>
+`;

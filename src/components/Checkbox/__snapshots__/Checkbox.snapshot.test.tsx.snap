@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox Snapshots renders checked checkbox 1`] = `
+<DocumentFragment>
+  <img
+    alt="Ticked checkbox"
+    data-testid="undefined-checked"
+    height="29"
+    src="checkbox-ticked.svg"
+  />
+</DocumentFragment>
+`;
+
+exports[`Checkbox Snapshots renders unchecked checkbox 1`] = `
+<DocumentFragment>
+  <img
+    alt="Empty checkbox"
+    data-testid="undefined-empty"
+    height="50"
+    src="checkbox-empty.svg"
+  />
+</DocumentFragment>
+`;

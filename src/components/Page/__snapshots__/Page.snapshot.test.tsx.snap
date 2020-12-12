@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page Snapshots renders page with child 1`] = `
+<DocumentFragment>
+  <div
+    class="page The page-page"
+    data-testid="The page-page"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="page-content"
+      >
+        <div>
+          Testing
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

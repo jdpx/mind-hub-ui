@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Section Snapshots renders ExtraLarge section 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper xl"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders Large section 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper lg"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders Medium section 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper md"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders disabled section 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper disabled"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders section with child 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders section with custom class 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper customClass"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders section with testid 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper"
+    data-testid="test-id"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders section with title 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper withTitle"
+  >
+    <h3
+      class="section-title"
+    >
+      Testing title
+    </h3>
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Section Snapshots renders small section 1`] = `
+<DocumentFragment>
+  <div
+    class="content-wrapper sm"
+  >
+    <div>
+      Testing
+    </div>
+  </div>
+</DocumentFragment>
+`;
