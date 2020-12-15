@@ -1,9 +1,24 @@
-# This is a _data source_ which allows us to get the internal
-# ID (which AWS calls an "ARN") from AWS
-data "aws_acm_certificate" "mind_jdpx_co_uk_cert" {
+# If you get CNAMEAlreadyExists error, it can be because there is a DNS record pointing at an old cloudfront distribution
+# Go and remove the DNS record and then retry
+
+resource "aws_acm_certificate" "mind_jdpx_co_uk_cert" {
   provider = aws.us_east
-  domain   = "${var.env}.mind.jdpx.co.uk"
-  statuses = ["ISSUED"]
+  
+  domain_name       = "${var.env}.mind.jdpx.co.uk"
+  validation_method = "DNS"
+
+  subject_alternative_names = [
+    "www.${var.env}.mind.jdpx.co.uk"
+  ]
+
+  tags = {
+    Name        = "${var.env}.mind.jdpx.co.uk"
+    Environment = var.env
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_cloudfront_distribution" "mind_jdpx_co_uk-cf_distribution" {
@@ -34,7 +49,7 @@ resource "aws_cloudfront_distribution" "mind_jdpx_co_uk-cf_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id   = aws_s3_bucket.mind_hub_ui_bucket.bucket_domain_name
+    target_origin_id = aws_s3_bucket.mind_hub_ui_bucket.bucket_domain_name
 
     forwarded_values {
       query_string = false
@@ -51,8 +66,8 @@ resource "aws_cloudfront_distribution" "mind_jdpx_co_uk-cf_distribution" {
 
     # default cache time in seconds. This is 1 day, meaning CloudFront will only
     # look at your S3 bucket for changes once per day.
-    default_ttl            = 86400
-    max_ttl                = 604800
+    default_ttl = 86400
+    max_ttl     = 604800
   }
 
   restrictions {
@@ -64,7 +79,7 @@ resource "aws_cloudfront_distribution" "mind_jdpx_co_uk-cf_distribution" {
   # This configures our SSL certificate.
   viewer_certificate {
     # The data source we set up above allows us to access the AWS internal ID (ARN) like so
-    acm_certificate_arn      = data.aws_acm_certificate.mind_jdpx_co_uk_cert.arn
+    acm_certificate_arn      = aws_acm_certificate.mind_jdpx_co_uk_cert.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
