@@ -1,12 +1,12 @@
 # This is a _data source_ which allows us to get the internal
 # ID (which AWS calls an "ARN") from AWS
-data "aws_acm_certificate" "dev_mind_jdpx_co_uk" {
+data "aws_acm_certificate" "mind_jdpx_co_uk_cert" {
   provider = aws.us_east
-  domain   = "dev.mind.jdpx.co.uk"
+  domain   = "${var.env}.mind.jdpx.co.uk"
   statuses = ["ISSUED"]
 }
 
-resource "aws_cloudfront_distribution" "dev_mind_jdpx_co_uk-cf_distribution" {
+resource "aws_cloudfront_distribution" "mind_jdpx_co_uk-cf_distribution" {
   # This says where CloudFront should get the data it's caching
   origin {
 
@@ -26,12 +26,7 @@ resource "aws_cloudfront_distribution" "dev_mind_jdpx_co_uk-cf_distribution" {
     }
   }
 
-  # tags {
-  #   site        = "dev.mind.jdpx.co.uk"
-  #   environment = "production"
-  # }
-
-  aliases             = ["dev.mind.jdpx.co.uk", "www.dev.mind.jdpx.co.uk"]
+  aliases             = ["${var.env}.mind.jdpx.co.uk", "www.${var.env}.mind.jdpx.co.uk"]
   default_root_object = "index.html"
   enabled             = "true"
 
@@ -54,21 +49,11 @@ resource "aws_cloudfront_distribution" "dev_mind_jdpx_co_uk-cf_distribution" {
     compress               = "true"
     min_ttl                = 0
 
-    # default cache time in seconds.  This is 1 day, meaning CloudFront will only
+    # default cache time in seconds. This is 1 day, meaning CloudFront will only
     # look at your S3 bucket for changes once per day.
     default_ttl            = 86400
     max_ttl                = 604800
   }
-
-  # This allows us to save CloudFront logs to our existing S3 bucket for logging
-#   # above
-#   logging_config {
-#     include_cookies = false
-#     bucket          = "${aws_s3_bucket.logs-dev_mind_jdpx_co_uk-s3.bucket_domain_name}"
-
-#     # Inside the bucket, the CloudFront logs will be in the cf/ directory
-#     prefix          = "cf/"
-#   }
 
   restrictions {
     geo_restriction {
@@ -78,9 +63,8 @@ resource "aws_cloudfront_distribution" "dev_mind_jdpx_co_uk-cf_distribution" {
 
   # This configures our SSL certificate.
   viewer_certificate {
-    
     # The data source we set up above allows us to access the AWS internal ID (ARN) like so
-    acm_certificate_arn      = data.aws_acm_certificate.dev_mind_jdpx_co_uk.arn
+    acm_certificate_arn      = data.aws_acm_certificate.mind_jdpx_co_uk_cert.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
