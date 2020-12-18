@@ -2,20 +2,18 @@ terraform {
   required_version = ">= 0.14.2"
 
   backend "s3" {
-    bucket         = "mind-hub-ui-tf-init-state"
-    key            = "terraform.tfstate"
-    region         = "eu-west-1"
+    bucket = "mind-hub-tf-init-state"
+    key    = "terraform.tfstate"
+    region = "eu-west-1"
   }
 
   required_providers {
-    aws =  "~> 3.21"
+    aws = "~> 3.21"
   }
 }
 
 provider "aws" {
-  region                  = "eu-west-1"
-  shared_credentials_file = "~/.aws/credentials"
-  profile                 = "mind-terraform"
+  region = "eu-west-1"
 }
 
 
@@ -52,6 +50,6 @@ resource "aws_dynamodb_table" "tf_lock_state" {
   }
 
   tags = {
-    Name      = "mind-hub-ui-state-lock"
+    Name = "mind-hub-ui-state-lock"
   }
 }
