@@ -69,17 +69,6 @@ resource "aws_iam_role_policy" "mind_hub_ui_pr_build_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:Describe*",
-        "dynamodb:List*"
-      ],
-      "Resource": "${data.aws_dynamodb_table.tf_lock_state.arn}"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
         "ssm:Get*"
       ],
       "Resource": "*"
