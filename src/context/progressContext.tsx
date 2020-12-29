@@ -2,9 +2,9 @@ import React from 'react'
 import { loader } from 'graphql.macro'
 import { useMutation } from '@apollo/client'
 
-const COURSE_START_MUTATION = loader('./COURSE_START_MUTATION.gql')
-const STEP_START_MUTATION = loader('./STEP_START_MUTATION.gql')
-const STEP_COMPLETE_MUTATION = loader('./STEP_COMPLETE_MUTATION.gql')
+const COURSE_START_MUTATION = loader('./mutations/COURSE_START_MUTATION.gql')
+const STEP_START_MUTATION = loader('./mutations/STEP_START_MUTATION.gql')
+const STEP_COMPLETE_MUTATION = loader('./mutations/STEP_COMPLETE_MUTATION.gql')
 
 export const ProgressContext = React.createContext([
     (opts: any) => {
