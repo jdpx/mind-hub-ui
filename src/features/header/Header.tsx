@@ -34,6 +34,7 @@ export default function Header() {
                             <>
                                 <NavigationLink text="Dashboard" to="/dashboard" />
                                 <NavigationLink text="Courses" to="/courses" />
+                                <NavigationLink text="Timemap" to="/timemap" />
                                 <NavigationLink
                                     text="Logout"
                                     onClick={onLogoutClick}

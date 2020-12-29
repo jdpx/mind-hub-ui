@@ -20,6 +20,7 @@ import CompletedPage from './features/session/SessionCompleted/CompletedPage'
 import NotFoundPage from './features/notFound/NotFoundPage'
 
 import './App.scss'
+import TimemapPage from './features/timemap/TimemapPage'
 
 function App() {
     const { isLoading } = useAuth0()
@@ -54,6 +55,7 @@ function App() {
                             exact
                             component={CompletedPage}
                         />
+                        <PrivateRoute path="/timemap" exact component={TimemapPage} />
                         {/* <PrivateRoute
                             // path="/course/:courseId/session/:id/(step)?/:stepId?"
                             path={[
