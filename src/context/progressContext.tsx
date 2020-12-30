@@ -7,7 +7,8 @@ const STEP_START_MUTATION = loader('./mutations/STEP_START_MUTATION.gql')
 const STEP_COMPLETE_MUTATION = loader('./mutations/STEP_COMPLETE_MUTATION.gql')
 
 export const ProgressContext = React.createContext([
-    (opts: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    (id: string) => {
         // something
     },
 ])

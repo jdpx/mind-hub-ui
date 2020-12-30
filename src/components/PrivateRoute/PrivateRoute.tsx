@@ -5,7 +5,7 @@ import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '../Loading/Loading'
 
 type Props = RouteProps & {
-    component: any
+    component: React.FunctionComponent
 }
 
 const PrivateRoute = ({ component, ...args }: Props) => (
