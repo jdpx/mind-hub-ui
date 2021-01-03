@@ -46,24 +46,17 @@ function App() {
                         <PrivateRoute path="/dashboard" exact component={DashboardPage} />
                         <PrivateRoute path="/course/:id" exact component={CoursePage} />
                         <PrivateRoute
-                            exact
-                            path="/course/:courseId/session/:id"
-                            component={SessionPage}
-                        />
-                        <PrivateRoute
                             path="/course/:courseId/session/:id/completed"
                             exact
                             component={CompletedPage}
                         />
-                        <PrivateRoute path="/timemap" exact component={TimemapPage} />
-                        {/* <PrivateRoute
-                            // path="/course/:courseId/session/:id/(step)?/:stepId?"
-                            path={[
-                                '/course/:courseId/session/:id',
-                                // '/course/:courseId/session/:id/step/:stepId?',
-                            ]}
+                        <PrivateRoute
+                            exact
+                            path="/course/:courseId/session/:id/(step)?/:stepId?"
                             component={SessionPage}
-                        /> */}
+                        />
+
+                        <PrivateRoute path="/timemap" exact component={TimemapPage} />
                         <Route path="not-found" component={NotFoundPage} />
                         <Route component={NotFoundPage} />
                     </Switch>

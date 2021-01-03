@@ -12,16 +12,20 @@ interface Props {
 
 const defaultErrorMessage = 'Opps something went wrong. Please try again later'
 
-export default function ErrorPanel({ height = 200, message = defaultErrorMessage, testid }: Props) {
+export default function ErrorPanel({
+    height = 200,
+    message = defaultErrorMessage,
+    testid = 'error-panel',
+}: Props) {
     return (
-        <div className="error-panel">
+        <div className="error-panel" data-testid={testid}>
             <img
                 src={errorIcon}
                 alt="Opps something went wrong"
                 height={height}
-                data-testid={testid}
+                data-testid={`${testid}-img`}
             />
-            <h1>{message}</h1>
+            <h1 data-testid={`${testid}-message`}>{message}</h1>
         </div>
     )
 }

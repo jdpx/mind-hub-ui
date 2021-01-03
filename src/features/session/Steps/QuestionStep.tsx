@@ -1,13 +1,13 @@
 import React from 'react'
 import ActionButton from '../../../components/ActionButton/ActionButton'
 import Section from '../../../components/Section/Section'
-import { Step } from '../../../types/course'
+import { Step } from '../../../types/step'
 
 import './QuestionStep.scss'
 
 interface Props {
     step: Step
-    handleNoteSave: (value: string) => void
+    onNoteSave: (value: string) => void
 }
 
 export default function QuestionStep({ step }: Props) {

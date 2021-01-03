@@ -1,5 +1,6 @@
 import faker from 'faker'
-import { Course, Step as StepType, StepProgress } from 'types/course'
+import { Course, StepProgress } from 'types/course'
+import { Step as StepType } from 'types/step'
 import { Question } from '../constants/steps'
 import { StepTypes } from '../types/step'
 

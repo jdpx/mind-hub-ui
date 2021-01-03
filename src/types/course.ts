@@ -1,4 +1,4 @@
-import { StepTypes } from './step'
+import { Session } from './session'
 
 export interface Course {
     id: string
@@ -11,29 +11,6 @@ export interface Course {
     note?: CourseNote
     progress?: CourseProgress | null
     sessions?: Session[]
-}
-
-export interface Session {
-    id: string
-    title: string
-    description: string
-
-    steps?: Step[]
-    course?: Course
-}
-
-export interface Step {
-    id: string
-    title: string
-    description?: string
-    type: StepTypes
-    videoUrl?: string
-    audioUrl?: string
-    question?: string
-
-    session?: Session
-    note?: StepNote
-    progress?: StepProgress | null
 }
 
 export interface CourseNote {

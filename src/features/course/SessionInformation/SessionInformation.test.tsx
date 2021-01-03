@@ -7,7 +7,7 @@ import { SessionBuilder } from '../../../builders/session'
 import SessionInformation from './SessionInformation'
 import { StepBuilder } from '../../../builders/step'
 
-describe('Session Information', () => {
+describe('Course Session Information', () => {
     const courseID = faker.lorem.slug()
     const step = StepBuilder().Build()
     const stepTwo = StepBuilder().Build()

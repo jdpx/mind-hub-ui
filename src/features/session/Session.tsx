@@ -1,68 +1,80 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 
 import ActionButton from '../../components/ActionButton/ActionButton'
-import { Session as SessionType } from '../../types/course'
+import { Session as SessionType } from '../../types/session'
 import StepsProgress from './StepsProgress'
 import { Left, Right } from '../../constants/buttons'
-import CurrentStep from './Steps/StepPanel'
 import Title from './Title'
 
 import './Session.scss'
-import useProgress from '../../hooks/useProgress'
-import useNotes from '../../hooks/useNotes'
+import StepPanel from './Steps/StepPanel'
 
 interface Props {
     session: SessionType
+    currentStepId?: string
+    redirectToStep: (id: string) => void
+    markStepComplete: (id: string) => void
+    onSessionCompleted: () => void
 }
 
-export default function Session({ session }: Props) {
+export default function Session({
+    session,
+    currentStepId,
+    markStepComplete,
+    redirectToStep,
+    onSessionCompleted,
+}: Props) {
     const { course, steps = [] } = session
-    const history = useHistory()
-    const { completeStep } = useProgress()
-    const [index, setIndex] = useState(0)
-    const step = steps.length > 0 ? steps[index] : undefined
 
-    const isLastStep = index === steps.length - 1
-
-    const { updateStepNote } = useNotes()
-
-    const handleStepNoteSave = (value: string) => {
-        if (!step) {
-            return
-        }
-
-        updateStepNote({ variables: { stepID: step.id, value: value } })
+    if (!currentStepId) {
+        return <></>
     }
+
+    const stepIndex = steps.findIndex((x) => x.id === currentStepId)
+
+    if (stepIndex === -1) {
+        return <></>
+    }
+
+    const step = steps.length > 0 ? steps[stepIndex] : undefined
+    const isFirstStep = stepIndex === 0
+    const isLastStep = stepIndex === steps.length - 1
 
     const onNextClick = () => {
         if (!!step) {
-            completeStep(step.id)
+            markStepComplete(step.id)
         }
 
         if (isLastStep) {
-            history.push(`/course/${course?.id}/session/${session.id}/completed`)
-        } else {
-            setIndex(index + 1)
+            onSessionCompleted()
+            return
         }
+        redirectToStep(steps[stepIndex + 1].id)
     }
 
     const onPreviousClick = () => {
-        setIndex(index - 1)
+        redirectToStep(steps[stepIndex - 1].id)
     }
 
     return (
         <div className="container" data-test-id="session-information">
             <div className="session">
                 <Title course={course} session={session} step={step} />
-                <CurrentStep step={step} handleNoteSave={handleStepNoteSave} />
+                <Switch>
+                    <Route
+                        path="/course/:courseId/session/:sessionId/step/:stepId"
+                        exact
+                        component={StepPanel}
+                    />
+                </Switch>
                 <div className="session-navigation">
                     <div className="session-navigation-item">
                         <ActionButton
                             text="Previous"
                             position={Left}
                             onClick={onPreviousClick}
-                            disabled={index === 0}
+                            disabled={isFirstStep}
                             testid="session-previous"
                         />
                     </div>
@@ -76,7 +88,7 @@ export default function Session({ session }: Props) {
                     </div>
                 </div>
                 <div className="session-navigation-progress">
-                    <StepsProgress steps={steps} currentIndex={index} />
+                    <StepsProgress steps={steps} currentIndex={stepIndex} />
                 </div>
             </div>
         </div>

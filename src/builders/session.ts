@@ -1,12 +1,14 @@
 import faker from 'faker'
-import { Course, Session as SesssionType, Step } from 'types/course'
+import { Course } from 'types/course'
+import { Step } from 'types/step'
+import { Session as SesssionType } from 'types/session'
 
 class Session {
-    id: string
-    title: string
-    description: string
-    course?: Course
-    steps: Step[]
+    private id: string
+    private title: string
+    private description: string
+    private course?: Course
+    private steps: Step[]
 
     constructor() {
         this.id = '2'
@@ -15,8 +17,13 @@ class Session {
         this.steps = []
     }
 
-    ID = (id: string) => {
+    WithID = (id: string) => {
         this.id = id
+
+        return this
+    }
+    WithRandomID = () => {
+        this.id = faker.lorem.slug()
 
         return this
     }

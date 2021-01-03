@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import useCollapse from 'react-collapsed'
 
-import { Session } from '../../../types/course'
+import { Session } from '../../../types/session'
 import SessionStep from './SessionStep'
 import UpArrow from '../../../components/Arrows/UpArrow'
 import DownArrow from '../../../components/Arrows/DownArrow'

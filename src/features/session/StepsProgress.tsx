@@ -1,6 +1,6 @@
 import React from 'react'
 import { Steps } from 'antd'
-import { Step as StepType } from '../../types/course'
+import { Step as StepType } from '../../types/step'
 
 import './StepsProgress.scss'
 

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPanel Snapshots renders error panel 1`] = `
+<DocumentFragment>
+  <div
+    class="error-panel"
+    data-testid="error-panel"
+  >
+    <img
+      alt="Opps something went wrong"
+      data-testid="error-panel-img"
+      height="200"
+      src="error-icon.svg"
+    />
+    <h1
+      data-testid="error-panel-message"
+    >
+      Opps something went wrong. Please try again later
+    </h1>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorPanel Snapshots renders error panel with custom message 1`] = `
+<DocumentFragment>
+  <div
+    class="error-panel"
+    data-testid="error-panel"
+  >
+    <img
+      alt="Opps something went wrong"
+      data-testid="error-panel-img"
+      height="200"
+      src="error-icon.svg"
+    />
+    <h1
+      data-testid="error-panel-message"
+    >
+      An error occurred
+    </h1>
+  </div>
+</DocumentFragment>
+`;
