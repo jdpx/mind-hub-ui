@@ -2,12 +2,12 @@ import faker from 'faker'
 import { Course as CourseType, CourseProgress, Session } from 'types/course'
 
 class Course {
-    id: string
-    title: string
-    description: string
-    sessions: Session[]
-    progress?: CourseProgress
-    sessionCount?: number
+    private id: string
+    private title: string
+    private description: string
+    private sessions: Session[]
+    private progress?: CourseProgress
+    private sessionCount?: number
 
     constructor() {
         this.id = '1'
@@ -51,6 +51,7 @@ class Course {
         description: this.description,
         sessions: this.sessions,
         progress: this.progress,
+        sessionCount: this.sessionCount,
     })
 }
 

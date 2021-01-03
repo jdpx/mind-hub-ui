@@ -7,21 +7,6 @@ query Session($id: ID!) {
         steps {
             id
             title
-            description
-            type
-            videoUrl
-            audioUrl
-            question
-
-            progress {
-                id
-                dateCompleted
-            }
-
-            note {
-                id
-                value
-            }
         }
 
         course {

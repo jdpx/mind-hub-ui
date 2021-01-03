@@ -12,14 +12,14 @@ interface Props {
     note?: CourseNote | StepNote
     className?: string
     testid?: string
-    handleSave?: (val: string) => void
+    onNoteSave?: (val: string) => void
 }
 
 export default function Notes({
     title = 'Notes',
     placeholder = 'Enter notes here',
     note,
-    handleSave,
+    onNoteSave,
     className,
     testid,
 }: Props) {
@@ -30,8 +30,8 @@ export default function Notes({
             return
         }
 
-        if (handleSave) {
-            handleSave(text)
+        if (onNoteSave) {
+            onNoteSave(text)
         }
     }
 

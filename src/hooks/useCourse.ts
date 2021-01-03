@@ -37,6 +37,7 @@ const useCourse = () => {
                 },
             },
         )
+        console.log('data:' + data)
 
         return {
             get,

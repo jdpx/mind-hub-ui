@@ -9,10 +9,10 @@ import './VideoStep.scss'
 
 interface Props {
     step: Step
-    handleNoteSave: (value: string) => void
+    onNoteSave: (value: string) => void
 }
 
-export default function VideoStep({ step, handleNoteSave }: Props) {
+export default function VideoStep({ step, onNoteSave }: Props) {
     const { id, videoUrl, description, note } = step
 
     return (
@@ -29,7 +29,7 @@ export default function VideoStep({ step, handleNoteSave }: Props) {
             </div>
             <Notes
                 note={note}
-                handleSave={handleNoteSave}
+                onNoteSave={onNoteSave}
                 className="course-notes"
                 testid={`step-${id}-notes`}
             />

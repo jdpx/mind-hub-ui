@@ -1,54 +1,47 @@
 import React, { useEffect } from 'react'
-import { Audio, Question, Video } from '../../../constants/steps'
-
+import { Redirect, useParams } from 'react-router-dom'
+import ErrorPanel from '../../../components/ErrorPanel/ErrorPanel'
+import Loading from '../../../components/Loading/Loading'
+import useNotes from '../../../hooks/useNotes'
 import useProgress from '../../../hooks/useProgress'
-import { Step as StepType } from '../../../types/course'
-import AudioStep from './AudioStep'
-import QuestionStep from './QuestionStep'
-import VideoStep from './VideoStep'
+import useSteps from '../../../hooks/useSteps'
 
-import './Step.scss'
+import CurrentStep from './CurrentStep'
 
-interface Props {
-    step?: StepType
-    handleNoteSave: (value: string) => void
+interface Params {
+    courseId: string
+    sessionId: string
+    stepId: string
 }
 
-export default function StepPanel(props: Props) {
-    const { startStep } = useProgress()
-    const { step } = props
+export default function StepPanel() {
+    const { stepId } = useParams<Params>()
+
+    const { useGetByID } = useSteps()
+    const { get, loading, step, error } = useGetByID(stepId)
 
     useEffect(() => {
-        if (!step || !!step.progress) {
-            return
-        }
-        const { id } = step
+        get()
+    }, [get])
 
-        startStep(id)
-    }, [step, startStep])
+    const { startStep } = useProgress()
+    const { updateStepNote } = useNotes()
 
-    if (!step) {
-        return <></>
+    const onNoteSave = (value: string) => {
+        updateStepNote(stepId, value)
     }
 
-    const { type } = step
-    let Component: React.ReactNode
-
-    switch (type) {
-        case Question:
-            Component = <QuestionStep step={step} {...props} />
-            break
-        case Video:
-            Component = <VideoStep step={step} {...props} />
-            break
-        case Audio:
-            Component = <AudioStep step={step} {...props} />
-            break
-
-        default:
-            Component = <></>
-            break
-    }
-
-    return <div className="step">{Component}</div>
+    return (
+        <div>
+            {loading ? (
+                <Loading />
+            ) : error ? (
+                <ErrorPanel />
+            ) : step ? (
+                <CurrentStep step={step} onNoteSave={onNoteSave} markStepAsStarted={startStep} />
+            ) : (
+                <Redirect to="/not-found" />
+            )}
+        </div>
+    )
 }

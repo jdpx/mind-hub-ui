@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ErrorPanel from '../../../components/ErrorPanel/ErrorPanel'
+import Loading from '../../../components/Loading/Loading'
 import Section from '../../../components/Section/Section'
 import useSessions from '../../../hooks/useSessions'
 import NoAvailableSessions from '../NoSessions'
@@ -18,7 +19,7 @@ export default function SessionList({ courseID }: Props) {
     }, [get])
 
     if (loading) {
-        return <></>
+        return <Loading />
     }
 
     if (error) {

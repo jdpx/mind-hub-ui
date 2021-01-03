@@ -22,12 +22,12 @@ describe('Notes', () => {
         })
 
         describe('given the user edits the value of the textarea', () => {
-            it('calls the handleSave prop', () => {
+            it('calls the onNoteSave prop', () => {
                 const onBlur = jest.fn()
                 const value = faker.lorem.words(2)
 
                 const { getByTestId } = render(
-                    <Notes testid="note-text-defaultvalue" handleSave={onBlur} />,
+                    <Notes testid="note-text-defaultvalue" onNoteSave={onBlur} />,
                 )
 
                 const input = getByTestId('note-text-defaultvalue')
@@ -50,12 +50,12 @@ describe('Notes', () => {
         })
 
         describe('given the user edits the value of the textarea but it matches note value', () => {
-            it('does not call the handleSave prop', () => {
+            it('does not call the onNoteSave prop', () => {
                 const note = CourseNoteBuilder().Build()
                 const onBlur = jest.fn()
 
                 const { getByTestId } = render(
-                    <Notes testid="note-text-defaultvalue" note={note} handleSave={onBlur} />,
+                    <Notes testid="note-text-defaultvalue" note={note} onNoteSave={onBlur} />,
                 )
 
                 const input = getByTestId('note-text-defaultvalue')

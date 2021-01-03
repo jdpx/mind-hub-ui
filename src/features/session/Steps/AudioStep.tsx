@@ -9,10 +9,10 @@ import './AudioStep.scss'
 
 interface Props {
     step: Step
-    handleNoteSave: (value: string) => void
+    onNoteSave: (value: string) => void
 }
 
-export default function AudioStep({ step, handleNoteSave }: Props) {
+export default function AudioStep({ step, onNoteSave }: Props) {
     const { id, audioUrl, description, note } = step
 
     return (
@@ -29,7 +29,7 @@ export default function AudioStep({ step, handleNoteSave }: Props) {
             </div>
             <Notes
                 note={note}
-                handleSave={handleNoteSave}
+                onNoteSave={onNoteSave}
                 className="course-notes"
                 testid={`step-${id}-notes`}
             />
