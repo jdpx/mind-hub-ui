@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { loader } from 'graphql.macro'
 
-import { Session } from '../types/course'
+import { Session } from '../types/session'
 
 const SESSION_QUERY = loader('./queries/GET_SESSION.gql')
 const GET_COURSE_SESSIONS = loader('./queries/GET_COURSE_SESSIONS.gql')

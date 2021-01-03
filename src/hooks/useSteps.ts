@@ -1,7 +1,7 @@
 import { loader } from 'graphql.macro'
 import { useLazyQuery } from '@apollo/client'
 
-import { Step } from '../types/course'
+import { Step } from '../types/step'
 
 const GET_STEP_BY_ID_QUERY = loader('./queries/GET_STEP_BY_ID.gql')
 

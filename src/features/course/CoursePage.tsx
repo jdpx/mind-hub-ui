@@ -41,8 +41,7 @@ export default function CoursePage() {
                     <CourseContainer course={course} redirectToSession={redirectToSession} />
                 </>
             ) : (
-                <div>fooo</div>
-                // <Redirect to="/not-found" />
+                <Redirect to="/not-found" />
             )}
         </Page>
     )

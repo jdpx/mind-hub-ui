@@ -1,5 +1,7 @@
 import React from 'react'
-import { Course, Session, Step } from '../../types/course'
+import { Course } from '../../types/course'
+import { Step } from '../../types/step'
+import { Session } from '../../types/session'
 
 interface Props {
     course?: Course

@@ -1,8 +1,7 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import faker from 'faker'
-import { QueryTuple } from '@apollo/client'
-import { BrowserRouter, useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { History } from 'history'
 import { MockedProvider } from '@apollo/client/testing'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import ActionButton from '../../../components/ActionButton/ActionButton'
 import Section from '../../../components/Section/Section'
-import { Step } from '../../../types/course'
+import { Step } from '../../../types/step'
 
 import './QuestionStep.scss'
 

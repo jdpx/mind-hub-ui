@@ -1,5 +1,6 @@
 import faker from 'faker'
-import { Course as CourseType, CourseProgress, Session } from 'types/course'
+import { Course as CourseType, CourseProgress } from 'types/course'
+import { Session } from 'types/session'
 
 class Course {
     private id: string

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import ActionButton from '../../components/ActionButton/ActionButton'
-import { Session as SessionType } from '../../types/course'
+import { Session as SessionType } from '../../types/session'
 import StepsProgress from './StepsProgress'
 import { Left, Right } from '../../constants/buttons'
 import Title from './Title'

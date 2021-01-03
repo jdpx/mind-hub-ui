@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 
 import Notes from '../../../components/Notes/Notes'
 import Section from '../../../components/Section/Section'
-import { Step } from '../../../types/course'
+import { Step } from '../../../types/step'
 
 import './AudioStep.scss'
 

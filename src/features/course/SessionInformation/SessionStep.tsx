@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import Checkbox from '../../../components/Checkbox/Checkbox'
-import { Step } from '../../../types/course'
+import { Step } from '../../../types/step'
 
 interface Props {
     step: Step

@@ -1,7 +1,7 @@
 import { loader } from 'graphql.macro'
 import faker from 'faker'
 
-import { Session } from '../../types/course'
+import { Session } from '../../types/session'
 import { GraphQLError } from 'graphql'
 
 const GET_COURSE_SESSIONS = loader('../queries/GET_COURSE_SESSIONS.gql')
