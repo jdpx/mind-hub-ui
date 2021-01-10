@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { BrowserRouter, useParams, useHistory } from 'react-router-dom'
 import { History } from 'history'
 import faker from 'faker'
