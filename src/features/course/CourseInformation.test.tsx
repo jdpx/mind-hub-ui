@@ -68,7 +68,7 @@ describe('Course Information', () => {
         await waitFor(() => getByTestId('course-sessions'))
 
         const sessions = getByTestId('course-sessions').getElementsByClassName('course-session')
-        expect(sessions.length).toEqual(2)
+        expect(sessions).toHaveLength(2)
     })
 
     it('should show the start button', async () => {

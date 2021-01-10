@@ -116,7 +116,7 @@ describe('Course Session Information', () => {
                 'course-session-step',
             )
 
-            expect(items.length).toEqual(2)
+            expect(items).toHaveLength(2)
         })
 
         describe('given there are no steps for the session', () => {

@@ -29,7 +29,7 @@ describe.skip('Available Courses', () => {
         debug()
         const items = getByTestId('course-list').getElementsByClassName('content-wrapper')
 
-        expect(items.length).toEqual(2)
+        expect(items).toHaveLength(2)
     })
 
     describe.skip('when the page is loading', () => {
