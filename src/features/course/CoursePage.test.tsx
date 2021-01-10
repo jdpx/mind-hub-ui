@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import faker from 'faker'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, BrowserRouter } from 'react-router-dom'
 import { History } from 'history'
 import { MockedProvider } from '@apollo/client/testing'
 
@@ -26,7 +26,7 @@ const mockHistory = {
 
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>
 
-xdescribe('Course Page', () => {
+describe.skip('Course Page', () => {
     const courseID = faker.lorem.slug()
 
     const urlParams = {
@@ -66,61 +66,61 @@ xdescribe('Course Page', () => {
         expect(getByTestId('course-information')).toBeInTheDocument()
     })
 
-    // xdescribe('when the query is loading', () => {
-    //     const mockGetCourse = jest.fn()
-    //     const queryRepsonse = {
-    //         loading: true,
-    //     }
+    describe.skip('when the query is loading', () => {
+        const mockGetCourse = jest.fn()
+        // const queryRepsonse = {
+        //     loading: true,
+        // }
 
-    //     beforeEach(() => {
-    //         mockUseQuery.mockReturnValue(
-    //             Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
-    //         )
-    //     })
+        beforeEach(() => {
+            // mockUseQuery.mockReturnValue(
+            //     Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
+            // )
+        })
 
-    //     it('renders to the loading component', () => {
-    //         const { getByTestId } = render(
-    //             <BrowserRouter>
-    //                 <MockedProvider>
-    //                     <CoursePage />
-    //                 </MockedProvider>
-    //             </BrowserRouter>,
-    //         )
+        it('renders to the loading component', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <MockedProvider>
+                        <CoursePage />
+                    </MockedProvider>
+                </BrowserRouter>,
+            )
 
-    //         expect(mockGetCourse).toHaveBeenCalled()
-    //         expect(getByTestId('course-page')).toBeInTheDocument()
-    //         expect(screen.queryByText('Loading')).toBeInTheDocument()
-    //     })
-    // })
+            expect(mockGetCourse).toHaveBeenCalled()
+            expect(getByTestId('course-page')).toBeInTheDocument()
+            // expect(screen.queryByText('Loading')).toBeInTheDocument()
+        })
+    })
 
-    // xdescribe('when the query has finished loading loading', () => {
-    //     const mockGetCourse = jest.fn()
-    //     const course = CourseBuilder().Build()
-    //     const queryRepsonse = {
-    //         loading: false,
-    //         data: {
-    //             course: course,
-    //         },
-    //     }
+    describe.skip('when the query has finished loading loading', () => {
+        const mockGetCourse = jest.fn()
+        // const course = CourseBuilder().Build()
+        // const queryRepsonse = {
+        //     loading: false,
+        //     data: {
+        //         course: course,
+        //     },
+        // }
 
-    //     beforeEach(() => {
-    //         mockUseQuery.mockReturnValue(
-    //             Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
-    //         )
-    //     })
+        beforeEach(() => {
+            // mockUseQuery.mockReturnValue(
+            //     Mock<QueryTuple<unknown, unknown>>([mockGetCourse, queryRepsonse]),
+            // )
+        })
 
-    //     it('renders to the Course Information component', () => {
-    //         const { getByTestId } = render(
-    //             <BrowserRouter>
-    //                 <MockedProvider>
-    //                     <CoursePage />
-    //                 </MockedProvider>
-    //             </BrowserRouter>,
-    //         )
+        it('renders to the Course Information component', () => {
+            const { getByTestId } = render(
+                <BrowserRouter>
+                    <MockedProvider>
+                        <CoursePage />
+                    </MockedProvider>
+                </BrowserRouter>,
+            )
 
-    //         expect(mockGetCourse).toHaveBeenCalled()
-    //         expect(getByTestId('course-information')).toBeInTheDocument()
-    //         expect(screen.queryByText('Loading')).not.toBeInTheDocument()
-    //     })
-    // })
+            expect(mockGetCourse).toHaveBeenCalled()
+            expect(getByTestId('course-information')).toBeInTheDocument()
+            // expect(screen.queryByText('Loading')).not.toBeInTheDocument()
+        })
+    })
 })

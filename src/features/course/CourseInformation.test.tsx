@@ -68,7 +68,7 @@ describe('Course Information', () => {
         await waitFor(() => getByTestId('course-sessions'))
 
         const sessions = getByTestId('course-sessions').getElementsByClassName('course-session')
-        expect(sessions.length).toEqual(2)
+        expect(sessions).toHaveLength(2)
     })
 
     it('should show the start button', async () => {
@@ -152,7 +152,7 @@ describe('Course Information', () => {
     })
 
     describe('given the user edits the note for a course', () => {
-        it('it calls the onNoteSave prop', async () => {
+        it('calls the onNoteSave prop', async () => {
             const { getByTestId } = render(
                 <MockedProvider mocks={mocks} addTypename={false}>
                     <CourseInformation {...props} />
@@ -172,7 +172,7 @@ describe('Course Information', () => {
     })
 
     describe('given the user clicks on the action button', () => {
-        it('it calls the onCourseStart prop', async () => {
+        it('calls the onCourseStart prop', async () => {
             const { getByTestId } = render(
                 <MockedProvider mocks={mocks} addTypename={false}>
                     <CourseInformation {...props} />

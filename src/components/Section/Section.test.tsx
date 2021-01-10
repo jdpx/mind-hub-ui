@@ -85,7 +85,7 @@ describe('Section', () => {
         })
     })
 
-    describe('given md size', () => {
+    describe('given xl size', () => {
         it('renders a md size section', () => {
             const { getByTestId } = render(
                 <Section size={ExtraLarge} testid="section">

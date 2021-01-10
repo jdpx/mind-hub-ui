@@ -60,7 +60,7 @@ describe('Session Completed Page', () => {
             mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
         })
 
-        it('it directs to the course page', async () => {
+        it('directs to the course page', async () => {
             const { getByTestId } = render(
                 <BrowserRouter>
                     <MockedProvider mocks={mocks} addTypename={false}>
