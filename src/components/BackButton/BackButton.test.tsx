@@ -14,7 +14,7 @@ describe('Back Button', () => {
         expect(screen.queryByText(`foo`)).toBeInTheDocument()
     })
 
-    it('renders the back button text', () => {
+    it('renders link with the correct href', () => {
         const { getByTestId } = render(
             <BrowserRouter>
                 <BackButton text={'foo'} to="/course" testid="back-button" />)

@@ -9,7 +9,7 @@ import AvailableCourses from './AvailableCourses'
 import { CourseBuilder } from '../../../builders/course'
 import { MockGeAllQuery } from '../../../hooks/mocks/useCourseMock'
 
-xdescribe('Available Courses', () => {
+describe.skip('Available Courses', () => {
     const course = CourseBuilder().WithRandomID().Build()
     const courseTwo = CourseBuilder().WithRandomID().Build()
     const coursesMock = new MockGeAllQuery().WithCourses([course, courseTwo]).Build()
@@ -32,7 +32,7 @@ xdescribe('Available Courses', () => {
         expect(items.length).toEqual(2)
     })
 
-    xdescribe('when the page is loading', () => {
+    describe.skip('when the page is loading', () => {
         const course = CourseBuilder().Build()
         const mockGetAvailableCourses = jest.fn()
         const queryRepsonse = {

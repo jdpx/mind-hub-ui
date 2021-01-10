@@ -18,7 +18,7 @@ describe('Homepage', () => {
             mockUserAuth0.mockReturnValue(Mock<Auth0ContextInterface>(mockUseAuth))
         })
 
-        it('it renders the homepage', () => {
+        it('renders the homepage', () => {
             const { getByTestId } = render(
                 <BrowserRouter>
                     <Homepage />
@@ -36,7 +36,7 @@ describe('Homepage', () => {
             mockUserAuth0.mockReturnValue(Mock<Auth0ContextInterface>(mockUseAuth))
         })
 
-        it('it renders the homepage', async () => {
+        it('renders the homepage', async () => {
             const { container } = render(
                 <BrowserRouter>
                     <Homepage />

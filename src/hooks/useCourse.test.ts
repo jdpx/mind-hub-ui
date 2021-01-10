@@ -80,7 +80,6 @@ describe('useCourse', () => {
     })
 
     describe('useGetAll', () => {
-        const courseId = faker.lorem.slug()
         const mockCourse = CourseBuilder().Build()
 
         describe('given the api returns successfully', () => {
