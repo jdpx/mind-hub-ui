@@ -23,6 +23,7 @@ const Auth0ProviderWithHistory = ({ children }: Props) => {
             clientId={clientId}
             redirectUri={window.location.origin}
             onRedirectCallback={onRedirectCallback}
+            scope="read:organisation:333123ef-342f-42c7-8b25-56ac8b1da008"
         >
             {children}
         </Auth0Provider>
