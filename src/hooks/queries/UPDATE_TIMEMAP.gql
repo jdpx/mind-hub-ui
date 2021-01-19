@@ -1,0 +1,7 @@
+mutation updateTimemap($map: String!, $updatedAt: String!) {
+    updateTimemap(input: { map: $map, updatedAt: $updatedAt }) {
+        id
+        map
+        updatedAt
+    }
+}

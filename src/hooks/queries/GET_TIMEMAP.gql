@@ -1,0 +1,7 @@
+{
+    timemap {
+        id
+        map
+        updatedAt
+    }
+}
