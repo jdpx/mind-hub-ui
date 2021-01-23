@@ -1,38 +1,41 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { QueryTuple, useLazyQuery } from '@apollo/client'
 import { BrowserRouter } from 'react-router-dom'
+import { MockedProvider } from '@apollo/client/testing'
 
 import Mock from '../../../helpers/testing/mockType'
 import AvailableCourses from './AvailableCourses'
 import { CourseBuilder } from '../../../builders/course'
+import { MockGeAllQuery } from '../../../hooks/mocks/useCourseMock'
 
-jest.mock('@apollo/client')
-const mockUseQuery = useLazyQuery as jest.MockedFunction<typeof useLazyQuery>
+// jest.mock('@apollo/client')
+// const mockUseQuery = useLazyQuery as jest.MockedFunction<typeof useLazyQuery>
 
 xdescribe('Available Courses', () => {
-    describe('when the page is loading', () => {
-        const mockGetAvailableCourses = jest.fn()
-        const queryRepsonse = {
-            loading: true,
-        }
+    const course = CourseBuilder().WithRandomID().Build()
+    const courseTwo = CourseBuilder().WithRandomID().Build()
+    const coursesMock = new MockGeAllQuery().WithCourses([course, courseTwo]).Build()
+    const mocks = [coursesMock]
 
-        beforeEach(() => {
-            mockUseQuery.mockReturnValue(
-                Mock<QueryTuple<unknown, unknown>>([mockGetAvailableCourses, queryRepsonse]),
-            )
-        })
+    it('should render available courses', async () => {
+        const { getByTestId, debug } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <AvailableCourses />
+            </MockedProvider>,
+        )
 
-        it('renders the loading component', () => {
-            const { getByTestId } = render(<AvailableCourses />)
+        expect(getByTestId('loading')).toBeInTheDocument()
 
-            expect(mockGetAvailableCourses).toHaveBeenCalled()
-            expect(getByTestId('available-courses')).toBeInTheDocument()
-            expect(screen.queryByText('Loading')).toBeInTheDocument()
-        })
+        await waitFor(() => getByTestId('course-list'))
+
+        debug()
+        const items = getByTestId('course-list').getElementsByClassName('content-wrapper')
+
+        expect(items.length).toEqual(2)
     })
 
-    describe('when the page is loading', () => {
+    xdescribe('when the page is loading', () => {
         const course = CourseBuilder().Build()
         const mockGetAvailableCourses = jest.fn()
         const queryRepsonse = {

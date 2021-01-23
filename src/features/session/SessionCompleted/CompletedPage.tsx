@@ -4,12 +4,12 @@ import { useHistory, useParams } from 'react-router-dom'
 import Page from '../../../components/Page/Page'
 import ActionButton from '../../../components/ActionButton/ActionButton'
 import { Left } from '../../../constants/buttons'
+import Loading from '../../../components/Loading/Loading'
+import useSessions from '../../../hooks/useSessions'
 
 import congratulationsImage from '../../../assets/congratulations-cake.svg'
 
 import './CompletedPage.scss'
-import Loading from '../../../components/Loading/Loading'
-import useSessions from '../../../hooks/useSessions'
 
 interface Params {
     id: string
@@ -39,10 +39,10 @@ export default function CompletedPage() {
             ) : (
                 session && (
                     <>
-                        <div className="content">
+                        <div className="content" data-testid="session-completed-content">
                             <div className="completed-text">
                                 <h1 data-testid="session-completed-header">All Done!</h1>
-                                Thats it for {session.title}
+                                <div data-testid="session-title">Thats it for {session.title}</div>
                                 <br />
                                 Use this time now to reflect on what you’ve learnt and in 2 days
                                 time, we will continue the course.

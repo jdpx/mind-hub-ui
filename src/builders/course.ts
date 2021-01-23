@@ -20,11 +20,19 @@ class Course {
 
     WithID(id: string) {
         this.id = id
+
+        return this
+    }
+
+    WithRandomID() {
+        this.id = faker.lorem.slug()
+
         return this
     }
 
     WithTitle(title: string) {
         this.title = title
+
         return this
     }
 

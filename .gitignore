@@ -28,4 +28,6 @@ yarn-error.log*
 .terraform/*
 .env
 
+/.vscode
+
 cypress.env.json

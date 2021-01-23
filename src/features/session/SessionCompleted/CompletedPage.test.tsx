@@ -1,6 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
-import { QueryTuple, useLazyQuery } from '@apollo/client'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter, useParams, useHistory } from 'react-router-dom'
 import { History } from 'history'
 import faker from 'faker'
@@ -9,6 +8,8 @@ import Mock from '../../../helpers/testing/mockType'
 import CompletedPage from './CompletedPage'
 import { SessionBuilder } from '../../../builders/session'
 import { CourseBuilder } from '../../../builders/course'
+import { MockGetSessionByIDQuery } from '../../../hooks/mocks/useSessionsMock'
+import { MockedProvider } from '@apollo/client/testing'
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -18,14 +19,7 @@ jest.mock('react-router-dom', () => ({
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>
 const mockUseHistory = useHistory as jest.MockedFunction<typeof useHistory>
 
-const mockUseQuery = useLazyQuery as jest.MockedFunction<typeof useLazyQuery>
-
-jest.mock('@apollo/client', () => ({
-    ...jest.requireActual('@apollo/client'),
-    useLazyQuery: jest.fn(),
-}))
-
-xdescribe('Session Completed Page', () => {
+describe('Session Completed Page', () => {
     const courseID = faker.lorem.slug()
     const sessionID = faker.lorem.slug()
 
@@ -38,86 +32,49 @@ xdescribe('Session Completed Page', () => {
         mockUseParams.mockReturnValue(Mock<Record<string, string>>(params))
     })
 
-    describe('when the query is Loading', () => {
-        const mockGetSession = jest.fn()
-        const queryRepsonse = {
-            loading: true,
-        }
+    const course = CourseBuilder().WithID(courseID).Build()
+    const session = SessionBuilder().WithCourse(course).Build()
+    const sessionMock = new MockGetSessionByIDQuery().WithID(sessionID).WithSession(session).Build()
+    const mocks = [sessionMock]
 
-        mockUseQuery.mockReturnValueOnce(
-            Mock<QueryTuple<unknown, unknown>>([mockGetSession, queryRepsonse]),
+    it('should render session title', async () => {
+        const { getByTestId } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <CompletedPage />
+            </MockedProvider>,
         )
 
-        it('renders to the loading component', () => {
-            const { getByTestId } = render(
-                <BrowserRouter>
-                    <CompletedPage />
-                </BrowserRouter>,
-            )
+        expect(getByTestId('loading')).toBeInTheDocument()
 
-            expect(mockGetSession).toHaveBeenCalled()
-            expect(getByTestId('session-completed-page')).toBeInTheDocument()
-            expect(screen.queryByText('Loading')).toBeInTheDocument()
-        })
+        await waitFor(() => getByTestId('session-completed-content'))
+
+        expect(getByTestId('session-title').textContent).toEqual(`Thats it for ${session.title}`)
     })
 
-    describe('when the query has finished loading', () => {
-        const mockGetSession = jest.fn()
-        const course = CourseBuilder().WithID(courseID).Build()
-        const session = SessionBuilder().WithCourse(course).Build()
-        const queryRepsonse = {
-            loading: false,
-            data: {
-                session,
-            },
+    describe('when the user clicks the done button', () => {
+        const mockHistory = {
+            push: jest.fn(),
         }
 
-        mockUseQuery.mockReturnValueOnce(
-            Mock<QueryTuple<unknown, unknown>>([mockGetSession, queryRepsonse]),
-        )
+        beforeEach(() => {
+            mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
+        })
 
-        it('renders to the Course Information component', () => {
+        it('it directs to the course page', async () => {
             const { getByTestId } = render(
                 <BrowserRouter>
-                    <CompletedPage />
+                    <MockedProvider mocks={mocks} addTypename={false}>
+                        <CompletedPage />
+                    </MockedProvider>
                 </BrowserRouter>,
             )
 
-            expect(mockGetSession).toHaveBeenCalled()
-            expect(getByTestId('session-completed-page')).toBeInTheDocument()
-            expect(screen.queryByText('Loading')).not.toBeInTheDocument()
-        })
+            await waitFor(() => getByTestId('session-completed-content'))
 
-        describe('when the user clicks the done button', () => {
-            const queryRepsonse = {
-                loading: false,
-                data: {
-                    session,
-                },
-            }
+            const input = getByTestId('done-button-btn')
+            fireEvent.click(input)
 
-            mockUseQuery.mockReturnValueOnce(
-                Mock<QueryTuple<unknown, unknown>>([mockGetSession, queryRepsonse]),
-            )
-
-            const mockHistory = {
-                push: jest.fn(),
-            }
-
-            mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
-
-            it('it directs to the course page', () => {
-                const { getByTestId } = render(
-                    <BrowserRouter>
-                        <CompletedPage />
-                    </BrowserRouter>,
-                )
-
-                const input = getByTestId('done-button-btn')
-                fireEvent.click(input)
-
-                expect(mockHistory.push).toHaveBeenCalledWith(`/course/${courseID}`)
-            })
+            expect(mockHistory.push).toHaveBeenCalledWith(`/course/${courseID}`)
         })
     })
 })
