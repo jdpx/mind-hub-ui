@@ -2,6 +2,5 @@
     timemap {
         id
         map
-        updatedAt
     }
 }

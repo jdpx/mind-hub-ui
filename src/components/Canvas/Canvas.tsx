@@ -10,7 +10,7 @@ export default function Canvas() {
     const canvasRef = useRef(null)
     const [canvas, setCanvas] = useState<any>()
 
-    const { updateTimemap, useGetTimemaps } = useTimemap()
+    const { updateTimemap } = useTimemap()
 
     const addCircle = () => {
         if (canvas) {
@@ -75,10 +75,7 @@ export default function Canvas() {
     }
 
     const saveCanvas = () => {
-        console.log(canvas.toJSON())
-        // updateTimemap(canvas.toJSON())
-
-        useGetTimemaps()
+        updateTimemap(JSON.stringify(canvas.toJSON()))
     }
 
     useEffect(() => {

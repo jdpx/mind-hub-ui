@@ -13,7 +13,7 @@ const useTimemap = () => {
     const [saveTimemap] = useMutation(UPDATE_TIMEMAP_MUTATION)
 
     const updateTimemap = (map: string) => {
-        saveTimemap({ variables: { map: map, updatedAt: Date.now() } })
+        saveTimemap({ variables: { map: map } })
     }
 
     const useGetTimemaps = () => {

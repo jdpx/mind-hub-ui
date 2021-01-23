@@ -1,7 +1,6 @@
 mutation updateTimemap($map: String!, $updatedAt: String!) {
-    updateTimemap(input: { map: $map, updatedAt: $updatedAt }) {
+    updateTimemap(input: { map: $map }) {
         id
         map
-        updatedAt
     }
 }
