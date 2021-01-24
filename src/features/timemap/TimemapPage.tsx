@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Page from '../../components/Page/Page'
-import Canvas from 'components/Canvas/Canvas'
+import Canvas from 'features/timemap/Canvas/Canvas'
 
 export default function TimemapPage() {
     return (

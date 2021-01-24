@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import { fabric } from 'fabric'
 import ActionButton from 'components/ActionButton/ActionButton'
-import useTimemap from '../../hooks/useTimemap'
+import useTimemap from '../../../hooks/useTimemap'
 
 import './Canvas.scss'
 
