@@ -56,7 +56,7 @@ function App() {
                             component={SessionPage}
                         />
 
-                        <PrivateRoute path="/timemap" exact component={TimemapPage} />
+                        <Route path="/timemap" exact component={TimemapPage} />
                         <Route path="not-found" component={NotFoundPage} />
                         <Route component={NotFoundPage} />
                     </Switch>

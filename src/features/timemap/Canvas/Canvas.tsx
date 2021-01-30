@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import { fabric } from 'fabric'
+
 import ActionButton from 'components/ActionButton/ActionButton'
 import useTimemap from '../../../hooks/useTimemap'
 
@@ -8,54 +9,38 @@ import './Canvas.scss'
 
 export default function Canvas() {
     const canvasRef = useRef(null)
-    const [canvas, setCanvas] = useState<any>()
+    const [canvas, setCanvas] = useState<fabric.Canvas>()
 
     const { updateTimemap } = useTimemap()
 
     const addCircle = () => {
-        if (canvas) {
-            const circle = new fabric.Circle({
-                originX: 'center',
-                originY: 'center',
-                radius: 75,
-                fill: '#003377',
-                selectable: false,
-            })
-            const textBox = new fabric.IText('Enter Text', {
-                fontSize: 16,
-                fontFamily: 'StreetCorner',
-                stroke: 'white',
-                fill: 'white',
-                originX: 'center',
-                originY: 'center',
-                hasControls: false,
-                lockMovementX: true,
-                lockMovementY: true,
-            })
-            let group = new fabric.Group([circle, textBox], { top: 140, left: 230 })
+        if (!canvas) return
 
-            textBox.on('editing:exited', () => {
-                const items = group._objects
-                group = new fabric.Group(items)
-                items.forEach((item) => {
-                    canvas.remove(item)
-                })
+        const circle = new fabric.Circle({
+            originX: 'center',
+            originY: 'center',
+            radius: 75,
+            fill: '#003377',
+            selectable: false,
+        })
+        const textBox = new fabric.IText('Enter Text', {
+            fontSize: 16,
+            fontFamily: 'StreetCorner',
+            stroke: 'white',
+            fill: 'white',
+            originX: 'center',
+            originY: 'center',
+            hasControls: false,
+            lockMovementX: true,
+            lockMovementY: true,
+        })
+        let group = new fabric.Group([circle, textBox], { top: 140, left: 230 })
 
-                group.on('mousedblclick', () => {
-                    const items = group._objects
-                    // group._restoreObjectsState()
-                    canvas.remove(group)
-                    group.destroy()
-                    items.forEach((item) => {
-                        canvas.add(item)
-                    })
-                    canvas.setActiveObject(textBox)
-                    textBox.enterEditing()
-                    canvas.renderAll()
-                })
-                canvas.add(group)
-
-                canvas.renderAll()
+        textBox.on('editing:exited', () => {
+            const items = group._objects
+            group = new fabric.Group(items)
+            items.forEach((item) => {
+                canvas.remove(item)
             })
 
             group.on('mousedblclick', () => {
@@ -71,18 +56,36 @@ export default function Canvas() {
                 canvas.renderAll()
             })
             canvas.add(group)
-        }
+
+            canvas.renderAll()
+        })
+
+        group.on('mousedblclick', () => {
+            const items = group._objects
+            // group._restoreObjectsState()
+            canvas.remove(group)
+            group.destroy()
+            items.forEach((item) => {
+                canvas.add(item)
+            })
+            canvas.setActiveObject(textBox)
+            textBox.enterEditing()
+            canvas.renderAll()
+        })
+        canvas.add(group)
     }
 
     const saveCanvas = () => {
+        if (!canvas) return
+
         updateTimemap(JSON.stringify(canvas.toJSON()))
     }
 
     useEffect(() => {
-        if (canvasRef !== null) {
-            const newCanvas = new fabric.Canvas(canvasRef.current)
-            setCanvas(newCanvas)
-        }
+        if (!canvasRef) return
+
+        const newCanvas = new fabric.Canvas(canvasRef.current)
+        setCanvas(newCanvas)
     }, [canvasRef])
 
     return (
