@@ -5,33 +5,33 @@ import { Timemap } from '../types/timemap'
 const UPDATE_TIMEMAP_MUTATION = loader('./queries/UPDATE_TIMEMAP.gql')
 const GET_TIMEMAP_QUERY = loader('./queries/GET_TIMEMAP.gql')
 
-interface AllTimemapsResponse {
-    timemaps: Timemap[]
+interface TimemapResponse {
+    map?: Timemap
 }
 
 const useTimemap = () => {
     const [saveTimemap] = useMutation(UPDATE_TIMEMAP_MUTATION)
 
     const updateTimemap = (map: string) => {
-        saveTimemap({ variables: { map: map } })
+        saveTimemap({ variables: { map } })
     }
 
-    const useGetTimemaps = () => {
-        const [get, { loading, data, error, called }] = useLazyQuery<AllTimemapsResponse>(
+    const getTimemap = () => {
+        const [get, { loading, data, error, called }] = useLazyQuery<TimemapResponse>(
             GET_TIMEMAP_QUERY,
         )
 
         return {
             get,
             loading: loading || !called,
-            data: data || [],
+            map: data?.map,
             error,
         }
     }
 
     return {
         updateTimemap,
-        useGetTimemaps,
+        getTimemap,
     }
 }
 

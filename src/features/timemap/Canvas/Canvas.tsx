@@ -11,7 +11,7 @@ export default function Canvas() {
     const canvasRef = useRef(null)
     const [canvas, setCanvas] = useState<fabric.Canvas>()
 
-    const { updateTimemap } = useTimemap()
+    const { updateTimemap, getTimemap } = useTimemap()
 
     const addCircle = () => {
         if (!canvas) return
@@ -75,7 +75,7 @@ export default function Canvas() {
         canvas.add(group)
     }
 
-    const saveCanvas = () => {
+    const saveCanvas = async () => {
         if (!canvas) return
 
         updateTimemap(JSON.stringify(canvas.toJSON()))
