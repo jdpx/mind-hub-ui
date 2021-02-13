@@ -12,7 +12,11 @@ jobs:
             - v1-dependencies- # Fallback cache
       - run: yarn install
       - run: yarn lint
-      - run: CI=true yarn test
+      - run: 
+          name: Tests
+          command: CI=true yarn test
+          environment:
+            NODE_OPTIONS: --max-old-space-size=4096
       - run: yarn build
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
