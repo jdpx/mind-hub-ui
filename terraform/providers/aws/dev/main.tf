@@ -10,29 +10,29 @@ terraform {
   }
 
   required_providers {
-    aws =  "~> 3.21"
+    aws = "~> 3.21"
   }
 }
 
 provider "aws" {
-  region                  = "eu-west-1"
+  region = "eu-west-1"
 }
 
 // Provider used to access the ACM SSL Cert from us-east-1
 # https://github.com/hashicorp/terraform/issues/21472#issuecomment-497508239
 provider "aws" {
-  alias                   = "us_east"
-  region                  = "us-east-1"
+  alias  = "us_east"
+  region = "us-east-1"
 }
 
 
 module "mind-hub-ui" {
   source = "../../../modules/mind-hub-ui"
 
-  env = "dev"
+  env                        = "dev"
 
   providers = {
-    aws = aws
+    aws         = aws
     aws.us_east = aws.us_east
   }
 }

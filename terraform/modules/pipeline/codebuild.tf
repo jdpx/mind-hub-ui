@@ -101,6 +101,11 @@ resource "aws_codebuild_project" "mind_hub_cloudfront_invalidation" {
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = false
     type                        = "LINUX_CONTAINER"
+
+    environment_variable {
+      name  = "CLOUDFRONT_ID"
+      value = var.cloudfront_distribution_id
+    }
   }
 
   logs_config {
