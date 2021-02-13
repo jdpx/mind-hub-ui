@@ -1,6 +1,10 @@
 version: 0.2
 
+env:
+  variables:
+    CLOUDFRONT_ID: "${CLOUDFRONT_ID}"
+
 phases:
   build:
     commands:
-      - make aws-cloudfront-invalidate-all
+      - make aws-cloudfront-invalidate-all CLOUDFRONT_ID=${CLOUDFRONT_ID}
