@@ -14,7 +14,7 @@ jobs:
       - run: yarn lint
       - run: 
           name: Tests
-          command: CI=true yarn test
+          command: CI=true yarn test --max-workers=2
           environment:
             NODE_OPTIONS: --max-old-space-size=4096
       - run: yarn build
