@@ -6,10 +6,12 @@
 
     &:hover {
         color: $white;
-        text-decoration:underline !important;
+        text-decoration: underline !important;
+        font-weight: bold !important;
     }
     &.active {
         color: $white;
-        text-decoration:underline !important;
+        text-decoration: underline !important;
+        font-weight: bold !important;
     }
 }

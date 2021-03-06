@@ -1,6 +1,10 @@
 @import "../../styles/colours.scss";
 
 .course {
+    h2 {
+        text-align: center;
+    }
+
     .course-description {
         margin-bottom: 22px;
     }

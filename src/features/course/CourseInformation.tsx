@@ -4,7 +4,6 @@ import Section from '../../components/Section/Section'
 import { Course } from '../../types/course'
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
-import Notes from '../../components/Notes/Notes'
 import SessionList from './SessionInformation/SessionList'
 
 import './Course.scss'
@@ -15,13 +14,13 @@ interface Props {
     onCourseStart: () => void
 }
 
-export default function CourseInformation({ course, onCourseStart, onNoteSave }: Props) {
-    const { id, title, description, sessions = [], note, progress } = course
+export default function CourseInformation({ course, onCourseStart }: Props) {
+    const { id, title, description, sessions = [], progress } = course
 
     return (
         <div className="container" data-testid="course-information">
             <div className="course">
-                <h1 data-testid="course-header">{title}</h1>
+                <h2 data-testid="course-header">{title}</h2>
                 <div className="course-description" data-testid="course-description">
                     {description}
                 </div>
@@ -41,8 +40,9 @@ export default function CourseInformation({ course, onCourseStart, onNoteSave }:
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="row">
                     <div className="col">
-                        <Notes note={note} onNoteSave={onNoteSave} testid={`course-${id}-notes`} />
                         {sessions.length > 0 && (
                             <div className="course-start-button">
                                 <ActionButton

@@ -15,7 +15,7 @@ export default function AvailableCourse({ course }: Props) {
     const { id, title, description, stepCount, progress } = course
 
     return (
-        <Section size={Small} testid={id}>
+        <Section size={Small} testid={id} withMargin>
             <Link to={{ pathname: `/course/${id}` }} className="course">
                 <h3>{title}</h3>
                 <div className="course-description">{description}</div>
