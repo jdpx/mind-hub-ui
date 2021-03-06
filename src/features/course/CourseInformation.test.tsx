@@ -151,26 +151,6 @@ describe('Course Information', () => {
         })
     })
 
-    describe('given the user edits the note for a course', () => {
-        it('calls the onNoteSave prop', async () => {
-            const { getByTestId } = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <CourseInformation {...props} />
-                </MockedProvider>,
-            )
-
-            await waitFor(() => getByTestId('course-sessions'))
-
-            const noteValue = faker.lorem.words(2)
-            const input = getByTestId(`course-${course.id}-notes`)
-
-            fireEvent.change(input, { target: { value: noteValue } })
-            fireEvent.blur(input)
-
-            expect(onNoteSave).toHaveBeenCalledWith(noteValue)
-        })
-    })
-
     describe('given the user clicks on the action button', () => {
         it('calls the onCourseStart prop', async () => {
             const { getByTestId } = render(

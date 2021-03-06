@@ -10,7 +10,12 @@ interface Props {
 }
 
 export default function Title({ course, session, step }: Props) {
-    const items = [course?.title, session.title, step?.title].filter((x) => !!x)
+    const items = [session.title, step?.title].filter((x) => !!x)
 
-    return <h1 data-testid="session-header">{items.join(' - ')}</h1>
+    return (
+        <div>
+            <h2 data-testid="course-header">{course?.title}</h2>
+            <h3 data-testid="session-header">{items.join(' - ')}</h3>
+        </div>
+    )
 }

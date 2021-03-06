@@ -1,8 +1,10 @@
 @import "../../../styles/colours.scss";
 
-.audio-step{
-    display: flex;
-    padding: 27px;
-    flex-direction: column;
+.audio-step {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 17px 0 17px 0;
 }

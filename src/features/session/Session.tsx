@@ -78,6 +78,9 @@ export default function Session({
                             testid="session-previous"
                         />
                     </div>
+                    <div className="session-navigation-progress">
+                        <StepsProgress steps={steps} currentIndex={stepIndex} />
+                    </div>
                     <div className="session-navigation-item">
                         <ActionButton
                             text={isLastStep ? 'Finish' : 'Next'}
@@ -86,9 +89,6 @@ export default function Session({
                             testid="session-next"
                         />
                     </div>
-                </div>
-                <div className="session-navigation-progress">
-                    <StepsProgress steps={steps} currentIndex={stepIndex} />
                 </div>
             </div>
         </div>

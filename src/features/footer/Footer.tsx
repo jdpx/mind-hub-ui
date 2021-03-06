@@ -7,7 +7,9 @@ import './Footer.scss'
 export default function Footer() {
     return (
         <div className="footer">
-            <MindLogo />
+            <div className="footer-logo">
+                <MindLogo />
+            </div>
             <div className="footer-content">
                 <div className="footer-section">
                     <div className="footer-header">Legal Information</div>
