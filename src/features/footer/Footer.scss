@@ -11,7 +11,10 @@
     padding-right: 76px;
     color: $white;
 
-    img {
+    .footer-logo {
+        display: flex;
+        justify-items: center;
+        align-items: center;
         margin-right: 50px;
     }
 
@@ -36,7 +39,8 @@
             flex: 1;
             flex-direction: column;
 
-            ul, li {
+            ul,
+            li {
                 list-style: none;
                 padding-left: 0;
                 margin-left: 0;

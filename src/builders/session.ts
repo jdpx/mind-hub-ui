@@ -22,6 +22,7 @@ class Session {
 
         return this
     }
+
     WithRandomID = () => {
         this.id = faker.lorem.slug()
 

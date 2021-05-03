@@ -7,6 +7,8 @@ import Session from './Session'
 import ErrorPanel from '../../components/ErrorPanel/ErrorPanel'
 import useSessions from '../../hooks/useSessions'
 import useProgress from '../../hooks/useProgress'
+import Loading from '../../components/Loading/Loading'
+import { Session as SessionType } from '../../types/session'
 
 interface Params {
     id: string
@@ -16,7 +18,8 @@ interface Params {
 
 export default function SessionPage() {
     const { push, replace } = useHistory()
-    const { id, courseId, stepId } = useParams<Params>()
+    const { id, courseId } = useParams<Params>()
+    let { stepId } = useParams<Params>()
     const { completeStep } = useProgress()
 
     const { useGetByID } = useSessions()
@@ -27,10 +30,13 @@ export default function SessionPage() {
     }, [get])
 
     if (!stepId && session) {
-        const firstStepId = session.steps && session.steps.length > 0 ? session.steps[0].id : ''
+        const firstStepId = getSessionFirstStepId(session)
 
-        replace(`/course/${courseId}/session/${id}/step/${firstStepId}`)
-        return <> </>
+        if (firstStepId) {
+            stepId = firstStepId
+
+            replace(`/course/${courseId}/session/${id}/step/${firstStepId}`)
+        }
     }
 
     const onSessionCompleted = () => {
@@ -41,10 +47,14 @@ export default function SessionPage() {
         push(`/course/${courseId}/session/${id}/step/${nextStep}`)
     }
 
+    const redirectToNotFound = () => {
+        return <Redirect to="/not-found" />
+    }
+
     return (
         <Page name="session">
             {loading ? (
-                <div>Loading</div>
+                <Loading />
             ) : error ? (
                 <ErrorPanel />
             ) : session ? (
@@ -59,6 +69,7 @@ export default function SessionPage() {
                         markStepComplete={completeStep}
                         redirectToStep={redirectToStep}
                         onSessionCompleted={onSessionCompleted}
+                        redirectToNotFound={redirectToNotFound}
                     />
                 </>
             ) : (
@@ -66,4 +77,8 @@ export default function SessionPage() {
             )}
         </Page>
     )
+}
+
+const getSessionFirstStepId = (session: SessionType): string => {
+    return session.steps && session.steps.length > 0 ? session.steps[0].id : ''
 }

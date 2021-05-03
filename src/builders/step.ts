@@ -5,13 +5,13 @@ import { Question } from '../constants/steps'
 import { StepTypes } from '../types/step'
 
 class Step {
-    id: string
-    title: string
-    description: string
-    course?: Course
-    steps: Step[]
-    type: StepTypes
-    progress?: StepProgress
+    private id: string
+    private title: string
+    private description: string
+    private course?: Course
+    private steps: Step[]
+    private type: StepTypes
+    private progress?: StepProgress
 
     constructor() {
         this.id = faker.lorem.slug()
@@ -21,7 +21,7 @@ class Step {
         this.steps = []
     }
 
-    ID = (id: string) => {
+    WithID = (id: string) => {
         this.id = id
 
         return this

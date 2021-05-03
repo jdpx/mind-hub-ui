@@ -6,8 +6,12 @@
     border: 5px solid $background-blue;
     box-shadow: 3px 3px 4px rgba(36, 59, 113, 0.42);
     border-radius: 20px;
-    margin: 15px;
+    margin: 15px 0;
     flex-direction: row;
+
+    &.margin {
+        margin: 15px;
+    }
 
     &.sm {
         max-width: 284px;

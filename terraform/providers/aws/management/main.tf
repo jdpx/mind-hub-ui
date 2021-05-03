@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "aws" {
-  region                  = "eu-west-1"
+  region = "eu-west-1"
 }
 
 provider "github" {
@@ -27,8 +27,9 @@ provider "github" {
 module "mind-hub-ui-pipeline" {
   source = "../../../modules/pipeline"
 
-  env              = "management"
-  repository_owner = "jdpx"
-  repository_name  = "mind-hub-ui"
-  github_token     = var.github_token
+  env                        = "management"
+  repository_owner           = "jdpx"
+  repository_name            = "mind-hub-ui"
+  github_token               = var.github_token
+  cloudfront_distribution_id = "E3094VZ16EA02E"
 }

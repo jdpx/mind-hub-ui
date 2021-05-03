@@ -32,7 +32,7 @@ export default function StepPanel() {
     }
 
     return (
-        <div>
+        <>
             {loading ? (
                 <Loading />
             ) : error ? (
@@ -42,6 +42,6 @@ export default function StepPanel() {
             ) : (
                 <Redirect to="/not-found" />
             )}
-        </div>
+        </>
     )
 }

@@ -1,20 +1,21 @@
 .session {
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
     .session-navigation {
         display: flex;
+        flex: 1;
         flex-direction: row;
         margin-top: 25px;
         margin-bottom: 90px;
-        padding-right: 25px;
-        padding-left: 25px;
-
-        .session-navigation-item {
-            flex: 1;
-        }
     }
 
     .session-navigation-progress {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex: 1;
     }
 }

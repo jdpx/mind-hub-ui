@@ -7,6 +7,8 @@ interface Props {
     children: React.ReactNode
 }
 
+const scopes = ['read:organisation:1ohTDUgTsyvWet5lJFCCqnA2F1S']
+
 const Auth0ProviderWithHistory = ({ children }: Props) => {
     const domain = process.env.REACT_APP_AUTH0_DOMAIN || ''
     const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || ''
@@ -23,6 +25,7 @@ const Auth0ProviderWithHistory = ({ children }: Props) => {
             clientId={clientId}
             redirectUri={window.location.origin}
             onRedirectCallback={onRedirectCallback}
+            scope={scopes.join(' ')}
         >
             {children}
         </Auth0Provider>

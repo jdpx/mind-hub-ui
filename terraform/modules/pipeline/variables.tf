@@ -24,3 +24,8 @@ variable "github_token" {
   type        = string
   description = "Github access token"
 }
+
+variable "cloudfront_distribution_id" {
+  type        = string
+  description = "Cloudfront Distribution ID"
+}

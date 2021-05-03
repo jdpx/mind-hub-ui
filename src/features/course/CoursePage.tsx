@@ -27,8 +27,6 @@ export default function CoursePage() {
         push(`/course/${id}/session/${sessionID}`)
     }
 
-    console.log('id:' + id)
-
     return (
         <Page name="course">
             {loading ? (

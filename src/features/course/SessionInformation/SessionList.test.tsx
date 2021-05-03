@@ -46,7 +46,7 @@ describe('Course Session List', () => {
 
         await waitFor(() => getByTestId('course-sessions'))
         const sessions = getByTestId('course-sessions').getElementsByClassName('course-session')
-        expect(sessions.length).toEqual(2)
+        expect(sessions).toHaveLength(2)
     })
 
     describe('given there are no sessions in the list', () => {

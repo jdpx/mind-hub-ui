@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { BrowserRouter, useParams, useHistory } from 'react-router-dom'
 import { History } from 'history'
 import faker from 'faker'
@@ -60,7 +60,7 @@ describe('Session Completed Page', () => {
             mockUseHistory.mockReturnValue(Mock<History<unknown>>(mockHistory))
         })
 
-        it('it directs to the course page', async () => {
+        it('directs to the course page', async () => {
             const { getByTestId } = render(
                 <BrowserRouter>
                     <MockedProvider mocks={mocks} addTypename={false}>

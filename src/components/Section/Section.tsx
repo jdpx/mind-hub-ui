@@ -12,9 +12,10 @@ interface Props {
     testid?: string
     className?: string
     disabled?: boolean
+    withMargin?: boolean
 }
 
-export function Section({ children, title, size, testid, className, disabled }: Props) {
+export function Section({ children, title, size, testid, className, disabled, withMargin }: Props) {
     const wrapperClass = classNames(
         'content-wrapper',
         {
@@ -24,6 +25,7 @@ export function Section({ children, title, size, testid, className, disabled }: 
             xl: size === ExtraLarge,
             disabled: disabled,
             withTitle: !!title,
+            margin: withMargin,
         },
         className,
     )
