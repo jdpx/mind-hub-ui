@@ -1,4 +1,17 @@
-.timeMap-canvas__buttonWrapper {
+@import "../../../styles/colours.scss";
+
+.timemap-section-canvas-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.timemap-section-canvas {
+    border: 1px solid $dark-grey;
+}
+
+.timemap-section__buttonWrapper {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;

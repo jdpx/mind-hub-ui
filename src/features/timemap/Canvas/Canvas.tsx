@@ -1,20 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react'
-
 import { fabric } from 'fabric'
 
 import ActionButton from 'components/ActionButton/ActionButton'
-import useTimemap from '../../../hooks/useTimemap'
+import { Timemap } from '../../../types/timemap'
 
 import './Canvas.scss'
 
-export default function Canvas() {
+interface Props {
+    timemap?: Timemap
+    onSaveClicked: (data: string) => void
+}
+
+export default function Canvas({ timemap, onSaveClicked }: Props) {
     const canvasRef = useRef(null)
     const [canvas, setCanvas] = useState<fabric.Canvas>()
 
-    const { updateTimemap, getTimemap } = useTimemap()
-
     const addCircle = () => {
-        if (!canvas) return
+        if (!canvas) {
+            console.log('no canvas')
+            return
+        }
+
+        console.log('adding circle')
 
         const circle = new fabric.Circle({
             originX: 'center',
@@ -78,21 +85,38 @@ export default function Canvas() {
     const saveCanvas = async () => {
         if (!canvas) return
 
-        updateTimemap(JSON.stringify(canvas.toJSON()))
+        const data = JSON.stringify(canvas.toJSON())
+        onSaveClicked(data)
     }
 
     useEffect(() => {
         if (!canvasRef) return
 
         const newCanvas = new fabric.Canvas(canvasRef.current)
+
         setCanvas(newCanvas)
-    }, [canvasRef])
+    }, [])
+
+    useEffect(() => {
+        if (!canvas) {
+            return
+        }
+
+        canvas.loadFromJSON(timemap?.map || '{}', canvas.renderAll.bind(canvas))
+    }, [canvas])
 
     return (
-        <section className="timeMap-canvas">
-            <canvas ref={canvasRef} height={500} width={930} />
+        <section className="timemap-section">
+            <div className="timemap-section-canvas-panel">
+                <canvas
+                    ref={canvasRef}
+                    height={500}
+                    width={930}
+                    className="timemap-section-canvas"
+                />
+            </div>
 
-            <div className="timeMap-canvas__buttonWrapper">
+            <div className="timemap-section__buttonWrapper">
                 <ActionButton text="Add Circle" onClick={addCircle} />
                 <ActionButton text="Save" onClick={saveCanvas} />
             </div>

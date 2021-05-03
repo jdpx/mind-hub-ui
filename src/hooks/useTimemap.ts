@@ -6,7 +6,7 @@ const UPDATE_TIMEMAP_MUTATION = loader('./queries/UPDATE_TIMEMAP.gql')
 const GET_TIMEMAP_QUERY = loader('./queries/GET_TIMEMAP.gql')
 
 interface TimemapResponse {
-    map?: Timemap
+    timemap?: Timemap
 }
 
 const useTimemap = () => {
@@ -24,7 +24,7 @@ const useTimemap = () => {
         return {
             get,
             loading: loading || !called,
-            map: data?.map,
+            map: data?.timemap,
             error,
         }
     }
