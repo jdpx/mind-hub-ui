@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Audio, Question, Video } from '../../../constants/steps'
 
+import { Audio, Question, Video } from '../../../constants/steps'
 import { Step as StepType } from '../../../types/step'
 import AudioStep from './AudioStep'
 import QuestionStep from './QuestionStep'

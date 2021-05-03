@@ -9,6 +9,7 @@ import Title from './Title'
 
 import './Session.scss'
 import StepPanel from './Steps/StepPanel'
+import NoAvailableSteps from './Steps/NoAvailableSteps'
 
 interface Props {
     session: SessionType
@@ -16,6 +17,7 @@ interface Props {
     redirectToStep: (id: string) => void
     markStepComplete: (id: string) => void
     onSessionCompleted: () => void
+    redirectToNotFound: () => void
 }
 
 export default function Session({
@@ -27,23 +29,16 @@ export default function Session({
 }: Props) {
     const { course, steps = [] } = session
 
-    if (!currentStepId) {
-        return <></>
-    }
-
     const stepIndex = steps.findIndex((x) => x.id === currentStepId)
 
-    if (stepIndex === -1) {
-        return <></>
-    }
-
-    const step = steps.length > 0 ? steps[stepIndex] : undefined
+    const hasSteps = steps.length > 0
+    const currentStep = hasSteps ? steps[stepIndex] : undefined
     const isFirstStep = stepIndex === 0
     const isLastStep = stepIndex === steps.length - 1
 
     const onNextClick = () => {
-        if (!!step) {
-            markStepComplete(step.id)
+        if (!!currentStep) {
+            markStepComplete(currentStep.id)
         }
 
         if (isLastStep) {
@@ -60,36 +55,43 @@ export default function Session({
     return (
         <div className="container" data-test-id="session-information">
             <div className="session">
-                <Title course={course} session={session} step={step} />
-                <Switch>
-                    <Route
-                        path="/course/:courseId/session/:sessionId/step/:stepId"
-                        exact
-                        component={StepPanel}
-                    />
-                </Switch>
-                <div className="session-navigation">
-                    <div className="session-navigation-item">
-                        <ActionButton
-                            text="Previous"
-                            position={Left}
-                            onClick={onPreviousClick}
-                            disabled={isFirstStep}
-                            testid="session-previous"
-                        />
-                    </div>
-                    <div className="session-navigation-progress">
-                        <StepsProgress steps={steps} currentIndex={stepIndex} />
-                    </div>
-                    <div className="session-navigation-item">
-                        <ActionButton
-                            text={isLastStep ? 'Finish' : 'Next'}
-                            position={Right}
-                            onClick={onNextClick}
-                            testid="session-next"
-                        />
-                    </div>
-                </div>
+                {!hasSteps ? (
+                    // Keeping this as a place holder for all steps not being available yet
+                    <NoAvailableSteps />
+                ) : (
+                    <>
+                        <Title course={course} session={session} step={currentStep} />
+                        <Switch>
+                            <Route
+                                path="/course/:courseId/session/:sessionId/step/:stepId"
+                                exact
+                                component={StepPanel}
+                            />
+                        </Switch>
+                        <div className="session-navigation">
+                            <div className="session-navigation-item">
+                                <ActionButton
+                                    text="Previous"
+                                    position={Left}
+                                    onClick={onPreviousClick}
+                                    disabled={isFirstStep}
+                                    testid="session-previous"
+                                />
+                            </div>
+                            <div className="session-navigation-progress">
+                                <StepsProgress steps={steps} currentIndex={stepIndex} />
+                            </div>
+                            <div className="session-navigation-item">
+                                <ActionButton
+                                    text={isLastStep ? 'Finish' : 'Next'}
+                                    position={Right}
+                                    onClick={onNextClick}
+                                    testid="session-next"
+                                />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )
