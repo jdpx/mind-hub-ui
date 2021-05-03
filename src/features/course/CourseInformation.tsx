@@ -30,14 +30,12 @@ export default function CourseInformation({ course, onCourseStart }: Props) {
                         <div className="row">
                             <div className="col">
                                 <Section disabled>
-                                    <div className="course-worry-diary">Worry Diary</div>
-                                </Section>
-                            </div>
-                            <div className="col">
-                                <Section disabled>
                                     <div className="course-worry-diary">Practises</div>
                                 </Section>
                             </div>
+                            <div className="col" />
+                            <div className="col" />
+                            <div className="col" />
                         </div>
                     </div>
                 </div>
