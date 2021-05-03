@@ -5,7 +5,6 @@ import { Course } from '../../types/course'
 import ActionButton from '../../components/ActionButton/ActionButton'
 import { Right } from '../../constants/buttons'
 import SessionList from './SessionInformation/SessionList'
-import { Session as SessionType } from '../../types/session'
 
 import './Course.scss'
 
